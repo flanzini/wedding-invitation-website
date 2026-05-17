@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+
+# Local Google OAuth credentials and tokens.
+credentials.json
+token.json
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db

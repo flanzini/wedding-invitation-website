@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonina & Filippo | Wedding travel survey</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #080b14;
+      color: #f5f7ff;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, #2d2928 0, #11121b 54vh, #080b14 82vh);
+    }
+    .hero {
+      position: relative;
+      min-height: clamp(560px, 64vh, 720px);
+      background-image: url('wedding_logo.png');
+      background-size: cover;
+      background-position: center 46%;
+      display: flex;
+      align-items: center;
+      margin-bottom: -3.5rem;
+    }
+    html[lang="uk"] .hero {
+      background-image: url('wedding_logo_ukr.png');
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 52% 58%, rgba(255,255,255,0.16), rgba(255,255,255,0) 34%),
+        linear-gradient(90deg, rgba(8,11,20,0.82) 0%, rgba(8,11,20,0.56) 34%, rgba(8,11,20,0.22) 60%, rgba(8,11,20,0.42) 100%),
+        linear-gradient(180deg, rgba(8,11,20,0.08) 0%, rgba(8,11,20,0.22) 54%, rgba(8,11,20,0.78) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem 8rem;
+      max-width: 680px;
+      width: 100%;
+    }
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2.25rem, 3.2vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 590px;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #e6e9ff;
+    }
+    .hero-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #c5d6ff;
+      background: rgba(8,11,20,0.46);
+      padding: 0.45rem 0.85rem 0.45rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.24);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+    }
+    .hero-logo {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.94);
+      color: #11182a;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+    }
+    .hero-names {
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      color: #f3f4ff;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+    }
+    .hero-tagline {
+      margin: 1.5rem 0 0;
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #d8dfff;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 1.5rem 3rem;
+      max-width: 940px;
+      margin: 0 auto;
+    }
+    .language-dropdown {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 0.55rem 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+    .language-dropdown label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .language-dropdown select {
+      border: none;
+      background: transparent;
+      color: #f5f7ff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      min-width: 120px;
+    }
+    .language-dropdown select option {
+      color: #080b14;
+    }
+    .card {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 1.5rem;
+      background: rgba(9,12,22,0.92);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+    }
+    .card h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.25rem;
+    }
+    .card p {
+      margin: 0;
+      line-height: 1.7;
+      color: #ccd2ff;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .note {
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #c7d0ff;
+    }
+    @media (max-width: 640px) {
+      body {
+        background: #080b14;
+      }
+      .hero {
+        min-height: 86svh;
+        background-color: #080b14;
+        background-image: url('wedding_logo_mobile.png');
+        background-size: 100% auto;
+        background-position: center 5.75rem;
+        background-repeat: no-repeat;
+        align-items: flex-end;
+        margin-bottom: -2rem;
+      }
+      html[lang="uk"] .hero {
+        background-image: url('wedding_logo_ukr_mobile.png');
+      }
+      .hero::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(5.75rem + 23vw);
+        height: 12rem;
+        background: linear-gradient(
+          180deg,
+          rgba(8,11,20,0) 0%,
+          rgba(8,11,20,0.5) 38%,
+          rgba(8,11,20,0.92) 76%,
+          #080b14 100%
+        );
+      }
+      .hero::before {
+        background:
+          radial-gradient(ellipse at 50% 38%, rgba(255,255,255,0.12), rgba(255,255,255,0) 40%),
+          linear-gradient(180deg, rgba(8,11,20,0.08) 0%, rgba(8,11,20,0.1) 42%, rgba(8,11,20,0.2) 58%, #080b14 100%),
+          linear-gradient(90deg, rgba(8,11,20,0.46), rgba(8,11,20,0.14) 45%, rgba(8,11,20,0.34));
+      }
+      .hero-content {
+        padding: 0 1.15rem 4.35rem;
+        max-width: 100%;
+      }
+      .hero-brand {
+        display: none;
+      }
+      .hero h1 {
+        max-width: 13ch;
+        font-size: clamp(1.85rem, 8.8vw, 2.45rem);
+        line-height: 1.08;
+      }
+      .hero p {
+        max-width: 32rem;
+        font-size: 0.98rem;
+        line-height: 1.6;
+      }
+      .hero-tagline {
+        margin-top: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+      .content {
+        background: #080b14;
+        padding: 4rem 1rem 2.5rem;
+      }
+      .card {
+        border-radius: 18px;
+        padding: 1.25rem;
+      }
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="language-dropdown">
+      <label for="lang-select">Language</label>
+      <select id="lang-select" aria-label="Select language">
+        <option value="en">English</option>
+        <option value="it">Italiano</option>
+        <option value="uk">Українська</option>
+      </select>
+    </div>
+    <div class="hero-content">
+      <div class="hero-brand">
+        <span class="hero-logo" aria-hidden="true">A&amp;F</span>
+        <span class="hero-names">Antonina & Filippo</span>
+      </div>
+      <h1 id="hero-title">Help us choose between Ukraine and Italy</h1>
+      <p id="hero-copy">We are planning our wedding in the Carpathian mountains of Ukraine and want to know which celebration location is best for our guests.</p>
+      <p id="hero-tagline">This site is our wedding travel survey — please tell us whether you would join the Ukraine celebration, or prefer a later event in Italy.</p>
+    </div>
+  </section>
+
+  <main class="content">
+    <div class="card">
+      <h2 id="card-title">Choose your language</h2>
+      <p id="card-copy">Select the language you prefer, then complete the short travel survey.</p>
+      <div class="buttons">
+        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSfQBmi3Xhl0uXCO0OC5MAVLr4-woMSKQuCiL6hlj0n20YK34Q/viewform" target="_blank" rel="noreferrer noopener">English</a>
+        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSe2UFZMZgRY9skAY47AvDN96UV_zTn_FoZC_Fm7Q8XtY7PuSQ/viewform" target="_blank" rel="noreferrer noopener">Italiano</a>
+        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeAaLB-zDdlSM2DATLDFZKoGzI-ArVdwigc28Z5CZwMTgt8ug/viewform" target="_blank" rel="noreferrer noopener">Українська</a>
+      </div>
+    </div>
+    <div class="note" id="page-note">
+      <strong>About this survey:</strong> it is only for planning. Please answer whether you would travel to Ukraine or prefer a later celebration in Italy, and share any travel concerns.
+    </div>
+  </main>
+
+  <script>
+    const translations = {
+      en: {
+        lang: 'en',
+        title: 'Wedding travel survey',
+        heroTitle: 'Help us choose between Ukraine and Italy',
+        heroCopy: 'We are planning our wedding in the Carpathian mountains of Ukraine and want to know which celebration location is best for our guests.',
+        heroTagline: 'This site is our wedding travel survey — please tell us whether you would join the Ukraine celebration, or prefer a later event in Italy.',
+        cardTitle: 'Choose your language',
+        cardCopy: 'Select the language you prefer, then complete the short travel survey.',
+        note: 'About this survey: it is only for planning. Please answer whether you would travel to Ukraine or prefer a later celebration in Italy, and share any travel concerns.',
+      },
+      it: {
+        lang: 'it',
+        title: 'Sondaggio di viaggio',
+        heroTitle: 'Aiutaci a scegliere tra Ucraina e Italia',
+        heroCopy: 'Stiamo pianificando il nostro matrimonio nelle montagne dei Carpazi in Ucraina e vogliamo sapere quale luogo di festa sia migliore per i nostri ospiti.',
+        heroTagline: 'Questo sito è il nostro sondaggio di viaggio per il matrimonio — dicci se parteciperesti alla celebrazione in Ucraina o preferiresti un evento successivo in Italia.',
+        cardTitle: 'Scegli la lingua',
+        cardCopy: 'Seleziona la lingua che preferisci, poi completa il breve sondaggio di viaggio.',
+        note: 'Informazioni: è solo per la pianificazione. Rispondi se viaggeresti in Ucraina o preferiresti una celebrazione successiva in Italia, e condividi eventuali preoccupazioni di viaggio.',
+      },
+      uk: {
+        lang: 'uk',
+        title: 'Опитування про поїздку',
+        heroTitle: 'Допоможіть нам обрати між Україною та Італією',
+        heroCopy: 'Ми плануємо наше весілля в Карпатах України й хочемо знати, яке місце святкування буде найкращим для наших гостей.',
+        heroTagline: 'Цей сайт — наше опитування про поїздку на весілля. Скажіть, будь ласка, чи приїдете ви до України, чи віддаєте перевагу пізнішому заходу в Італії.',
+        cardTitle: 'Оберіть мову',
+        cardCopy: 'Виберіть мову, яку ви віддаєте перевагу, а потім заповніть коротке опитування.',
+        note: 'Про опитування: це лише для планування. Будь ласка, скажіть нам, чи поїхали б ви до України, чи віддаєте перевагу пізнішому святкуванню в Італії, і поділіться занепокоєннями щодо поїздки.',
+      },
+    };
+
+    const elements = {
+      heroTitle: document.getElementById('hero-title'),
+      heroCopy: document.getElementById('hero-copy'),
+      heroTagline: document.getElementById('hero-tagline'),
+      cardTitle: document.getElementById('card-title'),
+      cardCopy: document.getElementById('card-copy'),
+      pageNote: document.getElementById('page-note'),
+      langSelect: document.getElementById('lang-select'),
+    };
+
+    function setLanguage(code) {
+      const translation = translations[code] || translations.en;
+      document.documentElement.lang = translation.lang;
+      document.title = translation.title;
+      elements.heroTitle.textContent = translation.heroTitle;
+      elements.heroCopy.textContent = translation.heroCopy;
+      elements.heroTagline.textContent = translation.heroTagline;
+      elements.cardTitle.textContent = translation.cardTitle;
+      elements.cardCopy.textContent = translation.cardCopy;
+      elements.pageNote.innerHTML = `<strong>${translation.note.split(':')[0]}:</strong> ${translation.note.split(':').slice(1).join(':').trim()}`;
+      elements.langSelect.value = code;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (event) => {
+      setLanguage(event.target.value);
+    });
+
+    setLanguage('en');
+  </script>
+</body>
+</html>

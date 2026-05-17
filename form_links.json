@@ -1,0 +1,22 @@
+{
+  "forms": [
+    {
+      "code": "en",
+      "name": "English",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfQBmi3Xhl0uXCO0OC5MAVLr4-woMSKQuCiL6hlj0n20YK34Q/viewform",
+      "title": "Wedding travel interest survey"
+    },
+    {
+      "code": "it",
+      "name": "Italiano",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSe2UFZMZgRY9skAY47AvDN96UV_zTn_FoZC_Fm7Q8XtY7PuSQ/viewform",
+      "title": "Sondaggio di interesse per il viaggio al matrimonio"
+    },
+    {
+      "code": "uk",
+      "name": "Ukrainian",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSeAaLB-zDdlSM2DATLDFZKoGzI-ArVdwigc28Z5CZwMTgt8ug/viewform",
+      "title": "Wedding travel interest survey"
+    }
+  ]
+}
