@@ -53,7 +53,7 @@ The current goal is to collect guest travel interest via a short survey and pres
 - English and Italian survey questions ask about travel willingness, party size, Italy fallback interest, travel concerns, and optional contact info
 - Ukrainian survey questions are framed for guests living in Ukraine as a tentative Carpathian save-the-date/availability check
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
-- Guidance for running the script with the Python launcher (`py -3 create_google_form.py`)
+- Guidance for running the script with the `expenses` Conda environment Python
 
 ## What remains to do
 
@@ -94,7 +94,10 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 ## Usage notes
 
 - The Google Forms API requires a Google Cloud project with the Forms API enabled and OAuth client credentials saved as `credentials.json`.
-- Run `py -3 -m pip install --upgrade google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2` before using the script.
+- Use the local Conda environment Python for scripts: `C:\Users\filip\Miniconda3\envs\expenses\python.exe`.
+- Install dependencies with `& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" -m pip install --upgrade google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2`.
+- Run the form script with `& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" create_google_form.py`.
+- Avoid `py -3` unless Python Launcher has a Python 3 install configured. Prefer direct environment Python over `conda run -n expenses python create_google_form.py` because `conda run` has hit Windows Unicode output errors while printing script output.
 - If `token.json` exists and scopes change, delete it and rerun the script.
 - The landing page can be opened directly from `index.html` in a browser.
 
@@ -112,7 +115,7 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 
 ## Recommended next steps
 
-1. Run `py -3 create_google_form.py` and authorize the app.
+1. Run `& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" create_google_form.py` and authorize the app.
 2. Review `form_links.json` and copy any new URLs into `index.html` if the forms were recreated.
 3. Open `index.html` to verify the landing page and language switching.
 4. Share the survey link with a small group, then iterate based on feedback.

@@ -28,4 +28,11 @@ git diff --cached --name-only
 
 - `index.html` is the website source of truth.
 - `create_google_form.py` creates Google Forms and writes links to `form_links.json`; it must not regenerate or overwrite `index.html`.
+- Run Python scripts with the local Conda environment Python:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" create_google_form.py
+```
+
+- Avoid `py -3` unless Python Launcher is configured. Prefer direct environment Python over `conda run -n expenses python ...` because `conda run` has hit Windows Unicode output errors.
 - Keep website assets local unless the user explicitly asks for external assets.

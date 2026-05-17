@@ -20,14 +20,16 @@ The form script does not rewrite the website. Edit `index.html` directly for lay
 
 ## Install Dependencies
 
-```bash
-py -3 -m pip install --upgrade google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
+This project currently uses the local Conda environment named `expenses`.
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" -m pip install --upgrade google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 ```
 
 ## Create Forms
 
-```bash
-py -3 create_google_form.py
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" create_google_form.py
 ```
 
 The script will:
@@ -38,6 +40,8 @@ The script will:
 - save the generated links to `form_links.json`
 
 It will not modify `index.html`.
+
+Avoid `py -3` on this machine unless Python Launcher is configured with a Python 3 install. Also prefer the direct environment Python command above over `conda run -n expenses python create_google_form.py`; `conda run` has hit a Windows Unicode output issue even when the script itself succeeds.
 
 ## Website
 
