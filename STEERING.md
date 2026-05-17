@@ -36,12 +36,12 @@ The current goal is to collect guest travel interest via a short survey and pres
 
 ## Current generated forms
 
-- English form: https://docs.google.com/forms/d/e/1FAIpQLSfQBmi3Xhl0uXCO0OC5MAVLr4-woMSKQuCiL6hlj0n20YK34Q/viewform
-  - form ID: `1FAIpQLSfQBmi3Xhl0uXCO0OC5MAVLr4-woMSKQuCiL6hlj0n20YK34Q`
-- Italian form: https://docs.google.com/forms/d/e/1FAIpQLSe2UFZMZgRY9skAY47AvDN96UV_zTn_FoZC_Fm7Q8XtY7PuSQ/viewform
-  - form ID: `1FAIpQLSe2UFZMZgRY9skAY47AvDN96UV_zTn_FoZC_Fm7Q8XtY7PuSQ`
-- Ukrainian form: https://docs.google.com/forms/d/e/1FAIpQLSeAaLB-zDdlSM2DATLDFZKoGzI-ArVdwigc28Z5CZwMTgt8ug/viewform
-  - form ID: `1FAIpQLSeAaLB-zDdlSM2DATLDFZKoGzI-ArVdwigc28Z5CZwMTgt8ug`
+- English form: https://docs.google.com/forms/d/e/1FAIpQLSeK-8ijuJYvyJ4XegUd1DM499J2t3gX1UmUf3slZou9TCY9Jw/viewform
+  - form ID: `1FAIpQLSeK-8ijuJYvyJ4XegUd1DM499J2t3gX1UmUf3slZou9TCY9Jw`
+- Italian form: https://docs.google.com/forms/d/e/1FAIpQLSeVX8sNi0z-utxOXNyfxz7q8KSn8Y36pXYl9_UVvyxf933OOw/viewform
+  - form ID: `1FAIpQLSeVX8sNi0z-utxOXNyfxz7q8KSn8Y36pXYl9_UVvyxf933OOw`
+- Ukrainian form: https://docs.google.com/forms/d/e/1FAIpQLSdXJOL94fnYxM63rhxxQVMJNXn6afLzdYNgjyeEj0IaKB3fAw/viewform
+  - form ID: `1FAIpQLSdXJOL94fnYxM63rhxxQVMJNXn6afLzdYNgjyeEj0IaKB3fAw`
 
 ## What has been implemented
 
