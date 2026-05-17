@@ -49,6 +49,7 @@ The current goal is to collect guest travel interest via a short survey and pres
 - Landing page with an image banner and language selector
 - Form creation is separated from website editing: rerunning the form script does not rewrite `index.html`
 - Survey questions about travel willingness, party size, Italy fallback interest, travel concerns, and optional contact info
+- GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
 - Guidance for running the script with the Python launcher (`py -3 create_google_form.py`)
 
 ## What remains to do
@@ -58,6 +59,34 @@ The current goal is to collect guest travel interest via a short survey and pres
 - Consider adding more survey questions (e.g. preferred season, travel needs, lodging support)
 - If the landing page should be hosted, use GitHub Pages, Netlify, or another static host
 - If continuing development with a different assistant, confirm the current Google Forms links and form IDs after the script is run
+
+## Deployment and DNS notes
+
+- Intended public URL: `https://antoninafilippo.info`
+- GitHub repository: `https://github.com/flanzini/wedding-invitation-website`
+- GitHub Pages custom domain should be set to `antoninafilippo.info`.
+- GoDaddy forwarding should remain off.
+- Keep GoDaddy `NS` and `SOA` records.
+- Remove GoDaddy Website Builder/default website records, including the old `A @ WebsiteBuilder Site` record and `CNAME www antoninafilippo.info.`.
+- Required GoDaddy DNS records for GitHub Pages:
+
+```text
+A      @      185.199.108.153
+A      @      185.199.109.153
+A      @      185.199.110.153
+A      @      185.199.111.153
+CNAME  www    flanzini.github.io
+```
+
+- Useful DNS checks from PowerShell:
+
+```powershell
+Resolve-DnsName antoninafilippo.info -Type A -Server ns11.domaincontrol.com
+Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.com
+```
+
+- Latest observed state: GoDaddy's authoritative nameserver returned the expected four GitHub Pages `A` records for `antoninafilippo.info` and the expected `www` CNAME to `flanzini.github.io`.
+- If GitHub Pages still shows `InvalidDNSError`, it is likely DNS/cache propagation. Wait, then remove and re-add the custom domain in GitHub Pages settings.
 
 ## Usage notes
 

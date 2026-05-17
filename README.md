@@ -43,6 +43,47 @@ It will not modify `index.html`.
 
 Open `index.html` directly in a browser to test the landing page. The website currently has static links to the form URLs. If you recreate the forms, copy the new URLs from `form_links.json` into the matching buttons in `index.html`.
 
+## Deployment
+
+The intended public URL is:
+
+```text
+https://antoninafilippo.info
+```
+
+The site is hosted with GitHub Pages from:
+
+```text
+https://github.com/flanzini/wedding-invitation-website
+```
+
+GitHub Pages should use the custom domain:
+
+```text
+antoninafilippo.info
+```
+
+GoDaddy DNS should keep the default `NS` and `SOA` records and use these website records:
+
+```text
+A      @      185.199.108.153
+A      @      185.199.109.153
+A      @      185.199.110.153
+A      @      185.199.111.153
+CNAME  www    flanzini.github.io
+```
+
+Do not use GoDaddy forwarding for this site. The old `A @ WebsiteBuilder Site` record and `CNAME www antoninafilippo.info.` should be removed.
+
+Useful DNS checks from PowerShell:
+
+```powershell
+Resolve-DnsName antoninafilippo.info -Type A -Server ns11.domaincontrol.com
+Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.com
+```
+
+As of the latest setup pass, GoDaddy's authoritative nameserver was returning the expected GitHub Pages records. If GitHub still reports `InvalidDNSError`, wait for DNS/cache propagation, then remove and re-add the custom domain in GitHub Pages settings.
+
 ## Notes
 
 - If you change `SCOPES`, delete `token.json` and rerun the script.
