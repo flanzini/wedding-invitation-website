@@ -43,6 +43,14 @@ It will not modify `index.html`.
 
 Open `index.html` directly in a browser to test the landing page. The website currently has static links to the form URLs. If you recreate the forms, copy the new URLs from `form_links.json` into the matching buttons in `index.html`.
 
+## Survey Content
+
+Each form collects first name and last name as required fields.
+
+The English and Italian forms ask whether guests would feel comfortable and interested in travelling to the planned Ukraine celebration, plus party size, possible Italy fallback interest, travel concerns, and optional contact details.
+
+The Ukrainian form is written for guests living in Ukraine. It is framed as a tentative save-the-date and availability check for the Carpathian celebration on 14/15/16 May 2027, with more practical details to follow closer to the date.
+
 ## Deployment
 
 The intended public URL is:

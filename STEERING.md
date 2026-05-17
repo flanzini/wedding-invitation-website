@@ -49,7 +49,9 @@ The current goal is to collect guest travel interest via a short survey and pres
 - Landing page with an image banner and language selector
 - Landing page location section with `carpathian_map.png` and a placeholder second-weekend-of-May date
 - Form creation is separated from website editing: rerunning the form script does not rewrite `index.html`
-- Survey questions about travel willingness, party size, Italy fallback interest, travel concerns, and optional contact info
+- Survey questions now collect required first name and last name fields
+- English and Italian survey questions ask about travel willingness, party size, Italy fallback interest, travel concerns, and optional contact info
+- Ukrainian survey questions are framed for guests living in Ukraine as a tentative Carpathian save-the-date/availability check
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
 - Guidance for running the script with the Python launcher (`py -3 create_google_form.py`)
 
