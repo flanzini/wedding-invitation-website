@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+blocked_files='(^|/)(credentials|token|client_secret.*|service-account.*)\.json$|(^|/)\.env(\..*)?$|(^|/).*\.(pem|key|p12|pfx)$'
+blocked_content='(AIza[0-9A-Za-z_-]{35}|ya29\.[0-9A-Za-z_-]+|ghp_[0-9A-Za-z]{36,}|github_pat_[0-9A-Za-z_]{20,}|-----BEGIN (RSA |EC |OPENSSH |)PRIVATE KEY-----)'
+
+staged_files=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if [ -n "$staged_files" ] && printf '%s\n' "$staged_files" | grep -E "$blocked_files" >/dev/null; then
+  echo "Commit blocked: a staged file looks like credentials, tokens, or a private key." >&2
+  printf '%s\n' "$staged_files" | grep -E "$blocked_files" >&2
+  exit 1
+fi
+
+if [ -n "$staged_files" ]; then
+  for file in $staged_files; do
+    if [ -f "$file" ] && git show ":$file" | grep -E "$blocked_content" >/dev/null; then
+      echo "Commit blocked: staged file may contain an API key, token, or private key: $file" >&2
+      exit 1
+    fi
+  done
+fi

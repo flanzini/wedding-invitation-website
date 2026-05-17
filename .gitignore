@@ -4,6 +4,17 @@ __pycache__/
 # Local Google OAuth credentials and tokens.
 credentials.json
 token.json
+client_secret*.json
+service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local environment files.
+.env
+.env.*
+!.env.example
 
 # OS/editor noise.
 .DS_Store
