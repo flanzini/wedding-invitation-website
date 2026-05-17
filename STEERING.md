@@ -66,6 +66,18 @@ The current goal is to collect guest travel interest via a short survey and pres
 - If `token.json` exists and scopes change, delete it and rerun the script.
 - The landing page can be opened directly from `index.html` in a browser.
 
+## Git workflow and secret safety
+
+- Treat `index.html`, `create_google_form.py`, `README.md`, `STEERING.md`, `form_links.json`, `.gitignore`, `.githooks/pre-commit`, and image assets as commit candidates.
+- Never commit `credentials.json`, `token.json`, `.env*`, private keys, service account files, or OAuth client secret files. These are local-only secrets.
+- `.gitignore` and `.githooks/pre-commit` are intentional safety guardrails. Do not remove or bypass them unless the user explicitly asks and understands the risk.
+- This repo is configured with `core.hooksPath = .githooks`; if cloning fresh, run `git config core.hooksPath .githooks` before committing.
+- Before every commit, run `git status --short --ignored` and verify sensitive files appear only as ignored (`!!`) or not at all.
+- Before committing, inspect staged files with `git diff --cached --name-only`; if any secret-like file is staged, unstage it before continuing.
+- Prefer staging explicit files (`git add index.html README.md`) over broad `git add .` when credentials or local outputs are present.
+- Commit only cohesive changes with a clear message. Do not rewrite history or reset user work unless explicitly requested.
+- Before pushing, ensure the remote is expected (`git remote -v`) and GitHub secret scanning/push protection is enabled when available.
+
 ## Recommended next steps
 
 1. Run `py -3 create_google_form.py` and authorize the app.
