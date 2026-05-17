@@ -253,46 +253,6 @@
       width: 100%;
       height: auto;
     }
-    .venue-preview {
-      position: absolute;
-      right: -3.5rem;
-      top: 50%;
-      z-index: 3;
-      width: min(360px, 38vw);
-      margin: 0;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(8,11,20,0.92);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.42);
-      opacity: 0;
-      transform: translateY(-46%) scale(0.96);
-      pointer-events: none;
-      transition: opacity 220ms ease, transform 220ms ease;
-    }
-    .venue-preview img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    .venue-preview figcaption {
-      padding: 0.75rem 0.85rem;
-      color: #d7ddff;
-      font-size: 0.88rem;
-      line-height: 1.45;
-    }
-    .location-section:hover .venue-preview,
-    .location-section:focus-within .venue-preview {
-      opacity: 1;
-      transform: translateY(-50%) scale(1);
-    }
-    .preview-cue {
-      display: inline-flex;
-      margin-top: 0.9rem;
-      color: #aebdff;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
     @media (max-width: 640px) {
       body {
         background: #080b14;
@@ -375,17 +335,6 @@
       .map-frame {
         border-radius: 16px;
       }
-      .venue-preview {
-        position: static;
-        width: 100%;
-        margin-top: 1rem;
-        opacity: 1;
-        transform: none;
-        pointer-events: auto;
-      }
-      .preview-cue {
-        display: none;
-      }
       .buttons {
         grid-template-columns: 1fr;
       }
@@ -429,14 +378,9 @@
         <h2 id="location-title">A meaningful mountain region in western Ukraine</h2>
         <p id="location-copy">This is a beautiful mountain area, far from the eastern frontline, and it is deeply meaningful to us because of Antonina's Ukrainian roots. If we move forward, safety will be our first priority: we will choose the location carefully, plan the travel route through neighbouring European countries, share practical guidance, and monitor the situation closely before confirming anything. Accommodation would be provided for the day before the wedding and the night after the wedding at or near the venue.</p>
         <span class="date-pill" id="location-date">Tentative dates: 14/15/16 May 2027</span>
-        <span class="preview-cue" id="preview-cue">Hover here to glimpse the mountain wedding mood.</span>
       </div>
       <figure class="map-frame">
         <img src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region">
-      </figure>
-      <figure class="venue-preview" aria-label="Example image of a Carpathian mountain wedding setting">
-        <img src="carpathian_wedding_example/ChatGPT%20Image%20May%2017%2C%202026%2C%2010_36_56%20PM%20%281%29.png" alt="Example of a Carpathian mountain wedding setting">
-        <figcaption id="preview-caption">A visual example of the mountain atmosphere we have in mind.</figcaption>
       </figure>
     </section>
     <div class="note" id="page-note">
@@ -458,8 +402,6 @@
         locationTitle: 'A meaningful mountain region in western Ukraine',
         locationCopy: "This is a beautiful mountain area, far from the eastern frontline, and it is deeply meaningful to us because of Antonina's Ukrainian roots. If we move forward, safety will be our first priority: we will choose the location carefully, plan the travel route through neighbouring European countries, share practical guidance, and monitor the situation closely before confirming anything. Accommodation would be provided for the day before the wedding and the night after the wedding at or near the venue.",
         locationDate: 'Tentative dates: 14/15/16 May 2027',
-        previewCue: 'Hover here to glimpse the mountain wedding mood.',
-        previewCaption: 'A visual example of the mountain atmosphere we have in mind.',
         note: 'About this survey: it is only for planning. Your honest answer will help us decide whether the Ukraine celebration feels realistic for our guests.',
       },
       it: {
@@ -474,8 +416,6 @@
         locationTitle: "Un luogo speciale tra le montagne dell'Ucraina occidentale",
         locationCopy: "È una zona di montagna bellissima, lontana dal fronte orientale, e per noi ha un valore speciale per le radici ucraine di Antonina. Se decideremo di andare avanti, la sicurezza verrà prima di tutto: sceglieremo il posto con molta attenzione, organizzeremo il viaggio passando dai paesi europei vicini, condivideremo tutte le informazioni utili e continueremo a seguire da vicino la situazione prima di confermare qualsiasi cosa. L’alloggio sarebbe previsto per la notte prima del matrimonio e per quella successiva, nella struttura del matrimonio o nelle immediate vicinanze.",
         locationDate: 'Date provvisorie: 14/15/16 maggio 2027',
-        previewCue: 'Passa qui sopra per immaginare l’atmosfera del matrimonio in montagna.',
-        previewCaption: 'Un esempio visivo dell’atmosfera di montagna che abbiamo in mente.',
         note: 'Informazioni: per ora stiamo solo cercando di orientarci. Una risposta sincera ci aiuterà a capire se un matrimonio in Ucraina può davvero funzionare per i nostri ospiti.',
       },
       uk: {
@@ -490,8 +430,6 @@
         locationTitle: 'Особливе для нас місце серед гір західної України',
         locationCopy: 'Це дуже красивий гірський край, далеко від східної лінії фронту, і він має для нас особливе значення через українське коріння Антоніни. Якщо ми вирішимо рухатися далі, безпека буде на першому місці: ми дуже уважно оберемо локацію, продумамо маршрут через сусідні європейські країни, поділимося всією потрібною практичною інформацією та стежитимемо за ситуацією до остаточного рішення. Проживання буде передбачене на ніч перед весіллям і на ніч після нього — у місці святкування або зовсім поруч.',
         locationDate: 'Орієнтовні дати: 14/15/16 травня 2027',
-        previewCue: 'Наведіть тут, щоб уявити атмосферу весілля в горах.',
-        previewCaption: 'Візуальний приклад гірської атмосфери, яку ми маємо на увазі.',
         note: 'Про опитування: зараз ми лише на етапі планування. Ваша чесна відповідь допоможе нам зрозуміти, чи ідея весілля в Україні справді підходить нашим гостям.',
       },
     };
@@ -506,8 +444,6 @@
       locationTitle: document.getElementById('location-title'),
       locationCopy: document.getElementById('location-copy'),
       locationDate: document.getElementById('location-date'),
-      previewCue: document.getElementById('preview-cue'),
-      previewCaption: document.getElementById('preview-caption'),
       pageNote: document.getElementById('page-note'),
       langSelect: document.getElementById('lang-select'),
     };
@@ -525,8 +461,6 @@
       elements.locationTitle.textContent = translation.locationTitle;
       elements.locationCopy.textContent = translation.locationCopy;
       elements.locationDate.textContent = translation.locationDate;
-      elements.previewCue.textContent = translation.previewCue;
-      elements.previewCaption.textContent = translation.previewCaption;
       elements.pageNote.innerHTML = `<strong>${translation.note.split(':')[0]}:</strong> ${translation.note.split(':').slice(1).join(':').trim()}`;
       elements.langSelect.value = code;
     }
