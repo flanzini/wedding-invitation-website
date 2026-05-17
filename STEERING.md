@@ -47,6 +47,7 @@ The current goal is to collect guest travel interest via a short survey and pres
 
 - Multi-language survey creation via the Google Forms API
 - Landing page with an image banner and language selector
+- Landing page location section with `carpathian_map.png` and a placeholder second-weekend-of-May date
 - Form creation is separated from website editing: rerunning the form script does not rewrite `index.html`
 - Survey questions about travel willingness, party size, Italy fallback interest, travel concerns, and optional contact info
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`

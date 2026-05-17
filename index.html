@@ -199,6 +199,57 @@
       border: 1px solid rgba(255,255,255,0.08);
       color: #c7d0ff;
     }
+    .location-section {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .location-copy {
+      padding: 0.5rem 0;
+    }
+    .section-kicker {
+      margin: 0 0 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9fb3ff;
+    }
+    .location-copy h2 {
+      margin: 0 0 0.85rem;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.1;
+    }
+    .location-copy p {
+      margin: 0;
+      color: #d7ddff;
+      line-height: 1.75;
+    }
+    .date-pill {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 1.1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07);
+      color: #f5f7ff;
+      font-weight: 700;
+    }
+    .map-frame {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+    }
+    .map-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
     @media (max-width: 640px) {
       body {
         background: #080b14;
@@ -267,6 +318,20 @@
         border-radius: 18px;
         padding: 1.25rem;
       }
+      .location-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .location-copy {
+        padding: 0;
+      }
+      .location-copy h2 {
+        font-size: 1.55rem;
+      }
+      .map-frame {
+        border-radius: 16px;
+      }
       .buttons {
         grid-template-columns: 1fr;
       }
@@ -304,6 +369,17 @@
         <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeAaLB-zDdlSM2DATLDFZKoGzI-ArVdwigc28Z5CZwMTgt8ug/viewform" target="_blank" rel="noreferrer noopener">Українська</a>
       </div>
     </div>
+    <section class="location-section" aria-labelledby="location-title">
+      <div class="location-copy">
+        <p class="section-kicker" id="location-kicker">Planned location</p>
+        <h2 id="location-title">The Carpathian mountains, western Ukraine</h2>
+        <p id="location-copy">We are looking at a celebration in the Carpathian region, surrounded by mountain villages, forests, and views close to Ukraine's western borders.</p>
+        <span class="date-pill" id="location-date">Placeholder date: second weekend of May</span>
+      </div>
+      <figure class="map-frame">
+        <img src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region">
+      </figure>
+    </section>
     <div class="note" id="page-note">
       <strong>About this survey:</strong> it is only for planning. Please answer whether you would travel to Ukraine or prefer a later celebration in Italy, and share any travel concerns.
     </div>
@@ -319,6 +395,10 @@
         heroTagline: 'This site is our wedding travel survey — please tell us whether you would join the Ukraine celebration, or prefer a later event in Italy.',
         cardTitle: 'Choose your language',
         cardCopy: 'Select the language you prefer, then complete the short travel survey.',
+        locationKicker: 'Planned location',
+        locationTitle: 'The Carpathian mountains, western Ukraine',
+        locationCopy: "We are looking at a celebration in the Carpathian region, surrounded by mountain villages, forests, and views close to Ukraine's western borders.",
+        locationDate: 'Placeholder date: second weekend of May',
         note: 'About this survey: it is only for planning. Please answer whether you would travel to Ukraine or prefer a later celebration in Italy, and share any travel concerns.',
       },
       it: {
@@ -329,6 +409,10 @@
         heroTagline: 'Questo sito è il nostro sondaggio di viaggio per il matrimonio — dicci se parteciperesti alla celebrazione in Ucraina o preferiresti un evento successivo in Italia.',
         cardTitle: 'Scegli la lingua',
         cardCopy: 'Seleziona la lingua che preferisci, poi completa il breve sondaggio di viaggio.',
+        locationKicker: 'Luogo previsto',
+        locationTitle: "Le montagne dei Carpazi, nell'Ucraina occidentale",
+        locationCopy: "Stiamo valutando una celebrazione nella regione dei Carpazi, tra villaggi di montagna, boschi e panorami vicino ai confini occidentali dell'Ucraina.",
+        locationDate: 'Data provvisoria: secondo weekend di maggio',
         note: 'Informazioni: è solo per la pianificazione. Rispondi se viaggeresti in Ucraina o preferiresti una celebrazione successiva in Italia, e condividi eventuali preoccupazioni di viaggio.',
       },
       uk: {
@@ -339,6 +423,10 @@
         heroTagline: 'Цей сайт — наше опитування про поїздку на весілля. Скажіть, будь ласка, чи приїдете ви до України, чи віддаєте перевагу пізнішому заходу в Італії.',
         cardTitle: 'Оберіть мову',
         cardCopy: 'Виберіть мову, яку ви віддаєте перевагу, а потім заповніть коротке опитування.',
+        locationKicker: 'Плановане місце',
+        locationTitle: 'Карпатські гори, західна Україна',
+        locationCopy: 'Ми розглядаємо святкування в Карпатському регіоні, серед гірських сіл, лісів і краєвидів неподалік західних кордонів України.',
+        locationDate: 'Орієнтовна дата: другі вихідні травня',
         note: 'Про опитування: це лише для планування. Будь ласка, скажіть нам, чи поїхали б ви до України, чи віддаєте перевагу пізнішому святкуванню в Італії, і поділіться занепокоєннями щодо поїздки.',
       },
     };
@@ -349,6 +437,10 @@
       heroTagline: document.getElementById('hero-tagline'),
       cardTitle: document.getElementById('card-title'),
       cardCopy: document.getElementById('card-copy'),
+      locationKicker: document.getElementById('location-kicker'),
+      locationTitle: document.getElementById('location-title'),
+      locationCopy: document.getElementById('location-copy'),
+      locationDate: document.getElementById('location-date'),
       pageNote: document.getElementById('page-note'),
       langSelect: document.getElementById('lang-select'),
     };
@@ -362,6 +454,10 @@
       elements.heroTagline.textContent = translation.heroTagline;
       elements.cardTitle.textContent = translation.cardTitle;
       elements.cardCopy.textContent = translation.cardCopy;
+      elements.locationKicker.textContent = translation.locationKicker;
+      elements.locationTitle.textContent = translation.locationTitle;
+      elements.locationCopy.textContent = translation.locationCopy;
+      elements.locationDate.textContent = translation.locationDate;
       elements.pageNote.innerHTML = `<strong>${translation.note.split(':')[0]}:</strong> ${translation.note.split(':').slice(1).join(':').trim()}`;
       elements.langSelect.value = code;
     }
