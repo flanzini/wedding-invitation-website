@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Antonina & Filippo | Wedding celebration</title>
   <style>
     :root {
@@ -341,6 +342,10 @@
       font-family: Arial, sans-serif;
       font-size: 0.98rem;
       line-height: 1.85;
+    }
+
+    #location-copy {
+      white-space: pre-line;
     }
 
     .detail-line {
@@ -687,6 +692,39 @@
         text-align: center;
         margin: 0 auto;
       }
+
+      html:not([lang="uk"]) .location-grid {
+        display: grid;
+        gap: 0;
+      }
+
+      html:not([lang="uk"]) .location-copy {
+        display: contents;
+      }
+
+      html:not([lang="uk"]) .location-copy .kicker,
+      html:not([lang="uk"]) .location-copy h2,
+      html:not([lang="uk"]) .location-copy p:not(.kicker) {
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      html:not([lang="uk"]) .location-copy .kicker,
+      html:not([lang="uk"]) .location-copy h2 {
+        order: 1;
+      }
+
+      html:not([lang="uk"]) .map-frame {
+        order: 2;
+        margin-top: 1.45rem;
+      }
+
+      html:not([lang="uk"]) #location-copy,
+      html:not([lang="uk"]) #location-detail {
+        order: 3;
+      }
     }
 
     @media (max-width: 680px) {
@@ -824,8 +862,10 @@ Looking forward to celebrating with you.</p>
       <div class="location-copy">
         <p class="kicker" id="location-kicker">The location</p>
         <h2 id="location-title">A beautiful mountain region in western Ukraine</h2>
-        <p id="location-copy">We are considering the Carpathians as the setting for our celebration: a beautiful part of Antonina's home country. We are working with a local agency to select the venue, with guest comfort, travel arrangements, and safety guiding every decision.</p>
-        <p class="detail-line" id="location-detail">Exact venue to follow once guest numbers are confirmed</p>
+        <p id="location-copy">The Carpathians are a peaceful mountain region in western Ukraine, with forested hills, open mountain views, and a rich local culture shaped by music, craft, and mountain traditions. It is also the region where Antonina was born, which makes it a special place for us to bring everyone together.
+
+As we plan the weekend, we are choosing the venue with care. Our main goal is to find a place that is beautiful, safe, comfortable for guests, and practical from a travel and logistics point of view.</p>
+        <p class="detail-line" id="location-detail">Exact venue details will follow once guest numbers are confirmed.</p>
       </div>
       <figure class="map-frame">
         <img id="map-image" src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region in western Ukraine">
@@ -955,8 +995,8 @@ Looking forward to celebrating with you.</p>
         invitationCopy: "We’re happy to invite you to celebrate our wedding with us\nin the heart of the Carpathian Mountains.\n\nFrom May 14 to 16, 2027,\nwe’ll spend a weekend together surrounded by nature,\nfresh mountain air, good food, music, and great company.\n\nWe would love for you to be part of these special days\nand create unforgettable memories together.\n\nLooking forward to celebrating with you.",
         locationKicker: "The location",
         locationTitle: "A beautiful mountain region in western Ukraine",
-        locationCopy: "We are considering the Carpathians as the setting for our celebration: a beautiful part of Antonina's home country. We are working with a local agency to select the venue, with guest comfort, travel arrangements, and safety guiding every decision.",
-        locationDetail: "Exact venue to follow once guest numbers are confirmed",
+        locationCopy: "The Carpathians are a peaceful mountain region in western Ukraine, with forested hills, open mountain views, and a rich local culture shaped by music, craft, and mountain traditions. It is also the region where Antonina was born, which makes it a special place for us to bring everyone together.\n\nAs we plan the weekend, we are choosing the venue with care. Our main goal is to find a place that is beautiful, safe, comfortable for guests, and practical from a travel and logistics point of view.",
+        locationDetail: "Exact venue details will follow once guest numbers are confirmed.",
         mapAlt: "Map showing the planned Carpathian wedding region in western Ukraine",
         weekendKicker: "Wedding weekend",
         weekendTitle: "Three days together in the mountains",
@@ -1011,8 +1051,8 @@ Looking forward to celebrating with you.</p>
         invitationCopy: "Siamo felici di invitarvi a festeggiare il nostro matrimonio\nnel cuore dei Carpazi.\n\nDal 14 al 16 maggio 2027,\ntrascorreremo un weekend insieme tra natura,\naria di montagna, buon cibo, musica e bella compagnia.\n\nCi farebbe davvero piacere condividere con voi\nquesti giorni speciali e creare insieme ricordi indimenticabili.\n\nNon vediamo l’ora di festeggiare insieme a voi.",
         locationKicker: "Il luogo",
         locationTitle: "Tra le montagne dell'Ucraina occidentale",
-        locationCopy: "Stiamo valutando i Carpazi come cornice per la nostra festa: una bellissima regione del Paese in cui Antonina è nata. Insieme a un'agenzia locale stiamo individuando la struttura più adatta, tenendo conto del numero degli invitati, della logistica e della sicurezza.",
-        locationDetail: "La struttura verrà comunicata non appena avremo confermato il numero degli ospiti",
+        locationCopy: "I Carpazi sono una tranquilla regione montuosa dell'Ucraina occidentale, tra colline boscose, ampi panorami e una cultura locale profondamente legata alla musica e alle tradizioni della montagna. È anche la regione in cui è nata Antonina, e per questo per noi è un luogo speciale in cui riunire tutte le persone a cui vogliamo bene.\n\nMentre organizziamo questo fine settimana, stiamo scegliendo con cura la struttura che ci accoglierà. Il nostro obiettivo principale è trovare un luogo bello, sicuro, comodo per gli ospiti e pratico dal punto di vista del viaggio e dell'organizzazione.",
+        locationDetail: "Comunicheremo la location esatta una volta confermato il numero degli ospiti.",
         mapAlt: "Mappa dei Carpazi, nell'Ucraina occidentale, dove si svolgerà il matrimonio",
         weekendKicker: "Il fine settimana",
         weekendTitle: "Tre giorni insieme in montagna",
@@ -1067,8 +1107,8 @@ Looking forward to celebrating with you.</p>
         invitationCopy: "Просили вас тато,\nпросили вас мати,\nпросимо і ми вас\nна наше весілля завітати.\n\n14–16 травня 2027 року\nсеред карпатських гір\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nпочаток нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nвихідні у Карпатах.\n\nБудемо дуже раді розділити ці моменти разом із вами!",
         locationKicker: "Локація",
         locationTitle: "Весілля в Карпатах",
-        locationCopy: "Зараз ми разом з агенцією обираємо локацію, яка найкраще підійде для нашого святкування та кількості гостей. Точне місце повідомимо, щойно завершимо бронювання.",
-        locationDetail: "Точну локацію повідомимо після підтвердження кількості гостей",
+        locationCopy: "Ми плануємо святкування в Карпатах і зараз обираємо локацію, яка найкраще підійде для нашого формату та кількості гостей.\n\nДля нас важливо, щоб місце було зручним, продуманим і комфортним для всіх, хто буде поруч із нами в ці дні.",
+        locationDetail: "Точну локацію повідомимо після підтвердження кількості гостей.",
         mapAlt: "",
         weekendKicker: "Програма святкування",
         weekendTitle: "Три дні разом",
