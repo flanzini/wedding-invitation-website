@@ -1,10 +1,10 @@
-# Google Forms API Wedding Survey
+# Wedding Invitation Website and RSVP Forms
 
 This workspace includes:
 
 - `create_google_form.py` to create three Google Forms, one each in English, Italian, and Ukrainian.
-- `form_links.json` to store the generated form URLs.
-- `index.html` as the standalone wedding landing page.
+- `form_links.json` to store generated form URLs and Google Form IDs.
+- `index.html` as the standalone wedding invitation page.
 
 The form script does not rewrite the website. Edit `index.html` directly for layout, copy, styling, and mobile behavior.
 
@@ -37,7 +37,7 @@ The script will:
 - open a browser window for Google sign-in
 - save a `token.json` file after authorization
 - create one Google Form per language
-- save the generated links to `form_links.json`
+- save the generated links and form IDs to `form_links.json`
 
 It will not modify `index.html`.
 
@@ -45,15 +45,15 @@ Avoid `py -3` on this machine unless Python Launcher is configured with a Python
 
 ## Website
 
-Open `index.html` directly in a browser to test the landing page. The website currently has static links to the form URLs. If you recreate the forms, copy the new URLs from `form_links.json` into the matching buttons in `index.html`.
+Open `index.html` directly in a browser to test the invitation page. The website has static links to the RSVP forms. If you recreate the forms, copy the new URLs from `form_links.json` into the matching links in `index.html`.
 
-## Survey Content
+## RSVP Content
 
-Each form collects first name and last name as required fields.
+Each form collects the guest's full name in one required field, then asks for attendance, party size, accommodation needs, optional interest in renting a traditional Ukrainian vyshyvanka, other planning needs, and optional contact details.
 
-The English and Italian forms ask whether guests would feel comfortable and interested in travelling to the planned Ukraine celebration, plus party size, possible Italy fallback interest, travel concerns, and optional contact details.
+The English and Italian forms provide the international guest context for the planned Carpathian celebration and travel arrangements.
 
-The Ukrainian form is written for guests living in Ukraine. It is framed as a tentative save-the-date and availability check for the Carpathian celebration on 14/15/16 May 2027, with more practical details to follow closer to the date.
+The Ukrainian form is written for guests living in Ukraine and focuses on attendance, accommodation, and organisational details rather than explaining the Carpathian location or international travel.
 
 ## Deployment
 

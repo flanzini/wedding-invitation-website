@@ -1,6 +1,7 @@
-﻿from __future__ import print_function
-import os.path
+from __future__ import print_function
+
 import json
+import os.path
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -17,228 +18,74 @@ CREDS_FILE = 'credentials.json'
 TOKEN_FILE = 'token.json'
 FORM_LINKS_FILE = 'form_links.json'
 
-LEGACY_LANGUAGE_FORMS = [
-    {
-        'code': 'en',
-        'name': 'English',
-        'title': 'Wedding travel interest survey',
-        'description': (
-            'We are planning our wedding in the beautiful Carpathian mountains of Ukraine, '
-            'near the borders with Romania, Hungary and Poland. Please tell us whether you would '
-            'be willing to travel there and whether a later celebration in Italy would work better.'
-        ),
-        'questions': [
-            {
-                'title': 'Would you be willing to attend our wedding in the Carpathian mountains of Ukraine?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Yes, I would attend',
-                    'Maybe, depending on travel and safety',
-                    'No',
-                ],
-            },
-            {
-                'title': 'How many people in your party would attend if the wedding is in Ukraine?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    '1',
-                    '2',
-                    '3 or more',
-                    'Not sure yet',
-                ],
-            },
-            {
-                'title': 'If we also plan a later celebration in Italy, would you attend that instead?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Yes',
-                    'Maybe',
-                    'No / Unsure',
-                ],
-            },
-            {
-                'title': 'What would make it difficult for you to travel to Ukraine?',
-                'required': False,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Optional: Your name or email if you want us to follow up',
-                'required': False,
-                'type': 'TEXT',
-            },
-        ],
-    },
-    {
-        'code': 'it',
-        'name': 'Italiano',
-        'title': 'Sondaggio di interesse per il viaggio al matrimonio',
-        'description': (
-            'Stiamo pianificando il nostro matrimonio nelle splendide montagne dei Carpazi in Ucraina, '
-            'vicino ai confini con Romania, Ungheria e Polonia. Dicci se saresti disposto a viaggiare lÃ¬ '
-            'o se una celebrazione successiva in Italia sarebbe piÃ¹ adatta.'
-        ),
-        'questions': [
-            {
-                'title': 'Saresti disposto a partecipare al nostro matrimonio nelle montagne dei Carpazi in Ucraina?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'SÃ¬, parteciperÃ²',
-                    'Forse, a seconda del viaggio e della sicurezza',
-                    'No',
-                ],
-            },
-            {
-                'title': 'Quante persone del tuo gruppo parteciperebbero se il matrimonio fosse in Ucraina?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    '1',
-                    '2',
-                    '3 o piÃ¹',
-                    'Non sono sicuro ancora',
-                ],
-            },
-            {
-                'title': 'Se organizziamo anche una celebrazione successiva in Italia, parteciperesti invece a quella?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'SÃ¬',
-                    'Forse',
-                    'No / Non so',
-                ],
-            },
-            {
-                'title': 'Cosa renderebbe difficile per te viaggiare in Ucraina?',
-                'required': False,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Opzionale: il tuo nome o email se vuoi che ti contattiamo',
-                'required': False,
-                'type': 'TEXT',
-            },
-        ],
-    },
-    {
-        'code': 'uk',
-        'name': 'Ð£ÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ°',
-        'title': 'ÐžÐ¿Ð¸Ñ‚ÑƒÐ²Ð°Ð½Ð½Ñ Ñ‰Ð¾Ð´Ð¾ Ð¿Ð¾Ñ—Ð·Ð´ÐºÐ¸ Ð½Ð° Ð²ÐµÑÑ–Ð»Ð»Ñ',
-        'description': (
-            'ÐœÐ¸ Ð¿Ð»Ð°Ð½ÑƒÑ”Ð¼Ð¾ Ð½Ð°ÑˆÐµ Ð²ÐµÑÑ–Ð»Ð»Ñ Ð² ÐºÑ€Ð°ÑÐ¸Ð²Ð¸Ñ… ÐšÐ°Ñ€Ð¿Ð°Ñ‚Ð°Ñ… Ð£ÐºÑ€Ð°Ñ—Ð½Ð¸, Ð¿Ð¾Ð±Ð»Ð¸Ð·Ñƒ ÐºÐ¾Ñ€Ð´Ð¾Ð½Ñ–Ð² Ð· Ð ÑƒÐ¼ÑƒÐ½Ñ–Ñ”ÑŽ, Ð£Ð³Ð¾Ñ€Ñ‰Ð¸Ð½Ð¾ÑŽ Ñ‚Ð° ÐŸÐ¾Ð»ÑŒÑ‰ÐµÑŽ. '
-            'Ð‘ÑƒÐ´ÑŒ Ð»Ð°ÑÐºÐ°, ÑÐºÐ°Ð¶Ñ–Ñ‚ÑŒ Ð½Ð°Ð¼, Ñ‡Ð¸ Ð³Ð¾Ñ‚Ð¾Ð²Ñ– Ð²Ð¸ Ñ‚ÑƒÐ´Ð¸ Ð¿Ð¾Ñ—Ñ…Ð°Ñ‚Ð¸ Ñ– Ñ‡Ð¸ Ð·Ñ€ÑƒÑ‡Ð½Ñ–ÑˆÐ¸Ð¼ Ð±ÑƒÐ² Ð±Ð¸ Ð¿Ñ–Ð·Ð½Ñ–ÑˆÐ¸Ð¹ Ð·Ð°Ñ…Ñ–Ð´ Ð² Ð†Ñ‚Ð°Ð»Ñ–Ñ—.'
-        ),
-        'questions': [
-            {
-                'title': 'Ð§Ð¸ Ð³Ð¾Ñ‚Ð¾Ð²Ñ– Ð²Ð¸ Ð¿Ñ€Ð¸Ñ—Ñ…Ð°Ñ‚Ð¸ Ð½Ð° Ð½Ð°ÑˆÐµ Ð²ÐµÑÑ–Ð»Ð»Ñ Ð² ÐšÐ°Ñ€Ð¿Ð°Ñ‚Ð°Ñ… Ð£ÐºÑ€Ð°Ñ—Ð½Ð¸?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Ð¢Ð°Ðº, Ñ Ð¿Ñ€Ð¸Ñ—Ð´Ñƒ',
-                    'ÐœÐ¾Ð¶Ð»Ð¸Ð²Ð¾, Ð·Ð°Ð»ÐµÐ¶Ð½Ð¾ Ð²Ñ–Ð´ Ð¿Ð¾Ñ—Ð·Ð´ÐºÐ¸ Ñ‚Ð° Ð±ÐµÐ·Ð¿ÐµÐºÐ¸',
-                    'ÐÑ–',
-                ],
-            },
-            {
-                'title': 'Ð¡ÐºÑ–Ð»ÑŒÐºÐ¸ Ð»ÑŽÐ´ÐµÐ¹ Ð· Ð²Ð°ÑˆÐ¾Ñ— Ð³Ñ€ÑƒÐ¿Ð¸ Ð¿Ñ€Ð¸Ñ—Ñ…Ð°Ð»Ð¸ Ð±, ÑÐºÑ‰Ð¾ Ð²ÐµÑÑ–Ð»Ð»Ñ Ð±ÑƒÐ´Ðµ Ð² Ð£ÐºÑ€Ð°Ñ—Ð½Ñ–?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    '1',
-                    '2',
-                    '3 Ð°Ð±Ð¾ Ð±Ñ–Ð»ÑŒÑˆÐµ',
-                    'ÐŸÐ¾ÐºÐ¸ Ð½Ðµ Ð²Ð¿ÐµÐ²Ð½ÐµÐ½Ð¸Ð¹',
-                ],
-            },
-            {
-                'title': 'Ð¯ÐºÑ‰Ð¾ Ð¼Ð¸ Ñ‚Ð°ÐºÐ¾Ð¶ Ð¾Ñ€Ð³Ð°Ð½Ñ–Ð·ÑƒÑ”Ð¼Ð¾ Ð¿Ñ–Ð·Ð½Ñ–ÑˆÐµ ÑÐ²ÑÑ‚ÐºÑƒÐ²Ð°Ð½Ð½Ñ Ð² Ð†Ñ‚Ð°Ð»Ñ–Ñ—, Ñ‡Ð¸ Ð¿Ñ€Ð¸Ñ—Ð´ÐµÑ‚Ðµ Ð²Ð¸ Ñ‚ÑƒÐ´Ð¸ Ð·Ð°Ð¼Ñ–ÑÑ‚ÑŒ Ñ†ÑŒÐ¾Ð³Ð¾?',
-                'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Ð¢Ð°Ðº',
-                    'ÐœÐ¾Ð¶Ð»Ð¸Ð²Ð¾',
-                    'ÐÑ– / ÐÐµ Ð²Ð¿ÐµÐ²Ð½ÐµÐ½Ð¸Ð¹',
-                ],
-            },
-            {
-                'title': 'Ð©Ð¾ ÑƒÑÐºÐ»Ð°Ð´Ð½Ð¸Ñ‚ÑŒ Ð´Ð»Ñ Ð²Ð°Ñ Ð¿Ð¾Ñ—Ð·Ð´ÐºÑƒ Ð´Ð¾ Ð£ÐºÑ€Ð°Ñ—Ð½Ð¸?',
-                'required': False,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Ð—Ð° Ð±Ð°Ð¶Ð°Ð½Ð½ÑÐ¼: Ð²Ð°ÑˆÐµ Ñ–Ð¼â€™Ñ Ð°Ð±Ð¾ email, ÑÐºÑ‰Ð¾ Ñ…Ð¾Ñ‡ÐµÑ‚Ðµ, Ñ‰Ð¾Ð± Ð¼Ð¸ Ð· Ð²Ð°Ð¼Ð¸ Ð·Ð²â€™ÑÐ·Ð°Ð»Ð¸ÑÑ',
-                'required': False,
-                'type': 'TEXT',
-            },
-        ],
-    },
-]
 
-
-# Current active form definitions.
 LANGUAGE_FORMS = [
     {
         'code': 'en',
         'name': 'English',
-        'title': 'Wedding travel interest survey',
+        'title': 'RSVP | Antonina & Filippo',
         'description': (
-            'We are considering a wedding celebration in the Carpathian region of western Ukraine '
-            'on 14/15/16 May 2027. For now, we are trying to understand whether guests would feel '
-            'comfortable and interested in travelling there. Your honest answer will help us plan.'
+            'We are planning our wedding celebration in the Carpathians, Ukraine, on 14-16 May 2027. '
+            'We are working with a local agency to reserve a venue and accommodation suited to our guests. '
+            'Please let us know whether you expect to join us; the exact venue and travel details will follow.'
         ),
         'questions': [
             {
-                'title': 'First name',
+                'title': 'Full name',
                 'required': True,
                 'type': 'TEXT',
             },
             {
-                'title': 'Last name',
-                'required': True,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Would you be willing to attend our wedding in the Carpathian region of Ukraine on 14/15/16 May 2027?',
+                'title': 'Will you join us for our wedding celebration in the Carpathians on 14-16 May 2027?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Yes, I would attend',
-                    'Maybe, depending on travel and safety',
-                    'No',
+                    'Yes, I/we plan to attend',
+                    'Maybe, I/we need more details before confirming',
+                    'No, I/we will not be able to attend',
                 ],
             },
             {
-                'title': 'How many people in your party would attend if the wedding is in Ukraine?',
+                'title': 'How many guests should we plan for in your party, including you?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
                     '1',
                     '2',
-                    '3 or more',
+                    '3',
+                    '4 or more',
                     'Not sure yet',
+                    'Not attending',
                 ],
             },
             {
-                'title': 'If we also plan a later celebration in Italy, would you attend that instead?',
+                'title': 'Would your party need accommodation for the wedding weekend?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Yes',
-                    'Maybe',
-                    'No / Unsure',
+                    'Yes, for the nights of 14 and 15 May',
+                    'Maybe, I/we need more information',
+                    'No',
+                    'Not attending',
                 ],
             },
             {
-                'title': 'What would make it difficult for you to travel to Ukraine?',
+                'title': 'If you attend, would you be interested in renting a traditional Ukrainian vyshyvanka to wear during the celebration?',
+                'required': False,
+                'type': 'RADIO',
+                'options': [
+                    'Yes, please send details when available',
+                    'Maybe',
+                    'No, I/we will wear wedding guest attire',
+                ],
+            },
+            {
+                'title': 'Is there anything we should know as we plan the weekend (for example travel, accommodation, dietary or accessibility needs)?',
                 'required': False,
                 'type': 'TEXT',
             },
             {
-                'title': 'Optional: email or phone number if you want us to follow up',
+                'title': 'Optional: email or phone number if you would like us to contact you directly',
                 'required': False,
                 'type': 'TEXT',
             },
@@ -247,61 +94,70 @@ LANGUAGE_FORMS = [
     {
         'code': 'it',
         'name': 'Italiano',
-        'title': 'Sondaggio per il viaggio al matrimonio',
+        'title': 'Conferma presenza | Antonina & Filippo',
         'description': (
-            "Stiamo pensando di festeggiare il nostro matrimonio nella regione dei Carpazi, "
-            "nell'Ucraina occidentale, il 14/15/16 maggio 2027. Per ora vorremmo capire se "
-            "vi sentireste sereni all'idea di venire fin li'. Una risposta sincera ci aiutera' a orientarci."
+            'Stiamo organizzando il nostro matrimonio nei Carpazi, in Ucraina, dal 14 al 16 maggio 2027. '
+            "Insieme a un'agenzia locale stiamo scegliendo la struttura e gli alloggi più adatti al numero "
+            'degli invitati. Vi chiediamo quindi di indicarci se pensate di esserci; comunicheremo in seguito '
+            'il luogo esatto e tutti i dettagli del viaggio.'
         ),
         'questions': [
             {
-                'title': 'Nome',
+                'title': 'Nome e cognome',
                 'required': True,
                 'type': 'TEXT',
             },
             {
-                'title': 'Cognome',
-                'required': True,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Parteciperesti al nostro matrimonio nei Carpazi in Ucraina il 14/15/16 maggio 2027?',
+                'title': 'Potrete essere con noi per il matrimonio nei Carpazi dal 14 al 16 maggio 2027?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Si, parteciperei',
-                    'Forse, dipende dal viaggio e dalla situazione',
-                    'No',
+                    'Sì, pensiamo di partecipare',
+                    'Forse, prima di confermare vorremmo qualche dettaglio in più',
+                    'No, purtroppo non riusciremo a partecipare',
                 ],
             },
             {
-                'title': 'Quante persone parteciperebbero con te se il matrimonio fosse in Ucraina?',
+                'title': 'Per quante persone dobbiamo prevedere la partecipazione, voi compresi?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
                     '1',
                     '2',
-                    '3 o piu',
-                    'Non lo so ancora',
+                    '3',
+                    '4 o più',
+                    'Non lo sappiamo ancora',
+                    'Non parteciperemo',
                 ],
             },
             {
-                'title': 'Se organizzassimo anche una festa successiva in Italia, parteciperesti invece a quella?',
+                'title': "Avreste bisogno dell'alloggio per il fine settimana del matrimonio?",
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Si',
-                    'Forse',
-                    'No / Non so',
+                    'Sì, per le notti del 14 e del 15 maggio',
+                    'Forse, avremmo bisogno di maggiori informazioni',
+                    'No',
+                    'Non parteciperemo',
                 ],
             },
             {
-                'title': 'Cosa renderebbe difficile per te venire in Ucraina?',
+                'title': 'Se parteciperete, vi interesserebbe noleggiare una vyshyvanka, la tradizionale camicia ricamata ucraina, da indossare durante la festa?',
+                'required': False,
+                'type': 'RADIO',
+                'options': [
+                    'Sì, ci piacerebbe ricevere informazioni',
+                    'Forse',
+                    'No, preferiamo un normale abito da invitato',
+                ],
+            },
+            {
+                'title': "C'è qualcosa che dovremmo sapere per organizzare il fine settimana (ad esempio viaggio, alloggio, esigenze alimentari o di accessibilità)?",
                 'required': False,
                 'type': 'TEXT',
             },
             {
-                'title': 'Facoltativo: email o telefono se vuoi che ti ricontattiamo',
+                'title': 'Facoltativo: email o numero di telefono se desiderate essere ricontattati direttamente',
                 'required': False,
                 'type': 'TEXT',
             },
@@ -310,62 +166,70 @@ LANGUAGE_FORMS = [
     {
         'code': 'uk',
         'name': 'Українська',
-        'title': 'Попередня форма щодо весілля',
+        'title': 'Підтвердження участі | Антоніна та Філіппо',
         'description': (
-            'Ми плануємо весільне святкування в Карпатах 14/15/16 травня 2027 року. '
-            'Поки що це попередня форма, яка допоможе нам зрозуміти, хто орієнтовно '
-            'зможе бути з нами в ці дні. Деталі щодо місця, часу, програми та доїзду '
-            'ми повідомимо ближче до дати.'
+            'Ми плануємо відсвяткувати наше весілля в Карпатах 14-16 травня 2027 року. '
+            'Зараз разом з агенцією обираємо та бронюємо локацію відповідно до кількості гостей. '
+            'Будь ласка, повідомте, чи плануєте бути з нами. Точне місце та детальну програму '
+            'ми надішлемо після підтвердження бронювання.'
         ),
         'questions': [
             {
-                'title': "Ім'я",
+                'title': "Ім'я та прізвище",
                 'required': True,
                 'type': 'TEXT',
             },
             {
-                'title': 'Прізвище',
-                'required': True,
-                'type': 'TEXT',
-            },
-            {
-                'title': 'Чи плануєте ви бути з нами на святкуванні в Карпатах 14/15/16 травня 2027 року?',
+                'title': 'Чи зможете ви бути з нами на весіллі в Карпатах 14-16 травня 2027 року?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
                     'Так, планую бути',
-                    'Можливо, поки не впевнений/не впевнена',
+                    'Можливо, зможу підтвердити пізніше',
                     'Ні, на жаль, не зможу',
                 ],
             },
             {
-                'title': 'Скільки людей буде разом з вами?',
+                'title': 'Скільки гостей буде у вашій компанії, разом із вами?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
                     'Тільки я',
                     '2 людини',
-                    '3 або більше',
+                    '3 людини',
+                    '4 або більше',
                     'Поки не знаю',
+                    'Не братиму участі',
                 ],
             },
             {
-                'title': 'Чи потрібно буде врахувати проживання для вас на ніч перед весіллям і на ніч після нього?',
+                'title': 'Чи потрібно буде передбачити для вас проживання на весільні вихідні?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Так',
-                    'Можливо',
+                    'Так, на ночі 14 та 15 травня',
+                    'Можливо, потрібні додаткові деталі',
                     'Ні',
+                    'Не братиму участі',
                 ],
             },
             {
-                'title': 'Чи є щось важливе, що нам варто знати під час планування?',
+                'title': 'Якщо ви будете з нами, чи хотіли б ви орендувати вишиванку для святкування?',
+                'required': False,
+                'type': 'RADIO',
+                'options': [
+                    'Так, цікаво отримати деталі',
+                    'Можливо',
+                    'Ні, оберу звичайне святкове вбрання',
+                ],
+            },
+            {
+                'title': 'Чи є щось важливе, що нам варто врахувати під час організації (наприклад проживання, харчування або інші потреби)?',
                 'required': False,
                 'type': 'TEXT',
             },
             {
-                'title': "За бажанням: email або телефон для зв'язку",
+                'title': "За бажанням: email або номер телефону для зв'язку",
                 'required': False,
                 'type': 'TEXT',
             },
@@ -439,7 +303,6 @@ def create_form(service, form_data):
     result = service.forms().create(body=form_body).execute()
     form_id = result.get('formId')
     responder_uri = result.get('responderUri')
-    print(f"Created {form_data['name']} form: {responder_uri}")
 
     requests = [
         {
@@ -457,9 +320,11 @@ def create_form(service, form_data):
 
     update_body = {'requests': requests}
     service.forms().batchUpdate(formId=form_id, body=update_body).execute()
+    print(f"Created {form_data['code']} form: {responder_uri}")
     return {
         'code': form_data['code'],
         'name': form_data['name'],
+        'form_id': form_id,
         'url': responder_uri,
         'title': form_data['title'],
     }

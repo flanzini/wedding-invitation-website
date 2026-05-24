@@ -3,473 +3,1186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antonina & Filippo | Wedding travel survey</title>
+  <title>Antonina & Filippo | Wedding celebration</title>
   <style>
     :root {
-      color-scheme: dark;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #080b14;
-      color: #f5f7ff;
-      margin: 0;
-      padding: 0;
+      --ink: #273d4d;
+      --ink-soft: #53646c;
+      --blue: #36576b;
+      --blue-deep: #203745;
+      --blue-wash: #d7e0df;
+      --paper: #f9f5eb;
+      --paper-dark: #ede4d3;
+      --gold: #b59257;
+      --gold-pale: #d7be8c;
+      --border: rgba(92, 82, 61, 0.22);
+      --shadow: 0 24px 65px rgba(38, 48, 50, 0.12);
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--paper);
+      color: var(--ink);
     }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(180deg, #2d2928 0, #11121b 54vh, #080b14 82vh);
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(181, 146, 87, 0.08), transparent 25rem),
+        linear-gradient(180deg, #f5f0e6 0%, var(--paper) 20%, #f7f2e8 100%);
+      color: var(--ink);
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.22;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(62, 74, 67, 0.14) 0.55px, transparent 0.55px),
+        radial-gradient(rgba(181, 146, 87, 0.12) 0.55px, transparent 0.55px);
+      background-position: 0 0, 4px 6px;
+      background-size: 11px 11px, 13px 13px;
+    }
+
+    a {
+      color: inherit;
+    }
+
     .hero {
       position: relative;
-      min-height: clamp(560px, 64vh, 720px);
-      background-image: url('wedding_logo.png');
-      background-size: cover;
-      background-position: center 46%;
+      min-height: min(820px, 100svh);
       display: flex;
-      align-items: center;
-      margin-bottom: -3.5rem;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      color: #fff8eb;
+      background: var(--blue-deep) url("wedding_logo.png") center center / cover no-repeat;
     }
+
     html[lang="uk"] .hero {
-      background-image: url('wedding_logo_ukr.png');
+      background-image: url("wedding_logo_ukr.png");
     }
+
     .hero::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 52% 58%, rgba(255,255,255,0.16), rgba(255,255,255,0) 34%),
-        linear-gradient(90deg, rgba(8,11,20,0.82) 0%, rgba(8,11,20,0.56) 34%, rgba(8,11,20,0.22) 60%, rgba(8,11,20,0.42) 100%),
-        linear-gradient(180deg, rgba(8,11,20,0.08) 0%, rgba(8,11,20,0.22) 54%, rgba(8,11,20,0.78) 100%);
+        linear-gradient(90deg, rgba(25, 41, 53, 0.54) 0%, rgba(25, 41, 53, 0.23) 42%, rgba(25, 41, 53, 0.14) 100%),
+        linear-gradient(0deg, rgba(23, 38, 50, 0.82) 0%, rgba(23, 38, 50, 0.38) 32%, rgba(23, 38, 50, 0.08) 70%);
     }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      padding: 6rem 2rem 8rem;
-      max-width: 680px;
-      width: 100%;
-    }
-    .hero h1 {
-      margin: 0 0 0.5rem;
-      font-size: clamp(2.25rem, 3.2vw, 3.35rem);
-      line-height: 1.08;
-      letter-spacing: 0;
-    }
-    .hero p {
-      margin: 0;
-      max-width: 590px;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #e6e9ff;
-    }
-    .hero-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #c5d6ff;
-      background: rgba(8,11,20,0.46);
-      padding: 0.45rem 0.85rem 0.45rem 0.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.24);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
-    }
-    .hero-logo {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.94);
-      color: #11182a;
-      display: grid;
-      place-items: center;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
-    }
-    .hero-names {
-      font-weight: 700;
-      letter-spacing: 0.11em;
-      color: #f3f4ff;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
-    }
-    .hero-tagline {
-      margin: 1.5rem 0 0;
-      max-width: 560px;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #d8dfff;
-    }
-    .content {
-      position: relative;
-      z-index: 1;
-      padding: 6rem 1.5rem 3rem;
-      max-width: 940px;
-      margin: 0 auto;
-    }
-    .language-dropdown {
+
+    .masthead {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 2;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.6rem;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 999px;
-      padding: 0.55rem 0.75rem;
-      backdrop-filter: blur(10px);
+      justify-content: flex-end;
+      gap: 1.4rem;
+      padding: 1.35rem clamp(1rem, 4vw, 3.5rem);
     }
+
+    .hero-nav {
+      display: flex;
+      gap: 1.55rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.77rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-nav a {
+      text-decoration: none;
+      color: rgba(255, 248, 235, 0.86);
+    }
+
+    .hero-nav a:hover {
+      color: #fff8eb;
+    }
+
+    .language-dropdown {
+      border: 1px solid rgba(255, 248, 235, 0.54);
+      background: rgba(32, 55, 69, 0.36);
+      padding: 0.65rem 0.9rem;
+      backdrop-filter: blur(8px);
+    }
+
     .language-dropdown label {
       position: absolute;
       width: 1px;
       height: 1px;
-      padding: 0;
-      margin: -1px;
       overflow: hidden;
-      clip: rect(0,0,0,0);
+      clip: rect(0, 0, 0, 0);
       white-space: nowrap;
-      border: 0;
     }
+
     .language-dropdown select {
-      border: none;
-      background: transparent;
-      color: #f5f7ff;
-      font-size: 0.95rem;
-      font-weight: 600;
+      min-width: 104px;
+      color: #fff8eb;
+      border: 0;
       outline: none;
       cursor: pointer;
-      min-width: 120px;
+      background: transparent;
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    .language-dropdown select option {
-      color: #080b14;
+
+    .language-dropdown option {
+      color: var(--ink);
+      background: var(--paper);
     }
-    .card {
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 1.5rem;
-      background: rgba(9,12,22,0.92);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 3rem));
+      margin: 0 auto;
+      padding: clamp(9rem, 24vh, 14rem) 0 clamp(3.2rem, 7vh, 5rem);
     }
-    .card h2 {
-      margin: 0 0 0.85rem;
-      font-size: 1.25rem;
+
+    .hero-panel {
+      max-width: 430px;
+      text-align: center;
     }
-    .card p {
+
+    .kicker {
+      margin: 0 0 1.1rem;
+      color: var(--gold-pale);
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .hero-date {
       margin: 0;
-      line-height: 1.7;
-      color: #ccd2ff;
+      font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
     }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
+
+    .ornament {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 1.15rem auto;
+      color: var(--gold-pale);
     }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 56px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .hero-location {
+      margin: 0 0 2rem;
+      color: rgba(255, 248, 235, 0.94);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      letter-spacing: 0.06em;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
     .button {
       display: inline-flex;
-      align-items: center;
       justify-content: center;
-      padding: 1rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.08);
-      color: white;
+      align-items: center;
+      min-height: 50px;
+      padding: 0.95rem 1.65rem;
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      background: var(--paper);
       text-decoration: none;
-      font-weight: 600;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      font-family: Arial, sans-serif;
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 180ms ease, transform 180ms ease, color 180ms ease;
     }
+
     .button:hover {
       transform: translateY(-2px);
-      background: rgba(255,255,255,0.14);
-      border-color: rgba(255,255,255,0.3);
+      background: #fff9ed;
     }
-    .note {
-      margin-top: 2rem;
-      padding: 1.25rem 1.5rem;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #c7d0ff;
+
+    .button-ghost {
+      color: #fff8eb;
+      background: rgba(32, 55, 69, 0.24);
+      border-color: rgba(255, 248, 235, 0.7);
     }
-    .location-section {
+
+    .button-ghost:hover {
+      background: rgba(32, 55, 69, 0.5);
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .section {
+      width: min(1120px, calc(100% - 3rem));
+      margin: 0 auto;
+      padding: clamp(4.3rem, 8vw, 6.4rem) 0;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin: 0 auto 2.7rem;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2.1rem, 4.4vw, 3.35rem);
+      font-weight: 400;
+      line-height: 1.16;
+      color: var(--blue-deep);
+    }
+
+    .section-heading p {
+      margin: 1.1rem auto 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    .invitation {
       position: relative;
+      max-width: 790px;
+      margin-top: clamp(3.2rem, 6vw, 5rem);
+      margin-bottom: clamp(3.2rem, 6vw, 5rem);
+      padding: clamp(3.2rem, 7vw, 5rem) clamp(1.55rem, 8vw, 6.2rem);
+      border: 1px solid var(--border);
+      background: rgba(255, 251, 242, 0.65);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .invitation::before,
+    .invitation::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(181, 146, 87, 0.35);
+      pointer-events: none;
+    }
+
+    .invitation h2 {
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 3.35rem);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--blue-deep);
+    }
+
+    .invitation-copy {
+      position: relative;
+      margin: 1.35rem auto 0;
+      max-width: 590px;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.9;
+      white-space: pre-line;
+    }
+
+    .location-grid {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
-      gap: 1.5rem;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: clamp(2rem, 5vw, 4.3rem);
       align-items: center;
-      margin-top: 2rem;
     }
-    .location-copy {
-      padding: 0.5rem 0;
+
+    .location-copy h2,
+    .stay-copy h2,
+    .rsvp-copy h2 {
+      margin: 0;
+      color: var(--blue-deep);
+      font-size: clamp(2.1rem, 4vw, 3.05rem);
+      font-weight: 400;
+      line-height: 1.18;
     }
-    .section-kicker {
-      margin: 0 0 0.65rem;
+
+    .location-copy p:not(.kicker),
+    .stay-copy p:not(.kicker),
+    .rsvp-copy p:not(.kicker) {
+      margin: 1.25rem 0 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.85;
+    }
+
+    .detail-line {
+      margin-top: 1.65rem;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(181, 146, 87, 0.42);
+      border-bottom: 1px solid rgba(181, 146, 87, 0.42);
+      color: var(--blue);
+      font-family: Arial, sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.17em;
+      line-height: 1.7;
       text-transform: uppercase;
-      color: #9fb3ff;
     }
-    .location-copy h2 {
-      margin: 0 0 0.85rem;
-      font-size: clamp(1.55rem, 3vw, 2.35rem);
-      line-height: 1.1;
-    }
-    .location-copy p {
-      margin: 0;
-      color: #d7ddff;
-      line-height: 1.75;
-    }
-    .date-pill {
-      display: inline-flex;
-      align-items: center;
-      max-width: 100%;
-      margin-top: 1.1rem;
-      padding: 0.75rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.07);
-      color: #f5f7ff;
-      font-weight: 700;
-      line-height: 1.35;
-    }
+
     .map-frame {
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+      margin: 0;
+      padding: 0.65rem;
+      border: 1px solid rgba(181, 146, 87, 0.42);
+      background: rgba(255, 251, 242, 0.72);
+      box-shadow: var(--shadow);
     }
+
     .map-frame img {
       display: block;
       width: 100%;
       height: auto;
     }
-    @media (max-width: 640px) {
-      body {
-        background: #080b14;
-      }
-      .hero {
-        min-height: 86svh;
-        background-color: #080b14;
-        background-image: url('wedding_logo_mobile.png');
-        background-size: 100% auto;
-        background-position: center 5.75rem;
-        background-repeat: no-repeat;
-        align-items: flex-end;
-        margin-bottom: -2rem;
-      }
-      html[lang="uk"] .hero {
-        background-image: url('wedding_logo_ukr_mobile.png');
-      }
-      .hero::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: calc(5.75rem + 23vw);
-        height: 12rem;
-        background: linear-gradient(
-          180deg,
-          rgba(8,11,20,0) 0%,
-          rgba(8,11,20,0.5) 38%,
-          rgba(8,11,20,0.92) 76%,
-          #080b14 100%
-        );
-      }
-      .hero::before {
-        background:
-          radial-gradient(ellipse at 50% 38%, rgba(255,255,255,0.12), rgba(255,255,255,0) 40%),
-          linear-gradient(180deg, rgba(8,11,20,0.08) 0%, rgba(8,11,20,0.1) 42%, rgba(8,11,20,0.2) 58%, #080b14 100%),
-          linear-gradient(90deg, rgba(8,11,20,0.46), rgba(8,11,20,0.14) 45%, rgba(8,11,20,0.34));
-      }
-      .hero-content {
-        padding: 0 1.15rem 4.35rem;
-        max-width: 100%;
-      }
-      .hero-brand {
+
+    html[lang="uk"] .location-grid {
+      display: block;
+      max-width: 770px;
+    }
+
+    html[lang="uk"] .location-copy {
+      text-align: center;
+    }
+
+    html[lang="uk"] .map-frame {
+      display: none;
+    }
+
+    html[lang="uk"] .attire-section,
+    html[lang="uk"] #nav-attire {
+      display: none;
+    }
+
+    .blue-section {
+      background: var(--blue);
+      color: #fff8eb;
+    }
+
+    .blue-section .section-heading h2,
+    .blue-section .kicker {
+      color: #fff3df;
+    }
+
+    .blue-section .section-heading p {
+      color: rgba(255, 248, 235, 0.82);
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 2rem;
+      height: 1px;
+      background: rgba(215, 190, 140, 0.48);
+    }
+
+    .event {
+      position: relative;
+      z-index: 1;
+      padding: 0 1.25rem 1rem;
+      text-align: center;
+    }
+
+    .event-marker {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      margin: 0 auto 1.65rem;
+      border: 1px solid var(--gold-pale);
+      border-radius: 50%;
+      color: var(--gold-pale);
+      background: var(--blue);
+      font-size: 1.35rem;
+    }
+
+    .event h3 {
+      margin: 0 0 0.75rem;
+      color: #fff8eb;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+
+    .event .day {
+      margin: 0 0 0.65rem;
+      color: var(--gold-pale);
+      font-family: Arial, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.21em;
+      text-transform: uppercase;
+    }
+
+    .event p:last-child {
+      margin: 0;
+      color: rgba(255, 248, 235, 0.8);
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .stay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5.5rem);
+      align-items: start;
+    }
+
+    .stay-details {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .stay-card {
+      padding: 1.45rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 251, 242, 0.64);
+    }
+
+    .stay-card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--blue-deep);
+      font-size: 1.45rem;
+      font-weight: 400;
+    }
+
+    .stay-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .attire-section {
+      background: var(--blue-wash);
+    }
+
+    .attire-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(2rem, 6vw, 5.5rem);
+      align-items: center;
+    }
+
+    .attire-copy h2 {
+      margin: 0;
+      color: var(--blue-deep);
+      font-size: clamp(2.1rem, 4vw, 3.05rem);
+      font-weight: 400;
+      line-height: 1.18;
+    }
+
+    .attire-copy p:not(.kicker) {
+      margin: 1.25rem 0 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.85;
+    }
+
+    .attire-options {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .attire-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .attire-photo {
+      margin: 0;
+      padding: 0.45rem;
+      border: 1px solid rgba(181, 146, 87, 0.44);
+      background: rgba(255, 251, 242, 0.72);
+      box-shadow: 0 12px 32px rgba(38, 48, 50, 0.11);
+    }
+
+    .attire-photo img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .attire-card {
+      padding: clamp(1.3rem, 4vw, 1.8rem);
+      border: 1px solid rgba(181, 146, 87, 0.42);
+      background: rgba(255, 251, 242, 0.76);
+    }
+
+    .attire-card h3 {
+      margin: 0 0 0.65rem;
+      color: var(--blue-deep);
+      font-size: 1.55rem;
+      font-weight: 400;
+    }
+
+    .attire-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .rsvp {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) 1fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: center;
+      margin-bottom: clamp(3.5rem, 8vw, 6rem);
+      padding: clamp(2rem, 6vw, 4.5rem);
+      border: 1px solid rgba(181, 146, 87, 0.5);
+      background: #fffaf0;
+      box-shadow: var(--shadow);
+      scroll-margin-top: 1.5rem;
+    }
+
+    .rsvp::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(181, 146, 87, 0.22);
+      pointer-events: none;
+    }
+
+    .rsvp-copy,
+    .rsvp-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .rsvp-actions {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .form-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      min-height: 64px;
+      padding: 1rem 1.2rem;
+      color: var(--paper);
+      background: var(--blue);
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .form-link span:first-child {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .form-link span:last-child {
+      color: var(--gold-pale);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+    }
+
+    .form-link:hover {
+      transform: translateX(3px);
+      background: var(--blue-deep);
+    }
+
+    .rsvp-note {
+      margin: 1rem 0 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    footer {
+      padding: 0 1.5rem 3.2rem;
+      text-align: center;
+      color: var(--blue);
+    }
+
+    .footer-names {
+      margin: 0;
+      font-size: clamp(1.65rem, 3vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-detail {
+      margin: 0.9rem 0 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 880px) {
+      .hero-nav {
         display: none;
       }
-      .hero h1 {
-        max-width: 18ch;
-        font-size: clamp(1.85rem, 8.8vw, 2.45rem);
-        line-height: 1.08;
-      }
-      .hero p {
-        max-width: 32rem;
-        font-size: 0.98rem;
-        line-height: 1.6;
-      }
-      .hero-tagline {
-        margin-top: 1rem;
-        font-size: 0.95rem;
-        line-height: 1.55;
-      }
-      .content {
-        background: #080b14;
-        padding: 4rem 1rem 2.5rem;
-      }
-      .card {
-        border-radius: 18px;
-        padding: 1.25rem;
-      }
-      .location-section {
+
+      .location-grid,
+      .stay-grid,
+      .attire-grid,
+      .rsvp {
         grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 1.5rem;
       }
+
       .location-copy {
-        padding: 0;
+        max-width: 620px;
+        text-align: center;
+        margin: 0 auto;
       }
-      .location-copy h2 {
-        font-size: 1.55rem;
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        min-height: 0;
+        padding-top: clamp(10.5rem, 49vw, 13.25rem);
+        background-color: var(--blue-deep);
+        background-image: url("wedding_logo_mobile.png");
+        background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
       }
-      .map-frame {
-        border-radius: 16px;
+
+      html[lang="uk"] .hero {
+        background-image: url("wedding_logo_ukr_mobile.png");
       }
-      .buttons {
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, transparent 0%, transparent clamp(7.75rem, 37vw, 10rem), rgba(23, 38, 50, 0.5) clamp(10rem, 44vw, 12rem), var(--blue-deep) clamp(12rem, 54vw, 14.5rem)),
+          linear-gradient(0deg, rgba(23, 38, 50, 0.12), rgba(23, 38, 50, 0.12));
+      }
+
+      .masthead {
+        padding: 1rem;
+      }
+
+      .hero-content {
+        width: calc(100% - 2rem);
+        padding: clamp(1rem, 4vw, 1.35rem) 0 2rem;
+      }
+
+      .hero-panel {
+        margin: 0 auto;
+      }
+
+      .hero-date {
+        font-size: clamp(2.15rem, 10vw, 2.7rem);
+      }
+
+      .hero-location {
+        margin-bottom: 1.45rem;
+      }
+
+      .button {
+        flex: 1 1 142px;
+      }
+
+      .section {
+        width: min(100% - 2rem, 1120px);
+        padding: 3.75rem 0;
+      }
+
+      .invitation {
+        width: min(100% - 2rem, 790px);
+        padding: 3.2rem 1.45rem;
+      }
+
+      .timeline {
         grid-template-columns: 1fr;
+        gap: 1.4rem;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .event {
+        padding-bottom: 0.5rem;
+      }
+
+      .event-marker {
+        margin-bottom: 1.1rem;
+      }
+
+      .rsvp {
+        width: min(100% - 2rem, 1120px);
+        padding: 2.5rem 1.35rem;
       }
     }
   </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="language-dropdown">
-      <label for="lang-select">Language</label>
-      <select id="lang-select" aria-label="Select language">
-        <option value="en">English</option>
-        <option value="it">Italiano</option>
-        <option value="uk">Українська</option>
-      </select>
+  <header class="hero">
+    <div class="masthead">
+      <nav class="hero-nav" aria-label="Main navigation">
+        <a href="#invitation" id="nav-invitation">Invitation</a>
+        <a href="#location" id="nav-location">Location</a>
+        <a href="#weekend" id="nav-weekend">Weekend</a>
+        <a href="#attire" id="nav-attire">Attire</a>
+        <a href="#rsvp" id="nav-rsvp">RSVP</a>
+      </nav>
+      <div class="language-dropdown">
+        <label for="lang-select">Language</label>
+        <select id="lang-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="it">Italiano</option>
+          <option value="uk">Українська</option>
+        </select>
+      </div>
     </div>
     <div class="hero-content">
-      <div class="hero-brand">
-        <span class="hero-logo" aria-hidden="true">A&amp;F</span>
-        <span class="hero-names">Antonina & Filippo</span>
+      <div class="hero-panel">
+        <p class="kicker" id="hero-kicker">Wedding celebration</p>
+        <p class="hero-date" id="hero-date">14 - 16 May 2027</p>
+        <div class="ornament" aria-hidden="true">&#9825;</div>
+        <p class="hero-location" id="hero-location">The Carpathians, Ukraine</p>
+        <div class="actions">
+          <a class="button" href="#rsvp" id="hero-rsvp">RSVP</a>
+          <a class="button button-ghost" href="#location" id="hero-details">View details</a>
+        </div>
       </div>
-      <h1 id="hero-title">We would love to invite you to the Carpathians in Ukraine</h1>
-      <p id="hero-copy">We are considering celebrating our wedding in the Carpathian region of western Ukraine.</p>
-      <p id="hero-tagline">For now, we are trying to understand whether this would feel possible for our guests. Your honest answer will help us decide how to move forward.</p>
     </div>
-  </section>
+  </header>
 
-  <main class="content">
-    <div class="card">
-      <h2 id="card-title">Choose your language</h2>
-      <p id="card-copy">Select the language you prefer, then complete the short travel survey.</p>
-      <div class="buttons">
-        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeK-8ijuJYvyJ4XegUd1DM499J2t3gX1UmUf3slZou9TCY9Jw/viewform" target="_blank" rel="noreferrer noopener">English</a>
-        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeVX8sNi0z-utxOXNyfxz7q8KSn8Y36pXYl9_UVvyxf933OOw/viewform" target="_blank" rel="noreferrer noopener">Italiano</a>
-        <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSdXJOL94fnYxM63rhxxQVMJNXn6afLzdYNgjyeEj0IaKB3fAw/viewform" target="_blank" rel="noreferrer noopener">Українська</a>
-      </div>
-    </div>
-    <section class="location-section" aria-labelledby="location-title">
+  <main class="page">
+    <section class="section invitation" id="invitation" aria-labelledby="invitation-title">
+      <p class="kicker" id="invitation-kicker">You are invited</p>
+      <h2 id="invitation-title">To the Carpathians for Our Wedding</h2>
+      <div class="ornament" aria-hidden="true">&#9825;</div>
+      <p class="invitation-copy" id="invitation-copy">We’re happy to invite you to celebrate our wedding with us
+in the heart of the Carpathian Mountains.
+
+From May 14 to 16, 2027,
+we’ll spend a weekend together surrounded by nature,
+fresh mountain air, good food, music, and great company.
+
+We would love for you to be part of these special days
+and create unforgettable memories together.
+
+Looking forward to celebrating with you.</p>
+    </section>
+
+    <section class="section location-grid" id="location" aria-labelledby="location-title">
       <div class="location-copy">
-        <p class="section-kicker" id="location-kicker">Planned location</p>
-        <h2 id="location-title">A meaningful mountain region in western Ukraine</h2>
-        <p id="location-copy">This is a beautiful mountain area, far from the eastern frontline, and it is deeply meaningful to us because of Antonina's Ukrainian roots. If we move forward, safety will be our first priority: we will choose the location carefully, plan the travel route through neighbouring European countries, share practical guidance, and monitor the situation closely before confirming anything. Accommodation would be provided for the day before the wedding and the night after the wedding at or near the venue.</p>
-        <span class="date-pill" id="location-date">Tentative dates: 14/15/16 May 2027</span>
+        <p class="kicker" id="location-kicker">The location</p>
+        <h2 id="location-title">A beautiful mountain region in western Ukraine</h2>
+        <p id="location-copy">We are considering the Carpathians as the setting for our celebration: a beautiful part of Antonina's home country. We are working with a local agency to select the venue, with guest comfort, travel arrangements, and safety guiding every decision.</p>
+        <p class="detail-line" id="location-detail">Exact venue to follow once guest numbers are confirmed</p>
       </div>
       <figure class="map-frame">
-        <img src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region">
+        <img id="map-image" src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region in western Ukraine">
       </figure>
     </section>
-    <div class="note" id="page-note">
-      <strong>About this survey:</strong> it is only for planning. Your honest answer will help us decide whether the Ukraine celebration feels realistic for our guests.
-    </div>
+
+    <section class="blue-section" id="weekend" aria-labelledby="weekend-title">
+      <div class="section">
+        <div class="section-heading">
+          <p class="kicker" id="weekend-kicker">Wedding weekend</p>
+          <h2 id="weekend-title">Three days together in the mountains</h2>
+          <p id="weekend-copy">Our anticipated schedule, to be finalised alongside the venue and travel arrangements.</p>
+        </div>
+        <div class="timeline">
+          <article class="event">
+            <div class="event-marker" aria-hidden="true">I</div>
+            <p class="day" id="friday-date">Friday, 14 May</p>
+            <h3 id="friday-title">Arrival</h3>
+            <p id="friday-copy">Guest arrivals and a relaxed welcome gathering.</p>
+          </article>
+          <article class="event">
+            <div class="event-marker" aria-hidden="true">II</div>
+            <p class="day" id="saturday-date">Saturday, 15 May</p>
+            <h3 id="saturday-title">Celebration</h3>
+            <p id="saturday-copy">Our wedding ceremony and celebration together.</p>
+          </article>
+          <article class="event">
+            <div class="event-marker" aria-hidden="true">III</div>
+            <p class="day" id="sunday-date">Sunday, 16 May</p>
+            <h3 id="sunday-title">Farewell</h3>
+            <p id="sunday-copy">A morning together before departures.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stay-grid" aria-labelledby="stay-title">
+      <div class="stay-copy">
+        <p class="kicker" id="stay-kicker">Travel &amp; stay</p>
+        <h2 id="stay-title">We will help make the journey clear and comfortable</h2>
+        <p id="stay-copy">Once the venue is selected, we will share practical travel guidance and coordinate the details guests need for the weekend.</p>
+      </div>
+      <div class="stay-details">
+        <article class="stay-card">
+          <h3 id="accommodation-title">Accommodation</h3>
+          <p id="accommodation-copy">Accommodation is planned for the night before the wedding and the night after, at or near the venue.</p>
+        </article>
+        <article class="stay-card">
+          <h3 id="journey-title">Journey</h3>
+          <p id="journey-copy">We will provide travel recommendations through neighbouring European countries and keep plans under careful review.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="attire-section" id="attire" aria-labelledby="attire-title">
+      <div class="section attire-grid">
+        <div class="attire-copy">
+          <p class="kicker" id="attire-kicker">Wedding attire</p>
+          <h2 id="attire-title">A touch of Ukrainian tradition, if you wish</h2>
+          <p id="attire-copy">We would love to celebrate the setting and Antonina's roots with touches of Ukrainian tradition. There is no required dress code beyond dressing as you would for a wedding celebration.</p>
+        </div>
+        <div class="attire-options">
+          <div class="attire-gallery">
+            <figure class="attire-photo">
+              <img id="vyshyvanka-woman-image" src="vyshyvanka_guest_woman.png" alt="Woman guest wearing a traditional embroidered Ukrainian vyshyvanka">
+            </figure>
+            <figure class="attire-photo">
+              <img id="vyshyvanka-man-image" src="vyshyvanka_guest_man.png" alt="Man guest wearing a traditional embroidered Ukrainian vyshyvanka">
+            </figure>
+          </div>
+          <article class="attire-card">
+            <h3 id="vyshyvanka-title">Vyshyvanka</h3>
+            <p id="vyshyvanka-copy">Guests who would enjoy wearing traditional Ukrainian embroidered clothing will have the option to rent a vyshyvanka. We will share details and sizing once plans are confirmed.</p>
+          </article>
+          <article class="attire-card">
+            <h3 id="classic-attire-title">Wedding guest attire</h3>
+            <p id="classic-attire-copy">A typical elegant wedding outfit is equally welcome. Please choose whatever makes you feel comfortable celebrating with us.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rsvp" id="rsvp" aria-labelledby="rsvp-title">
+      <div class="rsvp-copy">
+        <p class="kicker" id="rsvp-kicker">RSVP</p>
+        <h2 id="rsvp-title">Will you join us?</h2>
+        <p id="rsvp-copy">We are working with a local agency to reserve a venue suited to our guests. Please reply now so that we can plan the right space and accommodation.</p>
+      </div>
+      <div class="rsvp-actions">
+        <a class="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdOjGkxHLXPHTX05wNdSwn0bUNT0sM8kNEs5z23mHmhCMSBOA/viewform" target="_blank" rel="noreferrer noopener">
+          <span>English</span><span aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfdae6KRJ-mCJ6dUCLnTucMt7L6HQ8--tCqPnehmKAjoEwVmQ/viewform" target="_blank" rel="noreferrer noopener">
+          <span>Italiano</span><span aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLScea4Uc_oSjKerXhmDJxS5mc-2iDNC03oj4ckPbasEqaS1now/viewform" target="_blank" rel="noreferrer noopener">
+          <span>Українська</span><span aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="rsvp-note" id="rsvp-note">The exact venue and final practical details will follow once arrangements are confirmed.</p>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <p class="footer-names" id="footer-names">Antonina &amp; Filippo</p>
+    <div class="ornament" aria-hidden="true">&#9825;</div>
+    <p class="footer-detail" id="footer-detail">14 - 16 May 2027 &middot; The Carpathians, Ukraine</p>
+  </footer>
 
   <script>
     const translations = {
       en: {
-        lang: 'en',
-        title: 'Wedding travel survey',
-        heroTitle: 'We would love to invite you to the Carpathians in Ukraine',
-        heroCopy: 'We are considering celebrating our wedding in the Carpathian region of western Ukraine.',
-        heroTagline: 'For now, we are trying to understand whether this would feel possible for our guests. Your honest answer will help us decide how to move forward.',
-        cardTitle: 'Choose your language',
-        cardCopy: 'Select the language you prefer, then complete the short travel survey.',
-        locationKicker: 'Planned location',
-        locationTitle: 'A meaningful mountain region in western Ukraine',
-        locationCopy: "This is a beautiful mountain area, far from the eastern frontline, and it is deeply meaningful to us because of Antonina's Ukrainian roots. If we move forward, safety will be our first priority: we will choose the location carefully, plan the travel route through neighbouring European countries, share practical guidance, and monitor the situation closely before confirming anything. Accommodation would be provided for the day before the wedding and the night after the wedding at or near the venue.",
-        locationDate: 'Tentative dates: 14/15/16 May 2027',
-        note: 'About this survey: it is only for planning. Your honest answer will help us decide whether the Ukraine celebration feels realistic for our guests.',
+        lang: "en",
+        title: "Antonina & Filippo | Wedding celebration",
+        navInvitation: "Invitation",
+        navLocation: "Location",
+        navWeekend: "Weekend",
+        navAttire: "Attire",
+        navRsvp: "RSVP",
+        heroKicker: "Wedding celebration",
+        heroDate: "14 - 16 May 2027",
+        heroLocation: "The Carpathians, Ukraine",
+        heroRsvp: "RSVP",
+        heroDetails: "View details",
+        invitationKicker: "You are invited",
+        invitationTitle: "To the Carpathians for Our Wedding",
+        invitationCopy: "We’re happy to invite you to celebrate our wedding with us\nin the heart of the Carpathian Mountains.\n\nFrom May 14 to 16, 2027,\nwe’ll spend a weekend together surrounded by nature,\nfresh mountain air, good food, music, and great company.\n\nWe would love for you to be part of these special days\nand create unforgettable memories together.\n\nLooking forward to celebrating with you.",
+        locationKicker: "The location",
+        locationTitle: "A beautiful mountain region in western Ukraine",
+        locationCopy: "We are considering the Carpathians as the setting for our celebration: a beautiful part of Antonina's home country. We are working with a local agency to select the venue, with guest comfort, travel arrangements, and safety guiding every decision.",
+        locationDetail: "Exact venue to follow once guest numbers are confirmed",
+        mapAlt: "Map showing the planned Carpathian wedding region in western Ukraine",
+        weekendKicker: "Wedding weekend",
+        weekendTitle: "Three days together in the mountains",
+        weekendCopy: "Our anticipated schedule, to be finalised alongside the venue and travel arrangements.",
+        fridayDate: "Friday, 14 May",
+        fridayTitle: "Arrival",
+        fridayCopy: "Guest arrivals and a relaxed welcome gathering.",
+        saturdayDate: "Saturday, 15 May",
+        saturdayTitle: "Celebration",
+        saturdayCopy: "Our wedding ceremony and celebration together.",
+        sundayDate: "Sunday, 16 May",
+        sundayTitle: "Farewell",
+        sundayCopy: "A morning together before departures.",
+        stayKicker: "Travel & stay",
+        stayTitle: "We will help make the journey clear and comfortable",
+        stayCopy: "Once the venue is selected, we will share practical travel guidance and coordinate the details guests need for the weekend.",
+        accommodationTitle: "Accommodation",
+        accommodationCopy: "Accommodation is planned for the night before the wedding and the night after, at or near the venue.",
+        journeyTitle: "Journey",
+        journeyCopy: "We will provide travel recommendations through neighbouring European countries and keep plans under careful review.",
+        attireKicker: "Wedding attire",
+        attireTitle: "A touch of Ukrainian tradition, if you wish",
+        attireCopy: "We would love to celebrate the setting and Antonina's roots with touches of Ukrainian tradition. There is no required dress code beyond dressing as you would for a wedding celebration.",
+        vyshyvankaTitle: "Vyshyvanka",
+        vyshyvankaCopy: "Guests who would enjoy wearing traditional Ukrainian embroidered clothing will have the option to rent a vyshyvanka. We will share details and sizing once plans are confirmed.",
+        vyshyvankaWomanAlt: "Woman guest wearing a traditional embroidered Ukrainian vyshyvanka",
+        vyshyvankaManAlt: "Man guest wearing a traditional embroidered Ukrainian vyshyvanka",
+        classicAttireTitle: "Wedding guest attire",
+        classicAttireCopy: "A typical elegant wedding outfit is equally welcome. Please choose whatever makes you feel comfortable celebrating with us.",
+        rsvpKicker: "RSVP",
+        rsvpTitle: "Will you join us?",
+        rsvpCopy: "We are working with a local agency to reserve a venue suited to our guests. Please reply now so that we can plan the right space and accommodation.",
+        rsvpNote: "The exact venue and final practical details will follow once arrangements are confirmed.",
+        footerNames: "Antonina & Filippo",
+        footerDetail: "14 - 16 May 2027 · The Carpathians, Ukraine"
       },
       it: {
-        lang: 'it',
-        title: 'Sondaggio di viaggio',
-        heroTitle: 'Ci piacerebbe festeggiare con voi nei Carpazi, in Ucraina',
-        heroCopy: "Stiamo pensando di celebrare il nostro matrimonio nella regione dei Carpazi, nell'Ucraina occidentale.",
-        heroTagline: 'Per ora vorremmo solo capire se per voi sarebbe possibile esserci. Rispondete con la massima sincerità: ci aiuterà a decidere come procedere.',
-        cardTitle: 'Scegli la lingua',
-        cardCopy: 'Scegli la lingua che preferisci e compila il breve sondaggio.',
-        locationKicker: 'Luogo previsto',
-        locationTitle: "Un luogo speciale tra le montagne dell'Ucraina occidentale",
-        locationCopy: "È una zona di montagna bellissima, lontana dal fronte orientale, e per noi ha un valore speciale per le radici ucraine di Antonina. Se decideremo di andare avanti, la sicurezza verrà prima di tutto: sceglieremo il posto con molta attenzione, organizzeremo il viaggio passando dai paesi europei vicini, condivideremo tutte le informazioni utili e continueremo a seguire da vicino la situazione prima di confermare qualsiasi cosa. L’alloggio sarebbe previsto per la notte prima del matrimonio e per quella successiva, nella struttura del matrimonio o nelle immediate vicinanze.",
-        locationDate: 'Date provvisorie: 14/15/16 maggio 2027',
-        note: 'Informazioni: per ora stiamo solo cercando di orientarci. Una risposta sincera ci aiuterà a capire se un matrimonio in Ucraina può davvero funzionare per i nostri ospiti.',
+        lang: "it",
+        title: "Antonina & Filippo | Il nostro matrimonio",
+        navInvitation: "Invito",
+        navLocation: "Luogo",
+        navWeekend: "Programma",
+        navAttire: "Abbigliamento",
+        navRsvp: "Conferma",
+        heroKicker: "Il nostro matrimonio",
+        heroDate: "14 - 16 maggio 2027",
+        heroLocation: "I Carpazi, Ucraina",
+        heroRsvp: "Conferma presenza",
+        heroDetails: "Scopri i dettagli",
+        invitationKicker: "Siete invitati",
+        invitationTitle: "Nei Carpazi per il Nostro Matrimonio",
+        invitationCopy: "Siamo felici di invitarvi a festeggiare il nostro matrimonio\nnel cuore dei Carpazi.\n\nDal 14 al 16 maggio 2027,\ntrascorreremo un weekend insieme tra natura,\naria di montagna, buon cibo, musica e bella compagnia.\n\nCi farebbe davvero piacere condividere con voi\nquesti giorni speciali e creare insieme ricordi indimenticabili.\n\nNon vediamo l’ora di festeggiare insieme a voi.",
+        locationKicker: "Il luogo",
+        locationTitle: "Tra le montagne dell'Ucraina occidentale",
+        locationCopy: "Stiamo valutando i Carpazi come cornice per la nostra festa: una bellissima regione del Paese in cui Antonina è nata. Insieme a un'agenzia locale stiamo individuando la struttura più adatta, tenendo conto del numero degli invitati, della logistica e della sicurezza.",
+        locationDetail: "La struttura verrà comunicata non appena avremo confermato il numero degli ospiti",
+        mapAlt: "Mappa dei Carpazi, nell'Ucraina occidentale, dove si svolgerà il matrimonio",
+        weekendKicker: "Il fine settimana",
+        weekendTitle: "Tre giorni insieme in montagna",
+        weekendCopy: "Questo è il programma che abbiamo in mente; gli orari e i dettagli verranno confermati una volta scelta la struttura.",
+        fridayDate: "Venerdì 14 maggio",
+        fridayTitle: "Arrivo",
+        fridayCopy: "Arrivo degli ospiti e un momento informale per darvi il benvenuto.",
+        saturdayDate: "Sabato 15 maggio",
+        saturdayTitle: "Matrimonio",
+        saturdayCopy: "La cerimonia e la festa per celebrare insieme.",
+        sundayDate: "Domenica 16 maggio",
+        sundayTitle: "Saluti",
+        sundayCopy: "Un ultimo momento insieme prima delle partenze.",
+        stayKicker: "Viaggio e soggiorno",
+        stayTitle: "Vi accompagneremo nell'organizzazione del viaggio",
+        stayCopy: "Una volta definita la struttura, vi invieremo tutte le informazioni utili per raggiungerci e per organizzare il soggiorno con tranquillità.",
+        accommodationTitle: "Alloggio",
+        accommodationCopy: "Prevediamo l'alloggio per la notte prima del matrimonio e per quella successiva, presso la struttura o nelle immediate vicinanze.",
+        journeyTitle: "Come arrivare",
+        journeyCopy: "Vi indicheremo le soluzioni di viaggio più pratiche passando dai Paesi europei confinanti e vi terremo aggiornati su ogni aspetto organizzativo.",
+        attireKicker: "Abbigliamento",
+        attireTitle: "Un richiamo alla tradizione ucraina, per chi lo desidera",
+        attireCopy: "Ci piacerebbe rendere omaggio al luogo e alle radici ucraine di Antonina anche attraverso qualche elemento della tradizione. Non c'è però alcun obbligo: l'importante è che vi sentiate a vostro agio.",
+        vyshyvankaTitle: "Vyshyvanka",
+        vyshyvankaCopy: "Chi lo desidera potrà noleggiare una vyshyvanka, la tradizionale camicia ricamata ucraina, da indossare durante la festa. Vi daremo informazioni su modelli e taglie quando l'organizzazione sarà definita.",
+        vyshyvankaWomanAlt: "Invitata con una tradizionale camicia ricamata ucraina, la vyshyvanka",
+        vyshyvankaManAlt: "Invitato con una tradizionale camicia ricamata ucraina, la vyshyvanka",
+        classicAttireTitle: "Abito da invitato",
+        classicAttireCopy: "Un normale abito elegante da matrimonio sarà naturalmente perfetto. Scegliete liberamente il modo in cui preferite festeggiare con noi.",
+        rsvpKicker: "Conferma presenza",
+        rsvpTitle: "Potrete essere con noi?",
+        rsvpCopy: "Stiamo scegliendo con l'agenzia locale una struttura adeguata al numero dei nostri ospiti. Per questo vi chiediamo di indicarci fin da ora se pensate di partecipare: la vostra risposta ci aiuterà a prenotare gli spazi e gli alloggi necessari.",
+        rsvpNote: "Comunicheremo la struttura e tutti i dettagli definitivi non appena l'organizzazione sarà confermata.",
+        footerNames: "Antonina & Filippo",
+        footerDetail: "14 - 16 maggio 2027 · I Carpazi, Ucraina"
       },
       uk: {
-        lang: 'uk',
-        title: 'Попереднє оголошення про весілля',
-        heroTitle: 'Плануємо святкування весілля в Карпатах',
-        heroCopy: 'Ми дуже хочемо зібрати рідних і друзів в Україні та зараз розглядаємо святкування в Карпатах.',
-        heroTagline: 'Поки що це попереднє оголошення: точне місце, час і всі організаційні деталі ми повідомимо ближче до дати.',
-        cardTitle: 'Оберіть мову',
-        cardCopy: 'Оберіть зручну для вас мову й заповніть коротку форму.',
-        locationKicker: 'Плановане місце',
-        locationTitle: 'Карпати, 14/15/16 травня 2027',
-        locationCopy: 'Орієнтовно ми плануємо святкування на другі вихідні травня 2027 року. Проживання буде передбачене на ніч перед весіллям і на ніч після нього — у місці святкування або зовсім поруч. Ближче до дати ми поділимося детальною програмою, адресою, часом, варіантами доїзду та всією практичною інформацією.',
-        locationDate: 'Орієнтовні дати: 14/15/16 травня 2027',
-        note: 'Про форму: зараз ми лише на етапі планування. Ваша відповідь допоможе нам зрозуміти, хто орієнтовно зможе бути з нами в ці дні.',
-      },
+        lang: "uk",
+        title: "Антоніна та Філіппо | Весільне святкування",
+        navInvitation: "Запрошення",
+        navLocation: "Локація",
+        navWeekend: "Програма",
+        navAttire: "Одяг",
+        navRsvp: "Участь",
+        heroKicker: "Весільне святкування",
+        heroDate: "14 - 16 травня 2027",
+        heroLocation: "Карпати",
+        heroRsvp: "Підтвердити участь",
+        heroDetails: "Детальніше",
+        invitationKicker: "Вас запрошено",
+        invitationTitle: "До Карпат на весілля",
+        invitationCopy: "Просили вас тато,\nпросили вас мати,\nпросимо і ми вас\nна наше весілля завітати.\n\n14–16 травня 2027 року\nсеред карпатських гір\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nпочаток нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nвихідні у Карпатах.\n\nБудемо дуже раді розділити ці моменти разом із вами!",
+        locationKicker: "Локація",
+        locationTitle: "Весілля в Карпатах",
+        locationCopy: "Зараз ми разом з агенцією обираємо локацію, яка найкраще підійде для нашого святкування та кількості гостей. Точне місце повідомимо, щойно завершимо бронювання.",
+        locationDetail: "Точну локацію повідомимо після підтвердження кількості гостей",
+        mapAlt: "",
+        weekendKicker: "Програма святкування",
+        weekendTitle: "Три дні разом",
+        weekendCopy: "Нижче - попередній план вихідних. Детальну програму надішлемо після підтвердження локації.",
+        fridayDate: "П'ятниця, 14 травня",
+        fridayTitle: "Приїзд",
+        fridayCopy: "Заїзд гостей і тепла зустріч увечері.",
+        saturdayDate: "Субота, 15 травня",
+        saturdayTitle: "Весілля",
+        saturdayCopy: "Церемонія та святкування разом із вами.",
+        sundayDate: "Неділя, 16 травня",
+        sundayTitle: "Від'їзд",
+        sundayCopy: "Спільний ранок і від'їзд гостей.",
+        stayKicker: "Організаційні деталі",
+        stayTitle: "Подбаємо про ваше перебування",
+        stayCopy: "Після підтвердження локації ми надішлемо адресу, детальну програму, інформацію про заїзд і все необхідне для зручного планування.",
+        accommodationTitle: "Проживання",
+        accommodationCopy: "Ми плануємо організувати проживання на ніч перед весіллям і на ніч після нього - на території комплексу або поруч.",
+        journeyTitle: "Деталі",
+        journeyCopy: "Коли локацію буде заброньовано, ми окремо повідомимо про час заїзду, формат святкування та інші практичні моменти.",
+        attireKicker: "Святкове вбрання",
+        attireTitle: "Українська традиція - за вашим бажанням",
+        attireCopy: "Нам буде особливо приємно, якщо у святкуванні прозвучать українські мотиви. Водночас жодного обов'язкового дрес-коду немає - обирайте святкове вбрання, у якому вам буде комфортно.",
+        vyshyvankaTitle: "Вишиванка",
+        vyshyvankaCopy: "Для гостей, які захочуть бути у вишиванці, ми плануємо організувати можливість оренди. Деталі щодо моделей і розмірів повідомимо після підтвердження локації.",
+        vyshyvankaWomanAlt: "Гостя у традиційній українській вишиванці",
+        vyshyvankaManAlt: "Гість у традиційній українській вишиванці",
+        classicAttireTitle: "Святковий одяг",
+        classicAttireCopy: "Звичайне святкове вбрання для весілля також чудово підійде. Найважливіше для нас - провести цей день разом із вами.",
+        rsvpKicker: "Підтвердження участі",
+        rsvpTitle: "Чи зможете ви бути з нами?",
+        rsvpCopy: "Щоб обрати й забронювати відповідну локацію, нам потрібно розуміти орієнтовну кількість гостей. Будь ласка, повідомте, чи плануєте ви долучитися до нашого святкування.",
+        rsvpNote: "Точне місце та остаточну програму ми надішлемо після підтвердження бронювання.",
+        footerNames: "Антоніна та Філіппо",
+        footerDetail: "14 - 16 травня 2027 · Карпати"
+      }
     };
 
     const elements = {
-      heroTitle: document.getElementById('hero-title'),
-      heroCopy: document.getElementById('hero-copy'),
-      heroTagline: document.getElementById('hero-tagline'),
-      cardTitle: document.getElementById('card-title'),
-      cardCopy: document.getElementById('card-copy'),
-      locationKicker: document.getElementById('location-kicker'),
-      locationTitle: document.getElementById('location-title'),
-      locationCopy: document.getElementById('location-copy'),
-      locationDate: document.getElementById('location-date'),
-      pageNote: document.getElementById('page-note'),
-      langSelect: document.getElementById('lang-select'),
+      navInvitation: document.getElementById("nav-invitation"),
+      navLocation: document.getElementById("nav-location"),
+      navWeekend: document.getElementById("nav-weekend"),
+      navAttire: document.getElementById("nav-attire"),
+      navRsvp: document.getElementById("nav-rsvp"),
+      heroKicker: document.getElementById("hero-kicker"),
+      heroDate: document.getElementById("hero-date"),
+      heroLocation: document.getElementById("hero-location"),
+      heroRsvp: document.getElementById("hero-rsvp"),
+      heroDetails: document.getElementById("hero-details"),
+      invitationKicker: document.getElementById("invitation-kicker"),
+      invitationTitle: document.getElementById("invitation-title"),
+      invitationCopy: document.getElementById("invitation-copy"),
+      locationKicker: document.getElementById("location-kicker"),
+      locationTitle: document.getElementById("location-title"),
+      locationCopy: document.getElementById("location-copy"),
+      locationDetail: document.getElementById("location-detail"),
+      mapImage: document.getElementById("map-image"),
+      weekendKicker: document.getElementById("weekend-kicker"),
+      weekendTitle: document.getElementById("weekend-title"),
+      weekendCopy: document.getElementById("weekend-copy"),
+      fridayDate: document.getElementById("friday-date"),
+      fridayTitle: document.getElementById("friday-title"),
+      fridayCopy: document.getElementById("friday-copy"),
+      saturdayDate: document.getElementById("saturday-date"),
+      saturdayTitle: document.getElementById("saturday-title"),
+      saturdayCopy: document.getElementById("saturday-copy"),
+      sundayDate: document.getElementById("sunday-date"),
+      sundayTitle: document.getElementById("sunday-title"),
+      sundayCopy: document.getElementById("sunday-copy"),
+      stayKicker: document.getElementById("stay-kicker"),
+      stayTitle: document.getElementById("stay-title"),
+      stayCopy: document.getElementById("stay-copy"),
+      accommodationTitle: document.getElementById("accommodation-title"),
+      accommodationCopy: document.getElementById("accommodation-copy"),
+      journeyTitle: document.getElementById("journey-title"),
+      journeyCopy: document.getElementById("journey-copy"),
+      attireKicker: document.getElementById("attire-kicker"),
+      attireTitle: document.getElementById("attire-title"),
+      attireCopy: document.getElementById("attire-copy"),
+      vyshyvankaTitle: document.getElementById("vyshyvanka-title"),
+      vyshyvankaCopy: document.getElementById("vyshyvanka-copy"),
+      vyshyvankaWomanImage: document.getElementById("vyshyvanka-woman-image"),
+      vyshyvankaManImage: document.getElementById("vyshyvanka-man-image"),
+      classicAttireTitle: document.getElementById("classic-attire-title"),
+      classicAttireCopy: document.getElementById("classic-attire-copy"),
+      rsvpKicker: document.getElementById("rsvp-kicker"),
+      rsvpTitle: document.getElementById("rsvp-title"),
+      rsvpCopy: document.getElementById("rsvp-copy"),
+      rsvpNote: document.getElementById("rsvp-note"),
+      footerNames: document.getElementById("footer-names"),
+      footerDetail: document.getElementById("footer-detail"),
+      langSelect: document.getElementById("lang-select")
     };
 
     function setLanguage(code) {
       const translation = translations[code] || translations.en;
       document.documentElement.lang = translation.lang;
       document.title = translation.title;
-      elements.heroTitle.textContent = translation.heroTitle;
-      elements.heroCopy.textContent = translation.heroCopy;
-      elements.heroTagline.textContent = translation.heroTagline;
-      elements.cardTitle.textContent = translation.cardTitle;
-      elements.cardCopy.textContent = translation.cardCopy;
-      elements.locationKicker.textContent = translation.locationKicker;
-      elements.locationTitle.textContent = translation.locationTitle;
-      elements.locationCopy.textContent = translation.locationCopy;
-      elements.locationDate.textContent = translation.locationDate;
-      elements.pageNote.innerHTML = `<strong>${translation.note.split(':')[0]}:</strong> ${translation.note.split(':').slice(1).join(':').trim()}`;
+      Object.entries(elements).forEach(([key, element]) => {
+        if (key !== "langSelect" && key !== "mapImage" && key !== "vyshyvankaWomanImage" && key !== "vyshyvankaManImage" && translation[key]) {
+          element.textContent = translation[key];
+        }
+      });
+      elements.mapImage.alt = translation.mapAlt;
+      elements.vyshyvankaWomanImage.alt = translation.vyshyvankaWomanAlt;
+      elements.vyshyvankaManImage.alt = translation.vyshyvankaManAlt;
       elements.langSelect.value = code;
     }
 
-    document.getElementById('lang-select').addEventListener('change', (event) => {
+    elements.langSelect.addEventListener("change", (event) => {
       setLanguage(event.target.value);
     });
 
-    setLanguage('en');
+    setLanguage("en");
   </script>
 </body>
 </html>
