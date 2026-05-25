@@ -49,11 +49,15 @@ Open `index.html` directly in a browser to test the invitation page. The website
 
 ## RSVP Content
 
-Each form collects the guest's full name in one required field, then asks for attendance, party size, accommodation needs, optional interest in renting a traditional Ukrainian vyshyvanka, other planning needs, and optional contact details.
+Each form asks for the name of the person responding, attendance, the number of guests joining them, any dietary or accessibility needs, and a required email address and/or phone number for confirmed wedding details. If two or more guests will attend together, a conditional section also requests the names of accompanying guests and the ages of any children.
+
+Accommodation is provided for guests and is no longer a form question. Vyshyvanka rental is not collected through the form; interested guests can contact the couple directly.
+
+Each form description includes a short privacy note explaining that submitted information is used only to organise the wedding and communicate with guests, is kept private, and is deleted when no longer needed.
 
 The English and Italian forms provide the international guest context for the planned Carpathian celebration and travel arrangements.
 
-The Ukrainian form is written for guests living in Ukraine and focuses on attendance, accommodation, and organisational details rather than explaining the Carpathian location or international travel.
+The Ukrainian form is written for guests living in Ukraine and focuses on attendance and organisational details rather than explaining the Carpathian location or international travel.
 
 ## Deployment
 

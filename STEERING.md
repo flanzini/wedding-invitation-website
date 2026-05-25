@@ -4,7 +4,7 @@
 
 This project is a multilingual wedding invitation website for an international couple planning a celebration in the Carpathians in Ukraine, with the exact venue to be selected based on expected guest numbers.
 
-The current goal is to present an elegant invitation page and collect RSVP responses through language-specific Google Forms so the couple and local agency can select a suitable venue and accommodation plan.
+The current goal is to present an elegant invitation page and collect RSVP responses through language-specific Google Forms so the couple can finalise arrangements and communicate practical details directly with guests.
 
 ## Current scope
 
@@ -21,7 +21,7 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 
 - `create_google_form.py`
   - authenticates with Google using OAuth
-  - creates RSVP forms with attendance, party size, accommodation, attire interest, and planning questions in 3 languages
+  - creates RSVP forms with attendance, attendee names, children's ages, planning needs, and required contact details in 3 languages
   - writes generated form links to `form_links.json`
 - `index.html`
   - one-page invitation site with banner, location, weekend programme, travel/stay, optional vyshyvanka attire, and RSVP sections
@@ -36,12 +36,12 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 
 ## Current generated forms
 
-- English form: https://docs.google.com/forms/d/e/1FAIpQLSdOjGkxHLXPHTX05wNdSwn0bUNT0sM8kNEs5z23mHmhCMSBOA/viewform
-  - form ID: `1duTMs-vyU9hSuxBOVKBEnNmLcBSap_gz33PilI2iNs4`
-- Italian form: https://docs.google.com/forms/d/e/1FAIpQLSfdae6KRJ-mCJ6dUCLnTucMt7L6HQ8--tCqPnehmKAjoEwVmQ/viewform
-  - form ID: `1Cv4mz4EacvK02sVGx_bFo51lA7KPBd4QVUsweDK-mco`
-- Ukrainian form: https://docs.google.com/forms/d/e/1FAIpQLScea4Uc_oSjKerXhmDJxS5mc-2iDNC03oj4ckPbasEqaS1now/viewform
-  - form ID: `17vS2uPV1JgM-rV8rTjIWGgL1WhsdgDDcUKfOHZHzVY4`
+- English form: https://docs.google.com/forms/d/e/1FAIpQLSdVWtIvNIbsxW9X3OUQSu6tgboylrNU3dBMxX72sNlunFGt-g/viewform
+  - form ID: `14bNywVW7B2k5qrpZjp7TCo01iM-cZrn3t6MyUg4M8fY`
+- Italian form: https://docs.google.com/forms/d/e/1FAIpQLSczQJ58lvChmnV7AUwNQYNSvZOu5xJ-ziyO1NWFqAdeZPHZKw/viewform
+  - form ID: `1LGp2E0F_dHxEIr3UKu84RomG8cDwPXoYw2R-p6SjFD0`
+- Ukrainian form: https://docs.google.com/forms/d/e/1FAIpQLSeyo3OeoUhZ5NH4FfZMPMEX5DzdB6Y4cpqualc7M0efDGfn1A/viewform
+  - form ID: `1Oz95v__CdyRIuzpIjhIhrgKS3du1HYUyqHLxOdtJQhc`
 
 ## What has been implemented
 
@@ -49,7 +49,8 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 - Vintage-blue invitation page retaining the existing banner and language selector
 - Invitation sections for location, the 14-16 May 2027 weekend, travel/stay, optional vyshyvanka rental or standard wedding attire, and RSVP
 - Form creation is separated from website editing: rerunning the form script does not rewrite `index.html`
-- RSVP forms collect required full name in one field, attendance, party size, accommodation, optional vyshyvanka interest, planning needs, and optional contact information
+- RSVP forms collect the respondent's name, attendance, planning needs, and required email and/or phone contact details; a branched section requests accompanying guest names and children's ages only for groups of two or more
+- Form descriptions include a short privacy note; accommodation is provided and vyshyvanka rental is handled directly rather than through the RSVP forms
 - English and Italian copy gives international guests appropriate location/travel context
 - Ukrainian website and form copy is written for guests in Ukraine and omits unnecessary map/travel explanation
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`

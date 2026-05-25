@@ -26,12 +26,14 @@ LANGUAGE_FORMS = [
         'title': 'RSVP | Antonina & Filippo',
         'description': (
             'We are planning our wedding celebration in the Carpathians, Ukraine, on 14-16 May 2027. '
-            'We are working with a local agency to reserve a venue and accommodation suited to our guests. '
-            'Please let us know whether you expect to join us; the exact venue and travel details will follow.'
+            'Please let us know whether you expect to join us; we will contact you directly with the confirmed '
+            'venue and practical details closer to the date.\n\n'
+            'Privacy note: We will use the information you provide only to organise our wedding and communicate '
+            'with you about it. We will keep it private and delete it when it is no longer needed for the celebration.'
         ),
         'questions': [
             {
-                'title': 'Full name',
+                'title': 'Full name of the person completing this form',
                 'required': True,
                 'type': 'TEXT',
             },
@@ -46,47 +48,46 @@ LANGUAGE_FORMS = [
                 ],
             },
             {
-                'title': 'How many guests should we plan for in your party, including you?',
+                'title': 'How many guests should we expect with you, including you?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    '1',
-                    '2',
-                    '3',
-                    '4 or more',
-                    'Not sure yet',
-                    'Not attending',
+                    {'value': '1', 'goToSectionId': 'en_details'},
+                    {'value': '2', 'goToSectionId': 'en_guests'},
+                    {'value': '3', 'goToSectionId': 'en_guests'},
+                    {'value': '4 or more', 'goToSectionId': 'en_guests'},
+                    {'value': 'Not sure yet', 'goToSectionId': 'en_details'},
+                    {'value': 'Not attending', 'goToSectionId': 'en_details'},
                 ],
             },
             {
-                'title': 'Would your party need accommodation for the wedding weekend?',
+                'id': 'en_guests',
+                'title': 'Guests joining you',
+                'type': 'SECTION',
+            },
+            {
+                'title': (
+                    'Please list the full names of everyone who would attend with you. '
+                    'If any children would attend, please include their ages at the time of the wedding.'
+                ),
                 'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Yes, for the nights of 14 and 15 May',
-                    'Maybe, I/we need more information',
-                    'No',
-                    'Not attending',
-                ],
+                'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': 'If you attend, would you be interested in renting a traditional Ukrainian vyshyvanka to wear during the celebration?',
-                'required': False,
-                'type': 'RADIO',
-                'options': [
-                    'Yes, please send details when available',
-                    'Maybe',
-                    'No, I/we will wear wedding guest attire',
-                ],
+                'id': 'en_details',
+                'title': 'A few final details',
+                'type': 'SECTION',
             },
             {
-                'title': 'Is there anything we should know as we plan the weekend (for example travel, accommodation, dietary or accessibility needs)?',
+                'title': 'Is there anything we should know as we plan the weekend (for example dietary or accessibility needs)?',
                 'required': False,
                 'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': 'Optional: email or phone number if you would like us to contact you directly',
-                'required': False,
+                'title': 'Email address and/or phone number where we can contact you with confirmed wedding details',
+                'required': True,
                 'type': 'TEXT',
             },
         ],
@@ -97,13 +98,14 @@ LANGUAGE_FORMS = [
         'title': 'Conferma presenza | Antonina & Filippo',
         'description': (
             'Stiamo organizzando il nostro matrimonio nei Carpazi, in Ucraina, dal 14 al 16 maggio 2027. '
-            "Insieme a un'agenzia locale stiamo scegliendo la struttura e gli alloggi più adatti al numero "
-            'degli invitati. Vi chiediamo quindi di indicarci se pensate di esserci; comunicheremo in seguito '
-            'il luogo esatto e tutti i dettagli del viaggio.'
+            'Vi chiediamo di indicarci se pensate di esserci; vi comunicheremo direttamente la location confermata '
+            'e tutti i dettagli pratici in prossimità della data.\n\n'
+            'Nota sulla privacy: useremo le informazioni fornite esclusivamente per organizzare il nostro matrimonio '
+            'e comunicare con voi al riguardo. Le manterremo riservate e le elimineremo quando non saranno più necessarie.'
         ),
         'questions': [
             {
-                'title': 'Nome e cognome',
+                'title': 'Nome e cognome della persona che compila il modulo',
                 'required': True,
                 'type': 'TEXT',
             },
@@ -118,47 +120,46 @@ LANGUAGE_FORMS = [
                 ],
             },
             {
-                'title': 'Per quante persone dobbiamo prevedere la partecipazione, voi compresi?',
+                'title': 'Quante persone parteciperanno insieme a voi, voi compresi?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    '1',
-                    '2',
-                    '3',
-                    '4 o più',
-                    'Non lo sappiamo ancora',
-                    'Non parteciperemo',
+                    {'value': '1', 'goToSectionId': 'it_details'},
+                    {'value': '2', 'goToSectionId': 'it_guests'},
+                    {'value': '3', 'goToSectionId': 'it_guests'},
+                    {'value': '4 o più', 'goToSectionId': 'it_guests'},
+                    {'value': 'Non lo sappiamo ancora', 'goToSectionId': 'it_details'},
+                    {'value': 'Non parteciperemo', 'goToSectionId': 'it_details'},
                 ],
             },
             {
-                'title': "Avreste bisogno dell'alloggio per il fine settimana del matrimonio?",
+                'id': 'it_guests',
+                'title': 'Le persone che saranno con voi',
+                'type': 'SECTION',
+            },
+            {
+                'title': (
+                    'Indicate nome e cognome di tutte le persone che parteciperebbero con voi. '
+                    "Se ci saranno bambini, indicate anche la loro età al momento del matrimonio."
+                ),
                 'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Sì, per le notti del 14 e del 15 maggio',
-                    'Forse, avremmo bisogno di maggiori informazioni',
-                    'No',
-                    'Non parteciperemo',
-                ],
+                'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': 'Se parteciperete, vi interesserebbe noleggiare una vyshyvanka, la tradizionale camicia ricamata ucraina, da indossare durante la festa?',
-                'required': False,
-                'type': 'RADIO',
-                'options': [
-                    'Sì, ci piacerebbe ricevere informazioni',
-                    'Forse',
-                    'No, preferiamo un normale abito da invitato',
-                ],
+                'id': 'it_details',
+                'title': 'Qualche ultimo dettaglio',
+                'type': 'SECTION',
             },
             {
-                'title': "C'è qualcosa che dovremmo sapere per organizzare il fine settimana (ad esempio viaggio, alloggio, esigenze alimentari o di accessibilità)?",
+                'title': "C'è qualcosa che dovremmo sapere per organizzare il fine settimana (ad esempio esigenze alimentari o di accessibilità)?",
                 'required': False,
                 'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': 'Facoltativo: email o numero di telefono se desiderate essere ricontattati direttamente',
-                'required': False,
+                'title': 'Indirizzo email e/o numero di telefono a cui potremo comunicarvi i dettagli confermati del matrimonio',
+                'required': True,
                 'type': 'TEXT',
             },
         ],
@@ -169,13 +170,15 @@ LANGUAGE_FORMS = [
         'title': 'Підтвердження участі | Антоніна та Філіппо',
         'description': (
             'Ми плануємо відсвяткувати наше весілля в Карпатах 14-16 травня 2027 року. '
-            'Зараз разом з агенцією обираємо та бронюємо локацію відповідно до кількості гостей. '
-            'Будь ласка, повідомте, чи плануєте бути з нами. Точне місце та детальну програму '
-            'ми надішлемо після підтвердження бронювання.'
+            'Будь ласка, повідомте, чи плануєте бути з нами; підтверджену локацію та практичні деталі '
+            'ми надішлемо вам особисто ближче до дати.\n\n'
+            'Примітка про конфіденційність: надану інформацію ми використовуватимемо лише для організації '
+            "нашого весілля та зв'язку з вами щодо нього. Ми зберігатимемо її конфіденційно й видалимо, "
+            'коли вона більше не буде потрібна для святкування.'
         ),
         'questions': [
             {
-                'title': "Ім'я та прізвище",
+                'title': "Ім'я та прізвище особи, яка заповнює цю форму",
                 'required': True,
                 'type': 'TEXT',
             },
@@ -190,47 +193,46 @@ LANGUAGE_FORMS = [
                 ],
             },
             {
-                'title': 'Скільки гостей буде у вашій компанії, разом із вами?',
+                'title': 'Скільки гостей буде разом із вами, враховуючи вас?',
                 'required': True,
                 'type': 'RADIO',
                 'options': [
-                    'Тільки я',
-                    '2 людини',
-                    '3 людини',
-                    '4 або більше',
-                    'Поки не знаю',
-                    'Не братиму участі',
+                    {'value': 'Тільки я', 'goToSectionId': 'uk_details'},
+                    {'value': '2 людини', 'goToSectionId': 'uk_guests'},
+                    {'value': '3 людини', 'goToSectionId': 'uk_guests'},
+                    {'value': '4 або більше', 'goToSectionId': 'uk_guests'},
+                    {'value': 'Поки не знаю', 'goToSectionId': 'uk_details'},
+                    {'value': 'Не братиму участі', 'goToSectionId': 'uk_details'},
                 ],
             },
             {
-                'title': 'Чи потрібно буде передбачити для вас проживання на весільні вихідні?',
+                'id': 'uk_guests',
+                'title': 'Гості, які будуть із вами',
+                'type': 'SECTION',
+            },
+            {
+                'title': (
+                    "Будь ласка, вкажіть ім'я та прізвище кожного, хто планує бути разом із вами. "
+                    'Якщо серед гостей будуть діти, також вкажіть їхній вік на момент весілля.'
+                ),
                 'required': True,
-                'type': 'RADIO',
-                'options': [
-                    'Так, на ночі 14 та 15 травня',
-                    'Можливо, потрібні додаткові деталі',
-                    'Ні',
-                    'Не братиму участі',
-                ],
+                'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': 'Якщо ви будете з нами, чи хотіли б ви орендувати вишиванку для святкування?',
-                'required': False,
-                'type': 'RADIO',
-                'options': [
-                    'Так, цікаво отримати деталі',
-                    'Можливо',
-                    'Ні, оберу звичайне святкове вбрання',
-                ],
+                'id': 'uk_details',
+                'title': 'Ще кілька деталей',
+                'type': 'SECTION',
             },
             {
-                'title': 'Чи є щось важливе, що нам варто врахувати під час організації (наприклад проживання, харчування або інші потреби)?',
+                'title': 'Чи є щось важливе, що нам варто врахувати під час організації (наприклад особливості харчування чи потреби доступності)?',
                 'required': False,
                 'type': 'TEXT',
+                'paragraph': True,
             },
             {
-                'title': "За бажанням: email або номер телефону для зв'язку",
-                'required': False,
+                'title': "Email та/або номер телефону, за яким ми зможемо повідомити вам підтверджені деталі весілля",
+                'required': True,
                 'type': 'TEXT',
             },
         ],
@@ -258,37 +260,52 @@ def get_credentials():
     return creds
 
 
-def build_question_request(question, index):
-    if question['type'] == 'RADIO':
+def build_form_item(question, section_ids=None):
+    if question['type'] == 'SECTION':
         return {
-            'createItem': {
-                'item': {
-                    'title': question['title'],
-                    'questionItem': {
-                        'question': {
-                            'required': question['required'],
-                            'choiceQuestion': {
-                                'type': 'RADIO',
-                                'options': [{'value': option} for option in question['options']],
-                                'shuffle': False,
-                            },
-                        }
+            'title': question['title'],
+            'pageBreakItem': {},
+        }
+    if question['type'] == 'RADIO':
+        options = []
+        for option in question['options']:
+            if isinstance(option, str):
+                options.append({'value': option})
+                continue
+            choice_option = {'value': option['value']}
+            if section_ids:
+                choice_option['goToSectionId'] = section_ids[option['goToSectionId']]
+            options.append(choice_option)
+        return {
+            'title': question['title'],
+            'questionItem': {
+                'question': {
+                    'required': question['required'],
+                    'choiceQuestion': {
+                        'type': 'RADIO',
+                        'options': options,
+                        'shuffle': False,
                     },
-                },
-                'location': {'index': index},
-            }
+                }
+            },
         }
     return {
-        'createItem': {
-            'item': {
-                'title': question['title'],
-                'questionItem': {
-                    'question': {
-                        'required': question['required'],
-                        'textQuestion': {},
-                    }
+        'title': question['title'],
+        'questionItem': {
+            'question': {
+                'required': question['required'],
+                'textQuestion': {
+                    'paragraph': question.get('paragraph', False),
                 },
-            },
+            }
+        },
+    }
+
+
+def build_question_request(question, index):
+    return {
+        'createItem': {
+            'item': build_form_item(question),
             'location': {'index': index},
         }
     }
@@ -320,6 +337,30 @@ def create_form(service, form_data):
 
     update_body = {'requests': requests}
     service.forms().batchUpdate(formId=form_id, body=update_body).execute()
+
+    created_form = service.forms().get(formId=form_id).execute()
+    section_ids = {
+        question['id']: created_form['items'][index]['itemId']
+        for index, question in enumerate(form_data['questions'])
+        if question['type'] == 'SECTION'
+    }
+    navigation_requests = []
+    for index, question in enumerate(form_data['questions']):
+        has_navigation = (
+            question['type'] == 'RADIO'
+            and any(isinstance(option, dict) for option in question['options'])
+        )
+        if has_navigation:
+            navigation_requests.append({
+                'updateItem': {
+                    'item': build_form_item(question, section_ids=section_ids),
+                    'location': {'index': index},
+                    'updateMask': 'questionItem.question.choiceQuestion.options',
+                }
+            })
+    if navigation_requests:
+        service.forms().batchUpdate(formId=form_id, body={'requests': navigation_requests}).execute()
+
     print(f"Created {form_data['code']} form: {responder_uri}")
     return {
         'code': form_data['code'],
