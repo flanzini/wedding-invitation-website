@@ -105,3 +105,27 @@ As of the latest setup pass, GoDaddy's authoritative nameserver was returning th
 - If you change `SCOPES`, delete `token.json` and rerun the script.
 - If you rerun the script, it will create additional forms.
 - Keep `credentials.json` and `token.json` private.
+
+## Cleanup Obsolete Forms
+
+`cleanup_google_forms.py` is intentionally limited in destructive mode to an explicit allowlist of obsolete wedding form IDs. It never permanently deletes Google Drive files, refuses to touch any active form ID in `form_links.json`, verifies the expected Google Form title, and only moves verified forms to trash.
+
+Cleanup requires the Google Drive API to be enabled for the same Google Cloud project. The OAuth scope remains limited to `drive.file`; do not replace it with broader Google Drive access.
+
+If additional obsolete forms need to be identified, run the separate read-only discovery mode. It lists only accessible Google Form files and their internal form titles; it cannot trash anything:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" cleanup_google_forms.py --discover
+```
+
+Run a read-only check first:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" cleanup_google_forms.py
+```
+
+Only after reviewing the dry-run output, move the verified obsolete forms to trash:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" cleanup_google_forms.py --trash --confirm "TRASH ONLY OBSOLETE WEDDING FORMS"
+```

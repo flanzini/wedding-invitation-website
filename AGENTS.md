@@ -36,3 +36,12 @@ git diff --cached --name-only
 
 - Avoid `py -3` unless Python Launcher is configured. Prefer direct environment Python over `conda run -n expenses python ...` because `conda run` has hit Windows Unicode output errors.
 - Keep website assets local unless the user explicitly asks for external assets.
+
+## Google Forms Cleanup Safety
+
+- `cleanup_google_forms.py` is the only approved path for cleaning up obsolete RSVP forms.
+- Treat Google Drive operations as destructive: run read-only discovery or dry-run verification first and review the output before any trash operation.
+- Never permanently delete Google Drive resources. Cleanup may only move explicitly allowlisted obsolete wedding forms to trash.
+- Never modify or trash active form IDs listed in `form_links.json`.
+- Do not add an ID to the cleanup allowlist unless it has been identified as a project-created obsolete wedding form and its internal Google Forms title has been verified.
+- Preserve the restricted Google Drive OAuth scope (`drive.file`); do not broaden access to the user's Google Drive.
