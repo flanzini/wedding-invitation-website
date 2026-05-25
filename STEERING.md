@@ -61,11 +61,14 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 - Ukrainian website and form copy is written for guests in Ukraine and omits unnecessary map/travel explanation
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
 - Guidance for running the script with the `expenses` Conda environment Python
+- The website visual system now uses local assets in `decorative-assets/` for embroidery, botanical corners, and Carpathian illustration details, with a warm ivory invitation-card presentation
+- The attire section includes `kids_in_wedding_attire.png` as a personal keepsake image, with the explanatory vyshyvanka text preceding the supporting attire examples in mobile reading order
 
 ## What remains to do
 
 - Continue tuning the mobile banner crop and transition if needed
 - Review the updated live RSVP forms and invitation copy with the couple before distribution
+- Visually review each language at desktop and mobile sizes before publishing further style changes, checking heading alignment, decorative placement, and language-specific invitation wording
 
 ## Deployment and DNS notes
 
@@ -106,6 +109,11 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 - Avoid `py -3` unless Python Launcher has a Python 3 install configured. Prefer direct environment Python over `conda run -n expenses python create_google_form.py` because `conda run` has hit Windows Unicode output errors while printing script output.
 - If `token.json` exists and scopes change, delete it and rerun the script.
 - The invitation page can be opened directly from `index.html` in a browser.
+- For visual-only revisions, preserve all existing website copy, translations, RSVP logic, links, and section order unless a specific copy or behavior change is requested.
+- The English and Italian invitation card intentionally omit a repeated invitation kicker when the title already communicates the invitation; Ukrainian retains `Запрошуємо Вас` because its title `До нас на весілля` does not duplicate that meaning.
+- Decorative dividers should align with the heading composition: left-aligned in desktop editorial columns and centered in centered or stacked/mobile sections.
+- Personal photographs need meaningful localized alternative text; watercolor motifs, borders, and ornamental assets remain decorative and should not be announced by assistive technology.
+- Verify mobile reading order in document flow, not only desktop placement: in Attire, the personal image introduces the tone, the vyshyvanka explanation precedes its illustrative photos, and general wedding-attire guidance follows.
 
 ## Git workflow and secret safety
 

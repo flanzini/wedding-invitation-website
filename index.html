@@ -16,8 +16,14 @@
       --paper-dark: #ede4d3;
       --gold: #b59257;
       --gold-pale: #d7be8c;
+      --terracotta: #aa594a;
+      --terracotta-deep: #844237;
+      --sage: #a9b7a0;
+      --sage-wash: #e2e7d9;
+      --pine: #284b49;
+      --sunflower: #ddb35c;
       --border: rgba(92, 82, 61, 0.22);
-      --shadow: 0 24px 65px rgba(38, 48, 50, 0.12);
+      --shadow: 0 24px 65px rgba(38, 48, 50, 0.13);
       font-family: Georgia, "Times New Roman", serif;
       background: var(--paper);
       color: var(--ink);
@@ -37,8 +43,9 @@
       margin: 0;
       min-width: 320px;
       background:
-        radial-gradient(circle at 18% 16%, rgba(181, 146, 87, 0.08), transparent 25rem),
-        linear-gradient(180deg, #f5f0e6 0%, var(--paper) 20%, #f7f2e8 100%);
+        radial-gradient(circle at 12% 12%, rgba(221, 179, 92, 0.18), transparent 26rem),
+        radial-gradient(circle at 90% 38%, rgba(170, 89, 74, 0.1), transparent 28rem),
+        linear-gradient(180deg, #f6efdf 0%, var(--paper) 20%, #f4eddf 100%);
       color: var(--ink);
     }
 
@@ -82,6 +89,24 @@
       background:
         linear-gradient(90deg, rgba(25, 41, 53, 0.54) 0%, rgba(25, 41, 53, 0.23) 42%, rgba(25, 41, 53, 0.14) 100%),
         linear-gradient(0deg, rgba(23, 38, 50, 0.82) 0%, rgba(23, 38, 50, 0.38) 32%, rgba(23, 38, 50, 0.08) 70%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      height: 13px;
+      background-color: rgba(32, 55, 69, 0.55);
+      background-image:
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%),
+        linear-gradient(-45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%);
+      background-position: 0 0, 0 0, 11px 0, 11px 0;
+      background-size: 22px 13px;
     }
 
     .masthead {
@@ -173,6 +198,10 @@
       text-transform: uppercase;
     }
 
+    .page .kicker {
+      color: var(--terracotta);
+    }
+
     .hero-date {
       margin: 0;
       font-size: clamp(2.5rem, 4.5vw, 4.2rem);
@@ -193,9 +222,15 @@
     .ornament::before,
     .ornament::after {
       content: "";
-      width: 56px;
-      height: 1px;
-      background: currentColor;
+      width: 70px;
+      height: 12px;
+      background-image:
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(45deg, transparent 52%, var(--gold) 53% 61%, transparent 62%),
+        linear-gradient(-45deg, transparent 52%, var(--gold) 53% 61%, transparent 62%);
+      background-position: 0 0, 0 0, 10px 0, 10px 0;
+      background-size: 20px 12px;
     }
 
     .hero-location {
@@ -218,9 +253,9 @@
       align-items: center;
       min-height: 50px;
       padding: 0.95rem 1.65rem;
-      border: 1px solid var(--gold);
-      color: var(--ink);
-      background: var(--paper);
+      border: 1px solid var(--sunflower);
+      color: #fff9ed;
+      background: var(--terracotta);
       text-decoration: none;
       font-family: Arial, sans-serif;
       font-size: 0.77rem;
@@ -232,7 +267,7 @@
 
     .button:hover {
       transform: translateY(-2px);
-      background: #fff9ed;
+      background: var(--terracotta-deep);
     }
 
     .button-ghost {
@@ -283,8 +318,10 @@
       margin-top: clamp(3.2rem, 6vw, 5rem);
       margin-bottom: clamp(3.2rem, 6vw, 5rem);
       padding: clamp(3.2rem, 7vw, 5rem) clamp(1.55rem, 8vw, 6.2rem);
-      border: 1px solid var(--border);
-      background: rgba(255, 251, 242, 0.65);
+      border: 1px solid rgba(170, 89, 74, 0.26);
+      background:
+        radial-gradient(circle at top center, rgba(221, 179, 92, 0.13), transparent 19rem),
+        rgba(255, 249, 235, 0.84);
       box-shadow: var(--shadow);
       text-align: center;
     }
@@ -294,7 +331,7 @@
       content: "";
       position: absolute;
       inset: 14px;
-      border: 1px solid rgba(181, 146, 87, 0.35);
+      border: 1px solid rgba(170, 89, 74, 0.24);
       pointer-events: none;
     }
 
@@ -365,7 +402,7 @@
     .map-frame {
       margin: 0;
       padding: 0.65rem;
-      border: 1px solid rgba(181, 146, 87, 0.42);
+      border: 1px solid rgba(170, 89, 74, 0.34);
       background: rgba(255, 251, 242, 0.72);
       box-shadow: var(--shadow);
     }
@@ -389,9 +426,73 @@
       display: none;
     }
 
+    html[lang="uk"] .stay-grid {
+      display: block;
+      max-width: 770px;
+    }
+
+    html[lang="uk"] .stay-details {
+      display: none;
+    }
+
+    html[lang="uk"] .attire-grid {
+      display: block;
+      max-width: 760px;
+    }
+
+    html[lang="uk"] .attire-options {
+      display: none;
+    }
+
+    .location-copy::before,
+    .stay-copy::before,
+    .attire-copy::before {
+      background-image:
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%),
+        linear-gradient(-45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%);
+      background-position: 0 0, 0 0, 10px 0, 10px 0;
+      background-size: 20px 12px;
+      content: "";
+      display: block;
+      width: 112px;
+      height: 12px;
+      margin: 0 0 1.45rem;
+    }
+
+    html[lang="uk"] .location-copy::before,
+    html[lang="uk"] .stay-copy::before,
+    html[lang="uk"] .attire-copy::before {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    html[lang="uk"] .stay-copy,
+    html[lang="uk"] .attire-copy {
+      text-align: center;
+    }
+
     .blue-section {
-      background: var(--blue);
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 5%, rgba(221, 179, 92, 0.14), transparent 32rem),
+        linear-gradient(125deg, var(--blue) 0%, var(--pine) 100%);
       color: #fff8eb;
+    }
+
+    .blue-section::before,
+    .attire-section::before {
+      content: "";
+      display: block;
+      height: 12px;
+      background-image:
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%),
+        linear-gradient(-45deg, transparent 52%, var(--sunflower) 53% 61%, transparent 62%);
+      background-position: 0 0, 0 0, 11px 0, 11px 0;
+      background-size: 22px 12px;
     }
 
     .blue-section .section-heading h2,
@@ -433,10 +534,10 @@
       width: 4rem;
       height: 4rem;
       margin: 0 auto 1.65rem;
-      border: 1px solid var(--gold-pale);
+      border: 2px solid var(--sunflower);
       border-radius: 50%;
       color: var(--gold-pale);
-      background: var(--blue);
+      background: var(--terracotta-deep);
       font-size: 1.35rem;
     }
 
@@ -479,8 +580,9 @@
 
     .stay-card {
       padding: 1.45rem;
-      border: 1px solid var(--border);
-      background: rgba(255, 251, 242, 0.64);
+      border: 1px solid rgba(169, 183, 160, 0.6);
+      border-left: 4px solid var(--terracotta);
+      background: rgba(250, 249, 238, 0.88);
     }
 
     .stay-card h3 {
@@ -499,7 +601,10 @@
     }
 
     .attire-section {
-      background: var(--blue-wash);
+      position: relative;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(170, 89, 74, 0.14), transparent 24rem),
+        linear-gradient(120deg, var(--sage-wash), #f0dfca);
     }
 
     .attire-grid {
@@ -539,7 +644,7 @@
     .attire-photo {
       margin: 0;
       padding: 0.45rem;
-      border: 1px solid rgba(181, 146, 87, 0.44);
+      border: 2px solid rgba(170, 89, 74, 0.42);
       background: rgba(255, 251, 242, 0.72);
       box-shadow: 0 12px 32px rgba(38, 48, 50, 0.11);
     }
@@ -554,7 +659,8 @@
 
     .attire-card {
       padding: clamp(1.3rem, 4vw, 1.8rem);
-      border: 1px solid rgba(181, 146, 87, 0.42);
+      border: 1px solid rgba(170, 89, 74, 0.38);
+      border-top: 4px solid var(--terracotta);
       background: rgba(255, 251, 242, 0.76);
     }
 
@@ -581,8 +687,10 @@
       align-items: center;
       margin-bottom: clamp(3.5rem, 8vw, 6rem);
       padding: clamp(2rem, 6vw, 4.5rem);
-      border: 1px solid rgba(181, 146, 87, 0.5);
-      background: #fffaf0;
+      border: 1px solid rgba(170, 89, 74, 0.36);
+      background:
+        radial-gradient(circle at 92% 12%, rgba(221, 179, 92, 0.22), transparent 18rem),
+        #fff8e9;
       box-shadow: var(--shadow);
       scroll-margin-top: 1.5rem;
     }
@@ -614,7 +722,8 @@
       min-height: 64px;
       padding: 1rem 1.2rem;
       color: var(--paper);
-      background: var(--blue);
+      border-left: 5px solid var(--sunflower);
+      background: var(--terracotta);
       text-decoration: none;
       font-family: Arial, sans-serif;
       transition: background 180ms ease, transform 180ms ease;
@@ -635,7 +744,7 @@
 
     .form-link:hover {
       transform: translateX(3px);
-      background: var(--blue-deep);
+      background: var(--terracotta-deep);
     }
 
     .rsvp-note {
@@ -670,6 +779,674 @@
       text-transform: uppercase;
     }
 
+    /* Illustrated invitation theme: paper, foliage, berries and fine folk stitchwork. */
+    :root {
+      --ink: #595542;
+      --ink-soft: #716b58;
+      --blue: #68735b;
+      --blue-deep: #514d3d;
+      --blue-wash: #f4efe3;
+      --paper: #fcf8ef;
+      --paper-dark: #eee3cf;
+      --gold: #bd9660;
+      --gold-pale: #d4b47a;
+      --terracotta: #b65338;
+      --terracotta-deep: #91412f;
+      --sage: #879277;
+      --sage-wash: #f3eee3;
+      --pine: #596650;
+      --sunflower: #cda05b;
+      --border: rgba(146, 119, 76, 0.28);
+      --shadow: 0 18px 52px rgba(83, 68, 43, 0.09);
+      font-family: Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 8% 10%, rgba(189, 150, 96, 0.12), transparent 25rem),
+        radial-gradient(circle at 94% 44%, rgba(182, 83, 56, 0.055), transparent 29rem),
+        linear-gradient(180deg, #fffaf1 0%, var(--paper) 34%, #faf3e6 100%);
+    }
+
+    body::before {
+      opacity: 0.3;
+      background-image:
+        radial-gradient(rgba(134, 111, 74, 0.12) 0.45px, transparent 0.55px),
+        radial-gradient(rgba(135, 146, 119, 0.13) 0.45px, transparent 0.55px);
+      background-position: 0 0, 5px 7px;
+      background-size: 13px 13px, 17px 17px;
+    }
+
+    .hero::after {
+      display: none;
+    }
+
+    .page {
+      position: relative;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      top: clamp(2rem, 5vw, 4rem);
+      bottom: clamp(2rem, 5vw, 4rem);
+      width: 7px;
+      z-index: 0;
+      opacity: 0.66;
+      background-image:
+        linear-gradient(45deg, transparent 34%, var(--terracotta) 35% 53%, transparent 54%),
+        linear-gradient(-45deg, transparent 34%, var(--sage) 35% 53%, transparent 54%);
+      background-position: 0 0, 0 8px;
+      background-size: 7px 16px;
+    }
+
+    .page::before {
+      left: clamp(0.4rem, 1.7vw, 1.15rem);
+    }
+
+    .page::after {
+      right: clamp(0.4rem, 1.7vw, 1.15rem);
+    }
+
+    .page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+      font-weight: 600;
+    }
+
+    .page .kicker {
+      color: var(--sage);
+      font-size: clamp(0.82rem, 1.15vw, 0.9rem);
+      letter-spacing: 0.32em;
+    }
+
+    .ornament {
+      color: var(--terracotta);
+    }
+
+    .ornament::before,
+    .ornament::after {
+      width: 78px;
+      height: 12px;
+      background-image:
+        linear-gradient(var(--gold), var(--gold)),
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%);
+      background-position: 0 center, 35px 0, 35px 0;
+      background-repeat: no-repeat;
+      background-size: 31px 1px, 18px 12px, 18px 12px;
+    }
+
+    .button {
+      border-color: var(--terracotta);
+      color: #fffaf1;
+      background: var(--terracotta);
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+      font-weight: 600;
+    }
+
+    .button-ghost {
+      background: rgba(81, 77, 61, 0.17);
+      border-color: rgba(255, 248, 235, 0.64);
+    }
+
+    .invitation {
+      overflow: hidden;
+      border-color: rgba(189, 150, 96, 0.48);
+      background:
+        radial-gradient(circle at top center, rgba(205, 160, 91, 0.09), transparent 19rem),
+        rgba(255, 252, 244, 0.86);
+    }
+
+    .invitation::before {
+      border: 1px dotted rgba(182, 83, 56, 0.4);
+    }
+
+    .invitation::after {
+      inset: 22px;
+      border-color: rgba(189, 150, 96, 0.22);
+    }
+
+    .invitation h2 {
+      color: var(--terracotta);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    .invitation-copy {
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+      font-size: 1.08rem;
+    }
+
+    .map-frame {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-frame::before,
+    .map-frame::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 74px;
+      height: 74px;
+      opacity: 0.7;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 57% 25%, var(--terracotta) 0 4px, transparent 4.5px),
+        radial-gradient(circle at 70% 34%, var(--terracotta) 0 4px, transparent 4.5px),
+        radial-gradient(circle at 57% 44%, var(--terracotta) 0 4px, transparent 4.5px),
+        linear-gradient(55deg, transparent 48%, var(--gold) 49% 51%, transparent 52%),
+        radial-gradient(ellipse at 30% 55%, var(--sage) 0 11px, transparent 12px);
+    }
+
+    .map-frame::before {
+      top: -10px;
+      right: -8px;
+    }
+
+    .map-frame::after {
+      bottom: -8px;
+      left: -10px;
+      transform: rotate(180deg);
+    }
+
+    .location-copy::before,
+    .stay-copy::before,
+    .attire-copy::before {
+      background-image:
+        linear-gradient(var(--gold), var(--gold)),
+        linear-gradient(45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%),
+        linear-gradient(-45deg, transparent 36%, var(--terracotta) 37% 48%, transparent 49%);
+      background-position: 0 center, 48px 0, 48px 0;
+      background-repeat: no-repeat;
+      background-size: 42px 1px, 18px 12px, 18px 12px;
+    }
+
+    .blue-section {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(205, 160, 91, 0.13), transparent 32rem),
+        linear-gradient(180deg, #f3f0e6 0%, #ede9dc 100%);
+      color: var(--ink);
+    }
+
+    .blue-section::before,
+    .attire-section::before {
+      display: none;
+    }
+
+    .blue-section .section-heading h2 {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    .blue-section .kicker {
+      color: var(--sage);
+    }
+
+    .blue-section .section-heading p,
+    .event p:last-child {
+      color: var(--ink-soft);
+    }
+
+    .timeline::before {
+      background: rgba(189, 150, 96, 0.56);
+    }
+
+    .event-marker {
+      border: 1px solid var(--terracotta);
+      color: var(--terracotta);
+      background: rgba(252, 248, 239, 0.98);
+    }
+
+    .event h3 {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    .event .day {
+      color: var(--sage);
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    }
+
+    .event p:last-child,
+    .section-heading p,
+    .location-copy p:not(.kicker),
+    .stay-copy p:not(.kicker),
+    .attire-copy p:not(.kicker),
+    .rsvp-copy p:not(.kicker),
+    .stay-card p,
+    .attire-card p,
+    .rsvp-note,
+    .detail-line,
+    .footer-detail {
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    }
+
+    .stay-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(189, 150, 96, 0.38);
+      border-left: 1px solid rgba(189, 150, 96, 0.38);
+      background: rgba(255, 252, 244, 0.74);
+    }
+
+    .attire-section {
+      background:
+        radial-gradient(circle at 89% 14%, rgba(182, 83, 56, 0.055), transparent 24rem),
+        linear-gradient(180deg, #fbf7ee, #f5f0e4);
+    }
+
+    .attire-photo,
+    .attire-card {
+      border-color: rgba(189, 150, 96, 0.42);
+    }
+
+    .attire-card {
+      border-top: 1px solid rgba(189, 150, 96, 0.42);
+      background: rgba(255, 252, 244, 0.76);
+    }
+
+    .rsvp {
+      overflow: hidden;
+      border-color: rgba(189, 150, 96, 0.48);
+      background:
+        radial-gradient(circle at 92% 12%, rgba(205, 160, 91, 0.11), transparent 18rem),
+        #fffaf1;
+    }
+
+    .rsvp::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      bottom: 14px;
+      left: 10px;
+      right: 10px;
+      pointer-events: none;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-image: repeating-linear-gradient(to bottom, var(--terracotta) 0 6px, transparent 6px 9px, var(--sage) 9px 14px, transparent 14px 19px, var(--gold) 19px 22px, transparent 22px 26px) 8;
+      opacity: 0.62;
+    }
+
+    .form-link {
+      border-left: 0;
+      background: var(--terracotta);
+      font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    }
+
+    footer {
+      color: var(--sage);
+    }
+
+    .footer-names {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    /* Continuous paper layout: the hero is a cover, the rest reads as one invitation sheet. */
+    .hero {
+      border-bottom: 1px solid rgba(189, 150, 96, 0.45);
+    }
+
+    .hero::after {
+      display: none;
+    }
+
+    .page {
+      margin-top: 0;
+      padding-top: clamp(2.1rem, 4vw, 3.1rem);
+      background:
+        radial-gradient(circle at 50% 4%, rgba(189, 150, 96, 0.075), transparent 25rem),
+        linear-gradient(180deg, var(--paper) 0%, #fcf7ed 100%);
+    }
+
+    .page::before,
+    .page::after {
+      top: clamp(1.45rem, 3vw, 2.2rem);
+      bottom: clamp(1.45rem, 3vw, 2.2rem);
+      width: 6px;
+      opacity: 0.43;
+    }
+
+    .section {
+      padding-top: clamp(3.4rem, 6vw, 4.9rem);
+      padding-bottom: clamp(3.4rem, 6vw, 4.9rem);
+    }
+
+    .invitation {
+      max-width: min(760px, calc(100% - clamp(3.5rem, 9vw, 7.5rem)));
+      margin-top: 0;
+      margin-bottom: clamp(1.9rem, 4vw, 3rem);
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3.35rem, 5vw, 4.1rem) clamp(2.2rem, 9vw, 5.25rem) clamp(3rem, 4.5vw, 3.7rem);
+      box-shadow: none;
+      background: transparent;
+      border-color: rgba(189, 150, 96, 0.38);
+    }
+
+    .invitation::before {
+      inset: 12px;
+      border-color: rgba(182, 83, 56, 0.28);
+    }
+
+    .invitation::after {
+      inset: 20px;
+      border-color: rgba(189, 150, 96, 0.2);
+    }
+
+    .invitation h2 {
+      font-size: clamp(2.05rem, 4vw, 2.85rem);
+    }
+
+    .invitation-copy {
+      font-size: clamp(0.96rem, 1.5vw, 1.03rem);
+      line-height: 1.78;
+    }
+
+    .blue-section,
+    .attire-section {
+      background: transparent;
+    }
+
+    .blue-section .section-heading h2 {
+      color: var(--terracotta);
+    }
+
+    .blue-section .section {
+      padding-top: clamp(3.5rem, 6vw, 5rem);
+      padding-bottom: clamp(3.5rem, 6vw, 5rem);
+    }
+
+    .location-grid,
+    .blue-section .section,
+    .stay-grid,
+    .attire-grid {
+      border-top: 0;
+    }
+
+    html[lang="uk"] .location-grid,
+    html[lang="uk"] .stay-grid,
+    html[lang="uk"] .attire-grid {
+      max-width: 820px;
+    }
+
+    .rsvp {
+      margin-top: clamp(1.6rem, 3vw, 2.3rem);
+      margin-bottom: clamp(3.5rem, 7vw, 5rem);
+      box-shadow: none;
+      background: rgba(255, 251, 242, 0.5);
+    }
+
+    .button:focus-visible,
+    .form-link:focus-visible,
+    .hero-nav a:focus-visible,
+    .language-dropdown select:focus-visible {
+      outline: 2px solid var(--terracotta);
+      outline-offset: 4px;
+    }
+
+    .language-dropdown {
+      border-color: rgba(212, 180, 122, 0.7);
+      background: rgba(46, 53, 48, 0.3);
+    }
+
+    .map-frame,
+    .stay-card,
+    .attire-card,
+    .rsvp {
+      box-shadow: 0 11px 30px rgba(83, 68, 43, 0.045);
+    }
+
+    /* Supplied watercolor ornaments: used like quiet details on printed invitation cards. */
+    .page::before,
+    .page::after {
+      width: clamp(18px, 2vw, 26px);
+      background-image: url("decorative-assets/embroidery-border-vertical.png");
+      background-position: center top;
+      background-repeat: repeat-y;
+      background-size: 100% auto;
+      mix-blend-mode: multiply;
+      opacity: 0.3;
+    }
+
+    .page::before {
+      left: clamp(0.15rem, 0.9vw, 0.65rem);
+    }
+
+    .page::after {
+      right: clamp(0.15rem, 0.9vw, 0.65rem);
+      transform: scaleX(-1);
+    }
+
+    .asset-corner,
+    .asset-star,
+    .asset-divider,
+    .asset-mountains,
+    .asset-wildflower {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+      mix-blend-mode: multiply;
+    }
+
+    .invitation {
+      background: rgba(255, 252, 245, 0.72);
+      box-shadow: 0 16px 46px rgba(83, 68, 43, 0.045);
+    }
+
+    .invitation > :not(.asset-corner) {
+      position: relative;
+      z-index: 2;
+    }
+
+    .asset-corner {
+      position: absolute;
+      z-index: 1;
+      width: clamp(78px, 16vw, 138px);
+      opacity: 0.78;
+    }
+
+    .asset-kalyna {
+      top: -0.3rem;
+      left: -0.35rem;
+    }
+
+    .asset-olive {
+      top: -0.3rem;
+      right: -0.35rem;
+      transform: scaleX(-1);
+    }
+
+    .asset-star {
+      object-fit: contain;
+      opacity: 0.76;
+    }
+
+    .invitation-star {
+      width: clamp(42px, 5.4vw, 56px);
+      margin: 0 auto 1.15rem;
+    }
+
+    .invitation-kicker-uk {
+      display: none;
+      text-align: center;
+    }
+
+    html[lang="uk"] .invitation-kicker-uk {
+      display: block;
+    }
+
+    .asset-mountains {
+      width: min(350px, 78%);
+      margin: 0.9rem auto 1rem;
+      opacity: 0.58;
+    }
+
+    .asset-divider {
+      width: min(270px, 68%);
+      margin: 0.95rem auto 1.4rem;
+      opacity: 0.76;
+    }
+
+    .invitation .ornament {
+      display: none;
+    }
+
+    .location-grid,
+    .blue-section .section,
+    .stay-grid,
+    .attire-grid {
+      border: 1px solid rgba(189, 150, 96, 0.22);
+      border-radius: 2px;
+      background: rgba(255, 252, 245, 0.47);
+      box-shadow: 0 12px 34px rgba(83, 68, 43, 0.035);
+      padding-left: clamp(1.35rem, 4vw, 3.5rem);
+      padding-right: clamp(1.35rem, 4vw, 3.5rem);
+      margin-top: clamp(1rem, 2.5vw, 1.8rem);
+      margin-bottom: clamp(1rem, 2.5vw, 1.8rem);
+    }
+
+    .location-copy::before,
+    .stay-copy::before,
+    .attire-copy::before {
+      width: min(250px, 68%);
+      height: 38px;
+      background-image: url("decorative-assets/embroidery-divider-horizontal.png");
+      background-position: center center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      mix-blend-mode: multiply;
+      opacity: 0.76;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    html[lang="uk"] .location-copy::before,
+    html[lang="uk"] .stay-copy::before,
+    html[lang="uk"] .attire-copy::before {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .map-frame {
+      border: 1px solid rgba(189, 150, 96, 0.34);
+      background: rgba(255, 252, 245, 0.78);
+      border-radius: 2px;
+    }
+
+    .map-frame img {
+      filter: sepia(0.13) saturate(0.78) contrast(0.96);
+      opacity: 0.9;
+    }
+
+    .map-frame::before {
+      top: -0.35rem;
+      right: -0.35rem;
+      width: clamp(70px, 13vw, 112px);
+      height: clamp(70px, 13vw, 112px);
+      background: url("decorative-assets/kalyna-corner.png") right top / contain no-repeat;
+      mix-blend-mode: multiply;
+      opacity: 0.68;
+    }
+
+    .map-frame::after {
+      display: none;
+    }
+
+    .section-star {
+      width: clamp(42px, 5vw, 54px);
+      margin: 0 auto 1.15rem;
+    }
+
+    .timeline::before {
+      background:
+        linear-gradient(90deg, transparent, rgba(182, 83, 56, 0.42) 12%, rgba(189, 150, 96, 0.7) 50%, rgba(182, 83, 56, 0.42) 88%, transparent);
+    }
+
+    .attire-grid {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .asset-wildflower {
+      position: absolute;
+      right: -1.8rem;
+      bottom: -1.3rem;
+      width: clamp(105px, 16vw, 175px);
+      opacity: 0.18;
+      transform: scaleX(-1);
+      z-index: 0;
+    }
+
+    .attire-grid > :not(.asset-wildflower) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .attire-memory {
+      width: min(100%, 410px);
+      margin: clamp(1.8rem, 4vw, 2.35rem) auto 0;
+      padding: clamp(0.32rem, 0.8vw, 0.48rem);
+      border: 1px solid rgba(189, 150, 96, 0.4);
+      background: rgba(255, 252, 245, 0.84);
+      box-shadow: 0 14px 36px rgba(83, 68, 43, 0.08);
+      transform: rotate(-0.65deg);
+    }
+
+    .attire-memory img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .rsvp {
+      background: rgba(255, 252, 245, 0.8);
+      border-color: rgba(189, 150, 96, 0.38);
+    }
+
+    .rsvp::before {
+      top: 12px;
+      right: 10px;
+      bottom: 12px;
+      left: 10px;
+      border: 0;
+      background-image:
+        url("decorative-assets/embroidery-border-vertical.png"),
+        url("decorative-assets/embroidery-border-vertical.png");
+      background-repeat: no-repeat;
+      background-position: left center, right center;
+      background-size: clamp(19px, 2.8vw, 29px) 100%;
+      mix-blend-mode: multiply;
+      opacity: 0.3;
+    }
+
+    .rsvp-copy,
+    .rsvp-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .rsvp-star {
+      width: clamp(42px, 5vw, 54px);
+      margin: 0 0 1.15rem;
+    }
+
+    html[lang="uk"] .rsvp-star {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
     @media (max-width: 880px) {
       .hero-nav {
         display: none;
@@ -682,10 +1459,39 @@
         grid-template-columns: 1fr;
       }
 
+      .location-grid,
+      .blue-section .section,
+      .stay-grid,
+      .attire-grid {
+        padding-left: clamp(1.1rem, 5vw, 2rem);
+        padding-right: clamp(1.1rem, 5vw, 2rem);
+      }
+
       .location-copy {
         max-width: 620px;
         text-align: center;
         margin: 0 auto;
+      }
+
+      .location-copy::before,
+      .stay-copy::before,
+      .attire-copy::before {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .stay-copy .kicker,
+      .stay-copy h2,
+      .attire-copy .kicker,
+      .attire-copy h2,
+      .rsvp-copy .kicker,
+      .rsvp-copy h2 {
+        text-align: center;
+      }
+
+      .rsvp-star {
+        margin-left: auto;
+        margin-right: auto;
       }
 
       html:not([lang="uk"]) .location-grid {
@@ -723,6 +1529,27 @@
     }
 
     @media (max-width: 680px) {
+      .page::before,
+      .page::after {
+        opacity: 0.2;
+        width: 15px;
+      }
+
+      .asset-corner {
+        width: 78px;
+        opacity: 0.46;
+      }
+
+      .asset-mountains {
+        width: min(300px, 84%);
+        margin-top: 0.9rem;
+      }
+
+      .rsvp::before {
+        opacity: 0.19;
+        background-size: 16px 100%;
+      }
+
       .hero {
         min-height: 0;
         padding-top: clamp(10.5rem, 49vw, 13.25rem);
@@ -774,8 +1601,15 @@
       }
 
       .invitation {
-        width: min(100% - 2rem, 790px);
-        padding: 3.2rem 1.45rem;
+        width: min(100% - 2.5rem, 790px);
+        max-width: min(100% - 2.5rem, 790px);
+        min-height: 0;
+        padding: 4.25rem 1.5rem 3.2rem;
+      }
+
+      .asset-wildflower {
+        width: 105px;
+        opacity: 0.12;
       }
 
       .timeline {
@@ -837,9 +1671,13 @@
 
   <main class="page">
     <section class="section invitation" id="invitation" aria-labelledby="invitation-title">
-      <p class="kicker" id="invitation-kicker">You are invited</p>
-      <h2 id="invitation-title">To the Carpathians for Our Wedding</h2>
-      <div class="ornament" aria-hidden="true">&#9825;</div>
+      <img class="asset-corner asset-kalyna" src="decorative-assets/kalyna-corner.png" alt="" aria-hidden="true">
+      <img class="asset-corner asset-olive" src="decorative-assets/olive-branch-corner.png" alt="" aria-hidden="true">
+      <img class="asset-star invitation-star" src="decorative-assets/folk-star-ornament.png" alt="" aria-hidden="true">
+      <p class="kicker invitation-kicker-uk" lang="uk">Запрошуємо Вас</p>
+      <img class="asset-mountains" src="decorative-assets/carpathian-mountains.png" alt="" aria-hidden="true">
+      <h2 id="invitation-title">You Are Invited to Our Wedding</h2>
+      <img class="asset-divider invitation-divider" src="decorative-assets/embroidery-divider-horizontal.png" alt="" aria-hidden="true">
       <p class="invitation-copy" id="invitation-copy">We’re happy to invite you to celebrate our wedding with us
 in the heart of the Carpathian Mountains.
 
@@ -870,6 +1708,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
     <section class="blue-section" id="weekend" aria-labelledby="weekend-title">
       <div class="section">
         <div class="section-heading">
+          <img class="asset-star section-star" src="decorative-assets/folk-star-ornament.png" alt="" aria-hidden="true">
           <p class="kicker" id="weekend-kicker">Wedding weekend</p>
           <h2 id="weekend-title">Three days together in the mountains</h2>
           <p id="weekend-copy">Here's how we're imagining our weekend together, with final details to come.</p>
@@ -917,12 +1756,20 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
 
     <section class="attire-section" id="attire" aria-labelledby="attire-title">
       <div class="section attire-grid">
+        <img class="asset-wildflower" src="decorative-assets/wheat-wildflower-corner.png" alt="" aria-hidden="true">
         <div class="attire-copy">
           <p class="kicker" id="attire-kicker">Wedding attire</p>
           <h2 id="attire-title">A touch of Ukrainian tradition, if you wish</h2>
           <p id="attire-copy">Our wedding will have a touch of traditional Ukrainian spirit: a church ceremony, live music featuring classic Ukrainian wedding songs, joyful festivities, delicious local food, dancing, and, most importantly, a warm and vibrant atmosphere shared with all of you. We will share more details about the wedding day programme closer to the date, but we hope this already gives you a little glimpse into the vibe of the celebration.</p>
+          <figure class="attire-memory">
+            <img id="kids-attire-image" src="kids_in_wedding_attire.png" alt="Antonina and Filippo as children in a playful wedding attire portrait">
+          </figure>
         </div>
         <div class="attire-options">
+          <article class="attire-card">
+            <h3 id="vyshyvanka-title">Vyshyvanka</h3>
+            <p id="vyshyvanka-copy">We will not have a strict wedding attire requirement. However, many of our Ukrainian guests will likely wear traditional embroidered clothing ("vyshyvanka"), and we would be delighted if some of our international guests would also like to join this beautiful tradition. If you are interested, we would be happy to recommend lovely and affordable stores where you can order or pre-order embroidered dresses, shirts, or jewellery. It could also be a wonderful keepsake from your trip to Ukraine and our celebration together, while many modern versions of vyshyvanka are stylish enough to become part of your everyday wardrobe long after the wedding. Please reach out to us directly if you would like recommendations.</p>
+          </article>
           <div class="attire-gallery">
             <figure class="attire-photo">
               <img id="vyshyvanka-woman-image" src="vyshyvanka_guest_woman.png" alt="Woman guest wearing a traditional embroidered Ukrainian vyshyvanka">
@@ -931,10 +1778,6 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
               <img id="vyshyvanka-man-image" src="vyshyvanka_guest_man.png" alt="Man guest wearing a traditional embroidered Ukrainian vyshyvanka">
             </figure>
           </div>
-          <article class="attire-card">
-            <h3 id="vyshyvanka-title">Vyshyvanka</h3>
-            <p id="vyshyvanka-copy">We will not have a strict wedding attire requirement. However, many of our Ukrainian guests will likely wear traditional embroidered clothing ("vyshyvanka"), and we would be delighted if some of our international guests would also like to join this beautiful tradition. If you are interested, we would be happy to recommend lovely and affordable stores where you can order or pre-order embroidered dresses, shirts, or jewellery. It could also be a wonderful keepsake from your trip to Ukraine and our celebration together, while many modern versions of vyshyvanka are stylish enough to become part of your everyday wardrobe long after the wedding. Please reach out to us directly if you would like recommendations.</p>
-          </article>
           <article class="attire-card">
             <h3 id="classic-attire-title">Wedding guest attire</h3>
             <p id="classic-attire-copy">Of course, if traditional Ukrainian clothing is not your style, that is absolutely fine; simply come dressed as you would for any wedding celebration. As the wedding ceremony will take place in a church, we kindly ask guests to choose respectful attire and avoid very short dresses, shorts, or exposed shoulders during the ceremony.</p>
@@ -945,6 +1788,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
 
     <section class="section rsvp" id="rsvp" aria-labelledby="rsvp-title">
       <div class="rsvp-copy">
+        <img class="asset-star rsvp-star" src="decorative-assets/folk-star-ornament.png" alt="" aria-hidden="true">
         <p class="kicker" id="rsvp-kicker">RSVP</p>
         <h2 id="rsvp-title">Will you join us?</h2>
         <p id="rsvp-copy" hidden></p>
@@ -985,8 +1829,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
         heroLocation: "The Carpathians, Ukraine",
         heroRsvp: "RSVP",
         heroDetails: "View details",
-        invitationKicker: "You are invited",
-        invitationTitle: "To the Carpathians for Our Wedding",
+        invitationTitle: "You Are Invited to Our Wedding",
         invitationCopy: "We’re happy to invite you to celebrate our wedding with us\nin the heart of the Carpathian Mountains.\n\nFrom May 14 to 16, 2027,\nwe’ll spend a weekend together surrounded by nature,\nfresh mountain air, good food, music, and great company.\n\nWe would love for you to be part of these special days\nand create unforgettable memories together.\n\nLooking forward to celebrating with you.",
         locationKicker: "The location",
         locationTitle: "A beautiful mountain region in western Ukraine",
@@ -1019,6 +1862,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
         vyshyvankaCopy: "We will not have a strict wedding attire requirement. However, many of our Ukrainian guests will likely wear traditional embroidered clothing (\"vyshyvanka\"), and we would be delighted if some of our international guests would also like to join this beautiful tradition. If you are interested, we would be happy to recommend lovely and affordable stores where you can order or pre-order embroidered dresses, shirts, or jewellery. It could also be a wonderful keepsake from your trip to Ukraine and our celebration together, while many modern versions of vyshyvanka are stylish enough to become part of your everyday wardrobe long after the wedding. Please reach out to us directly if you would like recommendations.",
         vyshyvankaWomanAlt: "Woman guest wearing a traditional embroidered Ukrainian vyshyvanka",
         vyshyvankaManAlt: "Man guest wearing a traditional embroidered Ukrainian vyshyvanka",
+        kidsAttireAlt: "Antonina and Filippo as children in a playful wedding attire portrait",
         classicAttireTitle: "Wedding guest attire",
         classicAttireCopy: "Of course, if traditional Ukrainian clothing is not your style, that is absolutely fine; simply come dressed as you would for any wedding celebration. As the wedding ceremony will take place in a church, we kindly ask guests to choose respectful attire and avoid very short dresses, shorts, or exposed shoulders during the ceremony.",
         rsvpKicker: "RSVP",
@@ -1041,8 +1885,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
         heroLocation: "I Carpazi, Ucraina",
         heroRsvp: "Conferma presenza",
         heroDetails: "Scopri i dettagli",
-        invitationKicker: "Siete invitati",
-        invitationTitle: "Nei Carpazi per il Nostro Matrimonio",
+        invitationTitle: "Siete Invitati al Nostro Matrimonio",
         invitationCopy: "Siamo felici di invitarvi a festeggiare il nostro matrimonio\nnel cuore dei Carpazi.\n\nDal 14 al 16 maggio 2027,\ntrascorreremo un weekend insieme tra natura,\naria di montagna, buon cibo, musica e bella compagnia.\n\nCi farebbe davvero piacere condividere con voi\nquesti giorni speciali e creare insieme ricordi indimenticabili.\n\nNon vediamo l’ora di festeggiare insieme a voi.",
         locationKicker: "Il luogo",
         locationTitle: "Tra le montagne dell'Ucraina occidentale",
@@ -1075,6 +1918,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
         vyshyvankaCopy: "Non ci sarà un dress code rigido. Tuttavia, molti dei nostri ospiti ucraini probabilmente indosseranno abiti tradizionali ricamati (\"vyshyvanka\") e ci farebbe molto piacere se anche alcuni dei nostri ospiti internazionali volessero unirsi a questa bella tradizione. Se vi interessa, saremo felici di consigliarvi negozi belli e accessibili dove ordinare o preordinare abiti, camicie o gioielli ricamati. Potrebbe essere anche un bellissimo ricordo del vostro viaggio in Ucraina e dei festeggiamenti trascorsi insieme; inoltre, molte versioni moderne della vyshyvanka sono molto eleganti e si possono indossare facilmente anche nella vita di tutti i giorni. Se desiderate qualche consiglio, scriveteci direttamente.",
         vyshyvankaWomanAlt: "Invitata con una tradizionale camicia ricamata ucraina, la vyshyvanka",
         vyshyvankaManAlt: "Invitato con una tradizionale camicia ricamata ucraina, la vyshyvanka",
+        kidsAttireAlt: "Antonina e Filippo da bambini in un giocoso ritratto in abiti da matrimonio",
         classicAttireTitle: "Abito da invitato",
         classicAttireCopy: "Naturalmente, se l'abbigliamento tradizionale ucraino non fa per voi, va benissimo: vestitevi semplicemente come fareste per qualsiasi matrimonio. Poiché la cerimonia si svolgerà in chiesa, vi chiediamo gentilmente di scegliere un abbigliamento rispettoso, evitando abiti molto corti, pantaloncini o spalle scoperte durante la cerimonia.",
         rsvpKicker: "Conferma presenza",
@@ -1086,23 +1930,22 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
       },
       uk: {
         lang: "uk",
-        title: "Антоніна та Філіппо | Весільне святкування",
+        title: "Антоніна та Філіппо | Весілля",
         navInvitation: "Запрошення",
         navLocation: "Локація",
         navWeekend: "Програма",
         navAttire: "Одяг",
         navRsvp: "Участь",
-        heroKicker: "Весільне святкування",
+        heroKicker: "Весілля",
         heroDate: "14 - 16 травня 2027",
         heroLocation: "Карпати",
         heroRsvp: "Підтвердити участь",
         heroDetails: "Детальніше",
-        invitationKicker: "Вас запрошено",
-        invitationTitle: "До Карпат на весілля",
-        invitationCopy: "Просили вас тато,\nпросили вас мати,\nпросимо і ми вас\nна наше весілля завітати.\n\n14–16 травня 2027 року\nсеред карпатських гір\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nпочаток нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nвихідні у Карпатах.\n\nБудемо дуже раді розділити ці моменти разом із вами!",
+        invitationTitle: "До нас на весілля",
+        invitationCopy: "15 травня 2027 року в житті двох людей, що люблять один одного\nвідбудеться одна з найважливіших подій,\nсвідками якої ми просимо Вас бути\nі розділити радість цього дня разом із нами.\n\nСеред карпатських гір\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nстворення нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nвихідні.",
         locationKicker: "Локація",
         locationTitle: "Весілля в Карпатах",
-        locationCopy: "Ми плануємо святкування в Карпатах і зараз обираємо локацію, яка найкраще підійде для нашого формату та кількості гостей.\n\nДля нас важливо, щоб місце було зручним, продуманим і комфортним для всіх, хто буде поруч із нами в ці дні.",
+        locationCopy: "Ми плануємо святкування в Карпатах і зараз обираємо локацію, яка найкраще підійде для нашого формату та кількості гостей.",
         locationDetail: "Точну локацію повідомимо після підтвердження кількості гостей.",
         mapAlt: "",
         weekendKicker: "Програма святкування",
@@ -1113,24 +1956,25 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
         fridayCopy: "Заїзд гостей і тепла зустріч увечері.",
         saturdayDate: "Субота, 15 травня",
         saturdayTitle: "Весілля",
-        saturdayCopy: "Церемонія та святкування разом із вами.",
+        saturdayCopy: "Вінчання в церкві та святкування разом із вами.",
         sundayDate: "Неділя, 16 травня",
         sundayTitle: "Від'їзд",
         sundayCopy: "Спільний ранок і від'їзд гостей.",
         stayKicker: "Організаційні деталі",
         stayTitle: "Подбаємо про ваше перебування",
-        stayCopy: "Після підтвердження локації ми надішлемо адресу, детальну програму, інформацію про заїзд і все необхідне для зручного планування.",
+        stayCopy: "Після підтвердження локації ми надішлемо адресу, інформацію про заїзд, формат святкування та інші практичні моменти.",
         accommodationTitle: "Проживання",
         accommodationCopy: "Проживання в ніч із п'ятниці на суботу та в ніч із суботи на неділю ми організуємо й оплатимо - на території комплексу або поруч.",
         journeyTitle: "Деталі",
         journeyCopy: "Коли локацію буде заброньовано, ми окремо повідомимо про час заїзду, формат святкування та інші практичні моменти.",
         attireKicker: "Святкове вбрання",
         attireTitle: "Вишиванка - за вашим бажанням",
-        attireCopy: "Наше весілля буде сповнене українських традицій, музики, гостинності й теплого святкування разом із вами. Суворого дрес-коду не буде, але нам буде дуже приємно бачити гостей у вишиванках.",
+        attireCopy: "Суворого дрес-коду на нашому весіллі не буде. Нам буде дуже приємно бачити гостей у вишиванках, адже вони особливо красиво доповнять теплу українську атмосферу цього дня. Водночас звичайне святкове вбрання для весілля також чудово підійде - найважливіше для нас, щоб ви почувалися комфортно й розділили це свято разом із нами.",
         vyshyvankaTitle: "Вишиванка",
         vyshyvankaCopy: "Якщо ви захочете вдягнути вишиванку, це стане особливо красивим доповненням до атмосфери нашого свята.",
         vyshyvankaWomanAlt: "Гостя у традиційній українській вишиванці",
         vyshyvankaManAlt: "Гість у традиційній українській вишиванці",
+        kidsAttireAlt: "Антоніна та Філіппо в дитинстві у жартівливому весільному образі",
         classicAttireTitle: "Святковий одяг",
         classicAttireCopy: "Звичайне святкове вбрання для весілля також чудово підійде. Оскільки церемонія відбудеться в церкві, просимо обрати доречний одяг і під час церемонії уникати дуже коротких суконь, шортів або відкритих плечей.",
         rsvpKicker: "Підтвердження участі",
@@ -1153,7 +1997,6 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
       heroLocation: document.getElementById("hero-location"),
       heroRsvp: document.getElementById("hero-rsvp"),
       heroDetails: document.getElementById("hero-details"),
-      invitationKicker: document.getElementById("invitation-kicker"),
       invitationTitle: document.getElementById("invitation-title"),
       invitationCopy: document.getElementById("invitation-copy"),
       locationKicker: document.getElementById("location-kicker"),
@@ -1187,6 +2030,7 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
       vyshyvankaCopy: document.getElementById("vyshyvanka-copy"),
       vyshyvankaWomanImage: document.getElementById("vyshyvanka-woman-image"),
       vyshyvankaManImage: document.getElementById("vyshyvanka-man-image"),
+      kidsAttireImage: document.getElementById("kids-attire-image"),
       classicAttireTitle: document.getElementById("classic-attire-title"),
       classicAttireCopy: document.getElementById("classic-attire-copy"),
       rsvpKicker: document.getElementById("rsvp-kicker"),
@@ -1203,13 +2047,14 @@ As we plan the weekend, we are choosing the venue with care. Our main goal is to
       document.documentElement.lang = translation.lang;
       document.title = translation.title;
       Object.entries(elements).forEach(([key, element]) => {
-        if (key !== "langSelect" && key !== "mapImage" && key !== "vyshyvankaWomanImage" && key !== "vyshyvankaManImage" && translation[key]) {
+        if (key !== "langSelect" && key !== "mapImage" && key !== "vyshyvankaWomanImage" && key !== "vyshyvankaManImage" && key !== "kidsAttireImage" && translation[key]) {
           element.textContent = translation[key];
         }
       });
       elements.mapImage.alt = translation.mapAlt;
       elements.vyshyvankaWomanImage.alt = translation.vyshyvankaWomanAlt;
       elements.vyshyvankaManImage.alt = translation.vyshyvankaManAlt;
+      elements.kidsAttireImage.alt = translation.kidsAttireAlt;
       elements.rsvpCopy.textContent = translation.rsvpCopy;
       elements.rsvpCopy.hidden = !translation.rsvpCopy;
       elements.langSelect.value = code;
