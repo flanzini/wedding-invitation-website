@@ -3,6 +3,7 @@
 This workspace includes:
 
 - `create_google_form.py` to create three Google Forms, one each in English, Italian, and Ukrainian.
+- `fetch_form_responses.py` to read submitted responses from the active forms listed in `form_links.json`.
 - `form_links.json` to store generated form URLs and Google Form IDs.
 - `index.html` as the standalone wedding invitation page.
 
@@ -40,6 +41,61 @@ The script will:
 - save the generated links and form IDs to `form_links.json`
 
 It will not modify `index.html`.
+
+## Fetch Form Responses (Test)
+
+Use the active form IDs in `form_links.json` and print responses:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" fetch_form_responses.py --code all --limit 20
+```
+
+Fetch one language only:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" fetch_form_responses.py --code en --limit 20
+```
+
+`--code` supports `en`, `it`, `uk`, or `all`.
+
+To also generate a reconciled guest CSV while fetching responses:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" fetch_form_responses.py --code all --limit 200 --export-csv private_data/reports/guest_list_reconciled.csv
+```
+
+## Cross-Check UKR Invitees
+
+Store the private mother list in:
+
+```text
+private_data/ukr_invitees.txt
+```
+
+Optional transliterations or alternate spellings can be stored in:
+
+```text
+private_data/ukr_invitee_aliases.csv
+```
+
+Then compare it against the reconciled guest list:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" check_ukr_invitees.py --guest-csv private_data/reports/guest_list_reconciled.csv --invitees private_data/ukr_invitees.txt --aliases private_data/ukr_invitee_aliases.csv --form-code all --output private_data/reports/ukr_invitee_status.csv --uncounted-output private_data/reports/ukr_uncounted_guests.csv
+```
+
+The report includes:
+
+- whether each invitee is counted (`counted_present`) either as respondent or as accompanying guest
+- how they were counted (`counted_via`)
+- which language form(s) matched (`matched_form_codes`)
+- respondent details and guest counts for planning
+
+It also writes a separate file for people found in responses but not in the mother list:
+
+```text
+private_data/reports/ukr_uncounted_guests.csv
+```
 
 Avoid `py -3` on this machine unless Python Launcher is configured with a Python 3 install. Also prefer the direct environment Python command above over `conda run -n expenses python create_google_form.py`; `conda run` has hit a Windows Unicode output issue even when the script itself succeeds.
 
@@ -103,6 +159,7 @@ As of the latest setup pass, GoDaddy's authoritative nameserver was returning th
 ## Notes
 
 - If you change `SCOPES`, delete `token.json` and rerun the script.
+- `fetch_form_responses.py` uses read-only response scopes. If your existing `token.json` does not include them, delete `token.json` and run the script again to re-authorize.
 - If you rerun the script, it will create additional forms.
 - Keep `credentials.json` and `token.json` private.
 

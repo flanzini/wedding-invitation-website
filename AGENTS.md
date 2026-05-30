@@ -5,6 +5,7 @@ Read `STEERING.md` before making project or Git workflow changes.
 ## Git Safety
 
 - Treat `credentials.json`, `token.json`, `.env*`, private keys, OAuth client secrets, and service account files as local-only secrets.
+- Treat `private_data/`, generated guest CSVs, invitee lists, RSVP exports, and alias files as local-only planning data.
 - Never stage or commit those files.
 - Preserve `.gitignore` and `.githooks/pre-commit`; they are intentional safety guardrails.
 - This repo should use the tracked hooks directory:
@@ -28,6 +29,8 @@ git diff --cached --name-only
 
 - `index.html` is the website source of truth.
 - `create_google_form.py` creates Google Forms and writes links to `form_links.json`; it must not regenerate or overwrite `index.html`.
+- `fetch_form_responses.py` reads current Google Form responses and writes reconciled guest exports under `private_data/reports/`.
+- `check_ukr_invitees.py` compares the reconciled exports with private invitee lists and aliases in `private_data/`.
 - Run Python scripts with the local Conda environment Python:
 
 ```powershell
@@ -36,6 +39,7 @@ git diff --cached --name-only
 
 - Avoid `py -3` unless Python Launcher is configured. Prefer direct environment Python over `conda run -n expenses python ...` because `conda run` has hit Windows Unicode output errors.
 - Keep website assets local unless the user explicitly asks for external assets.
+- Keep generated RSVP analysis outputs in `private_data/reports/`; do not place new private CSV exports at the repository root unless they are temporary and ignored.
 
 ## Website Editing Safety
 

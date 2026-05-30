@@ -13,10 +13,12 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - Italian
   - Ukrainian
 - A guarded cleanup script (`cleanup_google_forms.py`) for moving explicitly verified obsolete wedding forms to Google Drive trash.
+- A read-only response fetcher (`fetch_form_responses.py`) that exports reconciled RSVP guest rows to local private CSV reports.
+- A private invitee cross-check tool (`check_ukr_invitees.py`) that compares reconciled responses with local invitee lists and aliases.
 - An invitation page (`index.html`) with the wedding logo/banner, vintage-blue styling, language switching, event information, attire guidance, and RSVP links.
 - A `form_links.json` file that records generated Google Form URLs and resource IDs.
 - A `README.md` with setup and run instructions.
-- OAuth credentials are stored locally in `credentials.json` and token data in `token.json` after first authorization.
+- OAuth credentials are stored locally in `credentials.json` and token data in `token.json` after first authorization; planning exports and invitee lists live locally under `private_data/`.
 
 ## Key files
 
@@ -34,6 +36,14 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - supports read-only discovery and verification of obsolete Google Forms
   - can trash only explicitly allowlisted obsolete wedding-form IDs after an exact confirmation phrase
   - blocks active form IDs currently listed in `form_links.json`
+- `fetch_form_responses.py`
+  - authenticates with read-only Google Forms response scopes
+  - fetches submitted responses from active form IDs in `form_links.json`
+  - writes reconciled guest rows to `private_data/reports/guest_list_reconciled.csv` by default
+- `check_ukr_invitees.py`
+  - compares reconciled guest rows with local invitee lists in `private_data/`
+  - supports aliases/transliterations for Ukrainian invitees who respond through non-Ukrainian forms
+  - writes local reports to `private_data/reports/` by default
 - `README.md`
   - setup and usage instructions for the Google Forms API automation
 - `STEERING.md`
@@ -61,6 +71,8 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 - Ukrainian website and form copy is written for guests in Ukraine and omits unnecessary map/travel explanation
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
 - Guidance for running the script with the `expenses` Conda environment Python
+- Read-only Google Forms response fetching and local CSV reconciliation for RSVP planning
+- Ukrainian invitee cross-checking with optional private aliases and all-language form matching
 - The website visual system now uses local assets in `decorative-assets/` for embroidery, botanical corners, and Carpathian illustration details, with a warm ivory invitation-card presentation
 - The attire section includes `kids_in_wedding_attire.png` as a personal keepsake image, with the explanatory vyshyvanka text preceding the supporting attire examples in mobile reading order
 
@@ -108,6 +120,8 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 - Run the form script with `& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" create_google_form.py`.
 - Avoid `py -3` unless Python Launcher has a Python 3 install configured. Prefer direct environment Python over `conda run -n expenses python create_google_form.py` because `conda run` has hit Windows Unicode output errors while printing script output.
 - If `token.json` exists and scopes change, delete it and rerun the script.
+- Fetch RSVP responses with `fetch_form_responses.py`; generated CSV reports should stay under `private_data/reports/`.
+- Keep private invitee lists and alias files under `private_data/`; do not commit them.
 - The invitation page can be opened directly from `index.html` in a browser.
 - For visual-only revisions, preserve all existing website copy, translations, RSVP logic, links, and section order unless a specific copy or behavior change is requested.
 - The English and Italian invitation card intentionally omit a repeated invitation kicker when the title already communicates the invitation; Ukrainian retains `Запрошуємо Вас` because its title `До нас на весілля` does not duplicate that meaning.
@@ -118,7 +132,7 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 ## Git workflow and secret safety
 
 - Treat `index.html`, `create_google_form.py`, `README.md`, `STEERING.md`, `form_links.json`, `.gitignore`, `.githooks/pre-commit`, and image assets as commit candidates.
-- Never commit `credentials.json`, `token.json`, `.env*`, private keys, service account files, or OAuth client secret files. These are local-only secrets.
+- Never commit `credentials.json`, `token.json`, `.env*`, private keys, service account files, OAuth client secret files, `private_data/`, generated RSVP CSVs, invitee lists, or alias files. These are local-only secrets/planning data.
 - `.gitignore` and `.githooks/pre-commit` are intentional safety guardrails. Do not remove or bypass them unless the user explicitly asks and understands the risk.
 - This repo is configured with `core.hooksPath = .githooks`; if cloning fresh, run `git config core.hooksPath .githooks` before committing.
 - Before every commit, run `git status --short --ignored` and verify sensitive files appear only as ignored (`!!`) or not at all.

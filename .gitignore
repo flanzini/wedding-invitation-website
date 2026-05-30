@@ -19,3 +19,9 @@ service-account*.json
 # OS/editor noise.
 .DS_Store
 Thumbs.db
+
+# Local planning exports and private invitee lists.
+guest_list_reconciled.csv
+ukr_invitee_status.csv
+ukr_uncounted_guests.csv
+private_data/
