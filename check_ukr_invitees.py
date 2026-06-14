@@ -33,6 +33,10 @@ def split_aliases(value: str) -> list[str]:
     return [part.strip() for part in value.split(";") if part.strip()]
 
 
+def join_unique(values: list[str]) -> str:
+    return "; ".join(dict.fromkeys(value.strip() for value in values if value.strip()))
+
+
 def load_invitees(path: str, alias_path: str | None) -> list[dict]:
     alias_map: dict[str, list[str]] = defaultdict(list)
     if alias_path and os.path.exists(alias_path):
@@ -111,6 +115,7 @@ def build_response_index(rows: list[dict], form_code: str) -> dict[str, dict]:
                 "respondent_name": row.get("respondent_name", "").strip(),
                 "attendance_raw": row.get("attendance_raw", "").strip(),
                 "guest_count_num": row.get("guest_count_num", "").strip(),
+                "contact": row.get("contact", "").strip(),
                 "guest_names": [],
             },
         )
@@ -140,8 +145,24 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
                     "respondent_name": respondent_raw,
                     "attendance_raw": payload["attendance_raw"],
                     "guest_count_num": payload["guest_count_num"],
+                    "contact": payload["contact"],
                 }
             )
+        else:
+            respondent_norm = normalize_name(respondent_raw)
+            if respondent_norm:
+                unknown_guest_hits[respondent_norm].append(
+                    {
+                        "guest_name": respondent_raw,
+                        "guest_role": "respondent",
+                        "response_id": response_id,
+                        "form_code": payload["form_code"],
+                        "listed_by_respondent": respondent_raw,
+                        "attendance_raw": payload["attendance_raw"],
+                        "guest_count_num": payload["guest_count_num"],
+                        "contact": payload["contact"],
+                    }
+                )
 
         respondent_guest_name_norm = normalize_name(payload["guest_names"][0]) if payload["guest_names"] else ""
         for guest_name in payload["guest_names"][1:]:
@@ -156,15 +177,20 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
                         "form_code": payload["form_code"],
                         "listed_as_guest_name": guest_name,
                         "listed_by_respondent": respondent_raw,
+                        "contact": payload["contact"],
                     }
                 )
             else:
                 unknown_guest_hits[guest_norm].append(
                     {
                         "guest_name": guest_name,
+                        "guest_role": "accompanying",
                         "response_id": response_id,
                         "form_code": payload["form_code"],
                         "listed_by_respondent": respondent_raw,
+                        "attendance_raw": payload["attendance_raw"],
+                        "guest_count_num": payload["guest_count_num"],
+                        "contact": payload["contact"],
                     }
                 )
 
@@ -195,6 +221,8 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
         if accompanying_entries:
             counted_via.append("accompanying")
 
+        contact_entries = respondent_entries + accompanying_entries
+
         report_rows.append(
             {
                 "invitee_row_id": ordinal,
@@ -203,6 +231,11 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
                 "counted_present": "yes" if counted_via else "no",
                 "counted_via": "|".join(counted_via),
                 "matched_form_codes": "; ".join(sorted({e["form_code"] for e in respondent_entries + accompanying_entries})),
+                "contact_details": join_unique([e.get("contact", "") for e in contact_entries]),
+                "contact_source_respondents": join_unique(
+                    [e.get("respondent_name", "") for e in respondent_entries]
+                    + [e.get("listed_by_respondent", "") for e in accompanying_entries]
+                ),
                 "responded_as_respondent": responded,
                 "response_count": len(respondent_entries),
                 "latest_response_id": latest_response.get("response_id", ""),
@@ -220,9 +253,18 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
             {
                 "guest_name_normalized": norm,
                 "guest_name_raw_examples": "; ".join(sorted({e["guest_name"] for e in entries})),
+                "guest_roles": "; ".join(sorted({e["guest_role"] for e in entries})),
                 "times_seen": len(entries),
                 "form_codes": "; ".join(sorted({e["form_code"] for e in entries})),
+                "attendance_raw": join_unique([e.get("attendance_raw", "") for e in entries]),
+                "guest_count_total_including_respondent": join_unique(
+                    [e.get("guest_count_num", "") for e in entries]
+                ),
                 "listed_by_respondents": "; ".join(sorted({e["listed_by_respondent"] for e in entries})),
+                "contact_details": join_unique([e.get("contact", "") for e in entries]),
+                "contact_source_respondents": join_unique(
+                    [e.get("listed_by_respondent", "") for e in entries]
+                ),
                 "response_ids": "; ".join(sorted({e["response_id"] for e in entries})),
             }
         )
@@ -238,6 +280,8 @@ def write_report(path: str, rows: list[dict]) -> None:
         "counted_present",
         "counted_via",
         "matched_form_codes",
+        "contact_details",
+        "contact_source_respondents",
         "responded_as_respondent",
         "response_count",
         "latest_response_id",
@@ -257,9 +301,14 @@ def write_uncounted(path: str, rows: list[dict]) -> None:
     headers = [
         "guest_name_normalized",
         "guest_name_raw_examples",
+        "guest_roles",
         "times_seen",
         "form_codes",
+        "attendance_raw",
+        "guest_count_total_including_respondent",
         "listed_by_respondents",
+        "contact_details",
+        "contact_source_respondents",
         "response_ids",
     ]
     with open(path, "w", encoding="utf-8", newline="") as handle:

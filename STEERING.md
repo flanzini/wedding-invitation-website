@@ -14,7 +14,8 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - Ukrainian
 - A guarded cleanup script (`cleanup_google_forms.py`) for moving explicitly verified obsolete wedding forms to Google Drive trash.
 - A read-only response fetcher (`fetch_form_responses.py`) that exports reconciled RSVP guest rows to local private CSV reports.
-- A private invitee cross-check tool (`check_ukr_invitees.py`) that compares reconciled responses with local invitee lists and aliases.
+- Private invitee cross-check tools that maintain separate Ukrainian and international master lists while producing group-specific and consolidated reports.
+- A one-command refresh workflow (`refresh_invitee_reports.py`, with `refresh_invitee_reports.cmd` as a Windows launcher) that fetches all active forms and regenerates every RSVP report.
 - An invitation page (`index.html`) with the wedding logo/banner, vintage-blue styling, language switching, event information, attire guidance, and RSVP links.
 - A `form_links.json` file that records generated Google Form URLs and resource IDs.
 - A `README.md` with setup and run instructions.
@@ -41,9 +42,22 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - fetches submitted responses from active form IDs in `form_links.json`
   - writes reconciled guest rows to `private_data/reports/guest_list_reconciled.csv` by default
 - `check_ukr_invitees.py`
-  - compares reconciled guest rows with local invitee lists in `private_data/`
-  - supports aliases/transliterations for Ukrainian invitees who respond through non-Ukrainian forms
-  - writes local reports to `private_data/reports/` by default
+  - provides the shared matching and reporting logic for Ukrainian and international invitees
+  - supports aliases, transliterations, reordered names, and submitted-name variants
+  - includes respondent contact details in status reports and associates accompanying guests with the respondent's contact
+- `check_all_invitees.py`
+  - matches the Ukrainian and international master lists against all three language forms in one pass
+  - preserves the source list in an `invitee_group` column
+  - includes unmatched respondents and unmatched accompanying guests in the consolidated uncounted report, distinguished by `guest_roles`
+  - writes `private_data/reports/all_invitee_status.csv` and `private_data/reports/all_uncounted_guests.csv`
+- `refresh_invitee_reports.py`
+  - fetches responses from all active English, Italian, and Ukrainian forms
+  - rebuilds the English/Italian-only reconciled subset
+  - regenerates the Ukrainian, international, and consolidated status and uncounted reports
+  - prints the current affirmative guest count and the practical number of master-list invitees still awaiting an answer
+  - supports `--reports-only` to rebuild reports without contacting Google
+- `refresh_invitee_reports.cmd`
+  - Windows double-click launcher using the local `expenses` Conda environment Python
 - `README.md`
   - setup and usage instructions for the Google Forms API automation
 - `STEERING.md`
@@ -72,7 +86,10 @@ The current goal is to present an elegant invitation page and collect RSVP respo
 - GitHub Pages deployment is being configured for the custom domain `antoninafilippo.info`
 - Guidance for running the script with the `expenses` Conda environment Python
 - Read-only Google Forms response fetching and local CSV reconciliation for RSVP planning
-- Ukrainian invitee cross-checking with optional private aliases and all-language form matching
+- Separate Ukrainian and international invitee master lists with private alias files
+- Consolidated all-invitee matching across all language forms, including cross-language responses
+- Contact details in counted and uncounted reports; accompanying guests inherit the contact supplied by the respondent who listed them
+- One-command and double-click RSVP refresh workflows
 - The website visual system now uses local assets in `decorative-assets/` for embroidery, botanical corners, and Carpathian illustration details, with a warm ivory invitation-card presentation
 - The attire section includes `kids_in_wedding_attire.png` as a personal keepsake image, with the explanatory vyshyvanka text preceding the supporting attire examples in mobile reading order
 
@@ -121,7 +138,15 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 - Avoid `py -3` unless Python Launcher has a Python 3 install configured. Prefer direct environment Python over `conda run -n expenses python create_google_form.py` because `conda run` has hit Windows Unicode output errors while printing script output.
 - If `token.json` exists and scopes change, delete it and rerun the script.
 - Fetch RSVP responses with `fetch_form_responses.py`; generated CSV reports should stay under `private_data/reports/`.
-- Keep private invitee lists and alias files under `private_data/`; do not commit them.
+- Keep private invitee lists and alias files under `private_data/`; do not commit them. Canonical master lists are `private_data/ukr_invitees.txt` and `private_data/en_it_invitees.txt`; alternate submitted names belong in their corresponding alias CSV files.
+- Prefer the complete refresh workflow:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" refresh_invitee_reports.py
+```
+
+- Run `refresh_invitee_reports.py --reports-only` after editing invitee or alias files when the existing reconciled response CSV is already current.
+- The main planning outputs are `private_data/reports/all_invitee_status.csv` and `private_data/reports/all_uncounted_guests.csv`. Keep all contact-bearing reports private and local-only.
 - The invitation page can be opened directly from `index.html` in a browser.
 - For visual-only revisions, preserve all existing website copy, translations, RSVP logic, links, and section order unless a specific copy or behavior change is requested.
 - The English and Italian invitation card intentionally omit a repeated invitation kicker when the title already communicates the invitation; Ukrainian retains `Запрошуємо Вас` because its title `До нас на весілля` does not duplicate that meaning.

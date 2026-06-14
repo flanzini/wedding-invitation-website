@@ -97,6 +97,48 @@ It also writes a separate file for people found in responses but not in the moth
 private_data/reports/ukr_uncounted_guests.csv
 ```
 
+## Consolidated Invitee Report
+
+Keep the Ukrainian and international master lists separate in:
+
+```text
+private_data/ukr_invitees.txt
+private_data/en_it_invitees.txt
+```
+
+Generate one report across both lists and all three RSVP forms:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" check_all_invitees.py
+```
+
+The consolidated report adds an `invitee_group` column and writes:
+
+```text
+private_data/reports/all_invitee_status.csv
+private_data/reports/all_uncounted_guests.csv
+```
+
+Matching all invitees in one pass prevents guests who answer through a different language form from being incorrectly reported as external guests. The uncounted report includes both unmatched respondents and unmatched accompanying guests; use `guest_roles` to distinguish them.
+
+### One-command refresh
+
+Fetch all active English, Italian, and Ukrainian forms and regenerate every invitee report with:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" refresh_invitee_reports.py
+```
+
+On Windows, you can also double-click `refresh_invitee_reports.cmd` in File Explorer. A browser may open if Google authorization needs to be renewed.
+
+After rebuilding the reports, the refresh command prints the current attending guest count, its matched/unlisted split, and the practical number of master-list invitees who still need to answer.
+
+To rebuild the reports from the most recently fetched responses without contacting Google:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" refresh_invitee_reports.py --reports-only
+```
+
 Avoid `py -3` on this machine unless Python Launcher is configured with a Python 3 install. Also prefer the direct environment Python command above over `conda run -n expenses python create_google_form.py`; `conda run` has hit a Windows Unicode output issue even when the script itself succeeds.
 
 ## Website

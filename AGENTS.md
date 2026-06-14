@@ -30,7 +30,26 @@ git diff --cached --name-only
 - `index.html` is the website source of truth.
 - `create_google_form.py` creates Google Forms and writes links to `form_links.json`; it must not regenerate or overwrite `index.html`.
 - `fetch_form_responses.py` reads current Google Form responses and writes reconciled guest exports under `private_data/reports/`.
-- `check_ukr_invitees.py` compares the reconciled exports with private invitee lists and aliases in `private_data/`.
+- `check_ukr_invitees.py` is the shared invitee-matching engine used for the Ukrainian and international reports.
+- `check_all_invitees.py` combines the separate Ukrainian and international master lists into one consolidated report while preserving an `invitee_group` column.
+- `refresh_invitee_reports.py` is the preferred end-to-end workflow: it fetches all active forms, rebuilds the English/Italian response subset, and regenerates all invitee reports.
+- The refresh summary must report unique guests from affirmative responses as currently coming, plus master-list rows with `counted_present = no` as the practical outstanding count.
+- `refresh_invitee_reports.cmd` is the Windows double-click launcher for the same refresh workflow.
+- Keep the master lists separate:
+  - `private_data/ukr_invitees.txt`
+  - `private_data/en_it_invitees.txt`
+- Keep alternate spellings and submitted-name variants in the corresponding alias files rather than changing canonical invitee names solely to match a response:
+  - `private_data/ukr_invitee_aliases.csv`
+  - `private_data/en_it_invitee_aliases.csv`
+- Consolidated reports are written to `private_data/reports/all_invitee_status.csv` and `private_data/reports/all_uncounted_guests.csv`. The uncounted report must include both unmatched respondents and unmatched accompanying guests, distinguished by `guest_roles`.
+- Status and uncounted reports include `contact_details` and `contact_source_respondents`. Accompanying guests inherit the contact supplied by the respondent who listed them.
+- To refresh responses and all reports, run:
+
+```powershell
+& "C:\Users\filip\Miniconda3\envs\expenses\python.exe" refresh_invitee_reports.py
+```
+
+- Use `refresh_invitee_reports.py --reports-only` when only the private master lists or aliases changed and the existing reconciled response CSV is current.
 - Run Python scripts with the local Conda environment Python:
 
 ```powershell
