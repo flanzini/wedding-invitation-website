@@ -54,7 +54,7 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - fetches responses from all active English, Italian, and Ukrainian forms
   - rebuilds the English/Italian-only reconciled subset
   - regenerates the Ukrainian, international, and consolidated status and uncounted reports
-  - prints the current affirmative guest count and the practical number of master-list invitees still awaiting an answer
+  - prints the current affirmative guest count, message acceptances and declines, and the practical number of master-list invitees still awaiting an answer
   - supports `--reports-only` to rebuild reports without contacting Google
 - `refresh_invitee_reports.cmd`
   - Windows double-click launcher using the local `expenses` Conda environment Python
@@ -139,6 +139,8 @@ Resolve-DnsName www.antoninafilippo.info -Type CNAME -Server ns11.domaincontrol.
 - If `token.json` exists and scopes change, delete it and rerun the script.
 - Fetch RSVP responses with `fetch_form_responses.py`; generated CSV reports should stay under `private_data/reports/`.
 - Keep private invitee lists and alias files under `private_data/`; do not commit them. Canonical master lists are `private_data/ukr_invitees.txt` and `private_data/en_it_invitees.txt`; alternate submitted names belong in their corresponding alias CSV files.
+- Track message acceptances locally in `private_data/accepted_invitees.txt`, one invitee per line. Status reports mark these as `response_status = accepted_by_message` and `counted_present = yes` until a later RSVP form match takes precedence.
+- Track message declines locally in `private_data/declined_invitees.txt`, one invitee per line. Status reports mark these as `response_status = declined_by_message`; uncounted master-list invitees not in either message file remain `pending_response`.
 - Prefer the complete refresh workflow:
 
 ```powershell

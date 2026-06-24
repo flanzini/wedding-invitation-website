@@ -12,6 +12,8 @@ DEFAULT_INVITEE_FILE = "private_data/ukr_invitees.txt"
 DEFAULT_ALIAS_FILE = "private_data/ukr_invitee_aliases.csv"
 DEFAULT_OUTPUT_CSV = "private_data/reports/ukr_invitee_status.csv"
 DEFAULT_UNCOUNTED_CSV = "private_data/reports/ukr_uncounted_guests.csv"
+DEFAULT_ACCEPTED_FILE = "private_data/accepted_invitees.txt"
+DEFAULT_DECLINED_FILE = "private_data/declined_invitees.txt"
 
 
 def normalize_name(value: str) -> str:
@@ -56,6 +58,22 @@ def load_invitees(path: str, alias_path: str | None) -> list[dict]:
     return invitees
 
 
+def load_message_names(path: str | None) -> list[str]:
+    if not path or not os.path.exists(path):
+        return []
+
+    names = []
+    with open(path, "r", encoding="utf-8-sig") as handle:
+        for line in handle:
+            name = line.strip()
+            if name and not name.startswith("#"):
+                names.append(name)
+    return names
+
+
+load_declined_names = load_message_names
+
+
 def read_guest_rows(path: str) -> list[dict]:
     with open(path, "r", encoding="utf-8-sig", newline="") as handle:
         return list(csv.DictReader(handle))
@@ -87,6 +105,21 @@ def build_match_indexes(invitees: list[dict]) -> tuple[list[str], dict[str, str]
         for alias in row["aliases"]:
             add_match_key(match_keys, alias, canonical_norm)
     return invitee_norms, match_keys
+
+
+def build_message_norms(
+    names: list[str],
+    invitee_norms: list[str],
+    match_keys: dict[str, str],
+) -> set[str]:
+    message_norms = set()
+    for name in names:
+        matched = match_invitee_name(name, invitee_norms, match_keys)
+        message_norms.add(matched or normalize_name(name))
+    return {norm for norm in message_norms if norm}
+
+
+build_declined_norms = build_message_norms
 
 
 def match_invitee_name(name: str, invitee_norms: list[str], match_keys: dict[str, str]) -> str | None:
@@ -125,9 +158,17 @@ def build_response_index(rows: list[dict], form_code: str) -> dict[str, dict]:
     return by_response
 
 
-def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tuple[list[dict], list[dict]]:
+def analyze(
+    invitees: list[dict],
+    guest_rows: list[dict],
+    form_code: str,
+    declined_names: list[str] | None = None,
+    accepted_names: list[str] | None = None,
+) -> tuple[list[dict], list[dict]]:
     responses = build_response_index(guest_rows, form_code)
     invitee_norms, match_keys = build_match_indexes(invitees)
+    declined_norms = build_message_norms(declined_names or [], invitee_norms, match_keys)
+    accepted_norms = build_message_norms(accepted_names or [], invitee_norms, match_keys)
     invitee_norm_counts = Counter(normalize_name(row["name"]) for row in invitees if normalize_name(row["name"]))
 
     respondent_hits: dict[str, list[dict]] = defaultdict(list)
@@ -220,6 +261,15 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
             counted_via.append("respondent")
         if accompanying_entries:
             counted_via.append("accompanying")
+        if counted_via:
+            response_status = "coming"
+        elif norm in accepted_norms:
+            counted_via.append("accepted_by_message")
+            response_status = "accepted_by_message"
+        elif norm in declined_norms:
+            response_status = "declined_by_message"
+        else:
+            response_status = "pending_response"
 
         contact_entries = respondent_entries + accompanying_entries
 
@@ -229,6 +279,9 @@ def analyze(invitees: list[dict], guest_rows: list[dict], form_code: str) -> tup
                 "invitee_name": canonical,
                 "aliases": "; ".join(invitee["aliases"]),
                 "counted_present": "yes" if counted_via else "no",
+                "response_status": response_status,
+                "accepted_by_message": "yes" if response_status == "accepted_by_message" else "no",
+                "declined_by_message": "yes" if response_status == "declined_by_message" else "no",
                 "counted_via": "|".join(counted_via),
                 "matched_form_codes": "; ".join(sorted({e["form_code"] for e in respondent_entries + accompanying_entries})),
                 "contact_details": join_unique([e.get("contact", "") for e in contact_entries]),
@@ -278,6 +331,9 @@ def write_report(path: str, rows: list[dict]) -> None:
         "invitee_name",
         "aliases",
         "counted_present",
+        "response_status",
+        "accepted_by_message",
+        "declined_by_message",
         "counted_via",
         "matched_form_codes",
         "contact_details",
@@ -319,10 +375,16 @@ def write_uncounted(path: str, rows: list[dict]) -> None:
 
 def print_summary(rows: list[dict], unknown_rows: list[dict]) -> None:
     counted = sum(1 for r in rows if r["counted_present"] == "yes")
+    accepted = sum(1 for r in rows if r.get("response_status") == "accepted_by_message")
+    declined = sum(1 for r in rows if r.get("response_status") == "declined_by_message")
+    pending = sum(1 for r in rows if r.get("response_status") == "pending_response")
     respondent_count = sum(1 for r in rows if r["responded_as_respondent"] == "yes")
     print("UKR invitee cross-check summary")
     print(f"- Invitees in mother list: {len(rows)}")
-    print(f"- Invitees counted (respondent or accompanying): {counted}")
+    print(f"- Invitees counted present: {counted}")
+    print(f"- Invitees accepted by message: {accepted}")
+    print(f"- Invitees declined by message: {declined}")
+    print(f"- Invitees still pending an answer: {pending}")
     print(f"- Invitees who responded directly: {respondent_count}")
     print(f"- Uncounted external guests (not in mother list): {len(unknown_rows)}")
 
@@ -332,14 +394,18 @@ def main() -> None:
     parser.add_argument("--guest-csv", default=DEFAULT_GUEST_CSV, help=f"Input guest CSV. Default: {DEFAULT_GUEST_CSV}")
     parser.add_argument("--invitees", default=DEFAULT_INVITEE_FILE, help=f"Mother list file path. Default: {DEFAULT_INVITEE_FILE}")
     parser.add_argument("--aliases", default=DEFAULT_ALIAS_FILE, help=f"Optional invitee alias CSV. Default: {DEFAULT_ALIAS_FILE}")
+    parser.add_argument("--accepted", default=DEFAULT_ACCEPTED_FILE, help=f"Optional newline-delimited list of invitees who accepted by message. Default: {DEFAULT_ACCEPTED_FILE}")
+    parser.add_argument("--declined", default=DEFAULT_DECLINED_FILE, help=f"Optional newline-delimited list of invitees who declined by message. Default: {DEFAULT_DECLINED_FILE}")
     parser.add_argument("--form-code", choices=["all", "en", "it", "uk"], default="all", help="Responses to check. Default: all.")
     parser.add_argument("--output", default=DEFAULT_OUTPUT_CSV, help=f"Output report CSV. Default: {DEFAULT_OUTPUT_CSV}")
     parser.add_argument("--uncounted-output", default=DEFAULT_UNCOUNTED_CSV, help=f"Output CSV for guests not in mother list. Default: {DEFAULT_UNCOUNTED_CSV}")
     args = parser.parse_args()
 
     invitees = load_invitees(args.invitees, args.aliases)
+    accepted_names = load_message_names(args.accepted)
+    declined_names = load_declined_names(args.declined)
     guest_rows = read_guest_rows(args.guest_csv)
-    report_rows, unknown_rows = analyze(invitees, guest_rows, args.form_code)
+    report_rows, unknown_rows = analyze(invitees, guest_rows, args.form_code, declined_names, accepted_names)
     write_report(args.output, report_rows)
     write_uncounted(args.uncounted_output, unknown_rows)
     print_summary(report_rows, unknown_rows)

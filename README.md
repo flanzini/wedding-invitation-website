@@ -86,7 +86,8 @@ Then compare it against the reconciled guest list:
 
 The report includes:
 
-- whether each invitee is counted (`counted_present`) either as respondent or as accompanying guest
+- whether each invitee is counted (`counted_present`) either through an RSVP match or a message acceptance
+- whether each invitee is coming, accepted by message, declined by message, or still pending (`response_status`)
 - how they were counted (`counted_via`)
 - which language form(s) matched (`matched_form_codes`)
 - respondent details and guest counts for planning
@@ -105,6 +106,20 @@ Keep the Ukrainian and international master lists separate in:
 private_data/ukr_invitees.txt
 private_data/en_it_invitees.txt
 ```
+
+When someone tells you by message that they are coming but will not fill the form, add their name to:
+
+```text
+private_data/accepted_invitees.txt
+```
+
+When someone tells you by message that they are not coming, add their name to:
+
+```text
+private_data/declined_invitees.txt
+```
+
+Use one invitee per line in both files. The reports mark accepted invitees as `response_status = accepted_by_message` and declined invitees as `response_status = declined_by_message`; invitees without a matched RSVP or message status remain `pending_response`. If a message-accepted invitee later submits the RSVP form, the form match takes precedence on the next refresh.
 
 Generate one report across both lists and all three RSVP forms:
 
@@ -131,7 +146,7 @@ Fetch all active English, Italian, and Ukrainian forms and regenerate every invi
 
 On Windows, you can also double-click `refresh_invitee_reports.cmd` in File Explorer. A browser may open if Google authorization needs to be renewed.
 
-After rebuilding the reports, the refresh command prints the current attending guest count, its matched/unlisted split, and the practical number of master-list invitees who still need to answer.
+After rebuilding the reports, the refresh command prints the current attending guest count, its matched/unlisted/message-accepted split, the number of master-list invitees who declined by message, and the practical number still pending an answer.
 
 To rebuild the reports from the most recently fetched responses without contacting Google:
 

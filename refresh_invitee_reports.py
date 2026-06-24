@@ -69,13 +69,18 @@ def print_planning_summary() -> None:
         for row in uncounted_rows
         if row.get("guest_name_normalized", "").strip() in attending_names
     }
-    practical_outstanding = sum(1 for row in status_rows if row.get("counted_present", "") == "no")
+    accepted_by_message = sum(1 for row in status_rows if row.get("response_status", "") == "accepted_by_message")
+    declined_by_message = sum(1 for row in status_rows if row.get("response_status", "") == "declined_by_message")
+    practical_outstanding = sum(1 for row in status_rows if row.get("response_status", "") == "pending_response")
     matched_attending = len(attending_names - uncounted_names)
+    people_currently_coming = len(attending_names) + accepted_by_message
 
     print("\nCurrent planning summary")
-    print(f"- People currently coming: {len(attending_names)}")
+    print(f"- People currently coming: {people_currently_coming}")
     print(f"- Matched master-list guests coming: {matched_attending}")
     print(f"- Unlisted guests coming: {len(uncounted_names)}")
+    print(f"- Master-list invitees accepted by message: {accepted_by_message}")
+    print(f"- Master-list invitees declined by message: {declined_by_message}")
     print(f"- Master-list invitees still needing an answer: {practical_outstanding}")
 
 

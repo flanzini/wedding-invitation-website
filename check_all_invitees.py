@@ -3,7 +3,14 @@ from __future__ import annotations
 import argparse
 import csv
 
-from check_ukr_invitees import analyze, load_invitees, read_guest_rows, write_uncounted
+from check_ukr_invitees import (
+    analyze,
+    load_declined_names,
+    load_invitees,
+    load_message_names,
+    read_guest_rows,
+    write_uncounted,
+)
 
 DEFAULT_GUEST_CSV = "private_data/reports/guest_list_reconciled.csv"
 DEFAULT_UKR_INVITEE_FILE = "private_data/ukr_invitees.txt"
@@ -12,6 +19,8 @@ DEFAULT_INTERNATIONAL_INVITEE_FILE = "private_data/en_it_invitees.txt"
 DEFAULT_INTERNATIONAL_ALIAS_FILE = "private_data/en_it_invitee_aliases.csv"
 DEFAULT_OUTPUT_CSV = "private_data/reports/all_invitee_status.csv"
 DEFAULT_UNCOUNTED_CSV = "private_data/reports/all_uncounted_guests.csv"
+DEFAULT_ACCEPTED_FILE = "private_data/accepted_invitees.txt"
+DEFAULT_DECLINED_FILE = "private_data/declined_invitees.txt"
 
 
 def load_grouped_invitees(
@@ -48,6 +57,9 @@ def write_report(path: str, rows: list[dict]) -> None:
         "invitee_name",
         "aliases",
         "counted_present",
+        "response_status",
+        "accepted_by_message",
+        "declined_by_message",
         "counted_via",
         "matched_form_codes",
         "contact_details",
@@ -69,10 +81,16 @@ def write_report(path: str, rows: list[dict]) -> None:
 
 def print_summary(rows: list[dict], unknown_rows: list[dict]) -> None:
     counted = sum(1 for row in rows if row["counted_present"] == "yes")
+    accepted = sum(1 for row in rows if row.get("response_status") == "accepted_by_message")
+    declined = sum(1 for row in rows if row.get("response_status") == "declined_by_message")
+    pending = sum(1 for row in rows if row.get("response_status") == "pending_response")
     direct = sum(1 for row in rows if row["responded_as_respondent"] == "yes")
     print("Consolidated invitee cross-check summary")
     print(f"- Invitees across all master lists: {len(rows)}")
-    print(f"- Invitees counted (respondent or accompanying): {counted}")
+    print(f"- Invitees counted present: {counted}")
+    print(f"- Invitees accepted by message: {accepted}")
+    print(f"- Invitees declined by message: {declined}")
+    print(f"- Invitees still pending an answer: {pending}")
     print(f"- Invitees who responded directly: {direct}")
     print(f"- Uncounted external guests: {len(unknown_rows)}")
     for group in ("ukrainian", "international"):
@@ -90,6 +108,8 @@ def main() -> None:
     parser.add_argument("--ukr-aliases", default=DEFAULT_UKR_ALIAS_FILE)
     parser.add_argument("--international-invitees", default=DEFAULT_INTERNATIONAL_INVITEE_FILE)
     parser.add_argument("--international-aliases", default=DEFAULT_INTERNATIONAL_ALIAS_FILE)
+    parser.add_argument("--accepted", default=DEFAULT_ACCEPTED_FILE)
+    parser.add_argument("--declined", default=DEFAULT_DECLINED_FILE)
     parser.add_argument("--output", default=DEFAULT_OUTPUT_CSV)
     parser.add_argument("--uncounted-output", default=DEFAULT_UNCOUNTED_CSV)
     args = parser.parse_args()
@@ -100,8 +120,10 @@ def main() -> None:
         args.international_invitees,
         args.international_aliases,
     )
+    accepted_names = load_message_names(args.accepted)
+    declined_names = load_declined_names(args.declined)
     guest_rows = read_guest_rows(args.guest_csv)
-    report_rows, unknown_rows = analyze(invitees, guest_rows, "all")
+    report_rows, unknown_rows = analyze(invitees, guest_rows, "all", declined_names, accepted_names)
     grouped_rows = add_group_to_report(report_rows, invitees)
     write_report(args.output, grouped_rows)
     write_uncounted(args.uncounted_output, unknown_rows)
