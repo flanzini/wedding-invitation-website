@@ -147,6 +147,7 @@ def build_response_index(rows: list[dict], form_code: str) -> dict[str, dict]:
                 "form_code": row.get("form_code", ""),
                 "respondent_name": row.get("respondent_name", "").strip(),
                 "attendance_raw": row.get("attendance_raw", "").strip(),
+                "attendance_bool": row.get("attendance_bool", "").strip(),
                 "guest_count_num": row.get("guest_count_num", "").strip(),
                 "contact": row.get("contact", "").strip(),
                 "guest_names": [],
@@ -156,6 +157,17 @@ def build_response_index(rows: list[dict], form_code: str) -> dict[str, dict]:
         if guest_name:
             payload["guest_names"].append(guest_name)
     return by_response
+
+
+def attendance_state(value: object) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    normalized = str(value).strip().lower()
+    if normalized == "true":
+        return True
+    if normalized == "false":
+        return False
+    return None
 
 
 def analyze(
@@ -185,6 +197,7 @@ def analyze(
                     "form_code": payload["form_code"],
                     "respondent_name": respondent_raw,
                     "attendance_raw": payload["attendance_raw"],
+                    "attendance_bool": payload["attendance_bool"],
                     "guest_count_num": payload["guest_count_num"],
                     "contact": payload["contact"],
                 }
@@ -200,6 +213,7 @@ def analyze(
                         "form_code": payload["form_code"],
                         "listed_by_respondent": respondent_raw,
                         "attendance_raw": payload["attendance_raw"],
+                        "attendance_bool": payload["attendance_bool"],
                         "guest_count_num": payload["guest_count_num"],
                         "contact": payload["contact"],
                     }
@@ -218,6 +232,7 @@ def analyze(
                         "form_code": payload["form_code"],
                         "listed_as_guest_name": guest_name,
                         "listed_by_respondent": respondent_raw,
+                        "attendance_bool": payload["attendance_bool"],
                         "contact": payload["contact"],
                     }
                 )
@@ -230,6 +245,7 @@ def analyze(
                         "form_code": payload["form_code"],
                         "listed_by_respondent": respondent_raw,
                         "attendance_raw": payload["attendance_raw"],
+                        "attendance_bool": payload["attendance_bool"],
                         "guest_count_num": payload["guest_count_num"],
                         "contact": payload["contact"],
                     }
@@ -250,6 +266,7 @@ def analyze(
 
         responded = "yes" if respondent_entries else "no"
         latest_response = respondent_entries[-1] if respondent_entries else {}
+        latest_attendance = attendance_state(latest_response.get("attendance_bool", ""))
         guest_count_num = latest_response.get("guest_count_num", "")
         try:
             bringing_additional = max(int(guest_count_num) - 1, 0) if guest_count_num else ""
@@ -257,12 +274,22 @@ def analyze(
             bringing_additional = ""
 
         counted_via = []
-        if respondent_entries:
+        attending_respondent_entries = [
+            entry for entry in respondent_entries if attendance_state(entry.get("attendance_bool", "")) is True
+        ]
+        attending_accompanying_entries = [
+            entry for entry in accompanying_entries if attendance_state(entry.get("attendance_bool", "")) is True
+        ]
+        if attending_respondent_entries:
             counted_via.append("respondent")
-        if accompanying_entries:
+        if attending_accompanying_entries:
             counted_via.append("accompanying")
         if counted_via:
             response_status = "coming"
+        elif respondent_entries and latest_attendance is False:
+            response_status = "declined_by_form"
+        elif respondent_entries:
+            response_status = "maybe_by_form"
         elif norm in accepted_norms:
             counted_via.append("accepted_by_message")
             response_status = "accepted_by_message"

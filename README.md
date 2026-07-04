@@ -136,6 +136,8 @@ private_data/reports/all_uncounted_guests.csv
 
 Matching all invitees in one pass prevents guests who answer through a different language form from being incorrectly reported as external guests. The uncounted report includes both unmatched respondents and unmatched accompanying guests; use `guest_roles` to distinguish them.
 
+Future cleanup: `check_ukr_invitees.py` now contains shared invitee reconciliation logic used by Ukrainian, English/Italian, and consolidated reports. Consider moving that shared logic into a neutrally named module such as `invitee_reconciliation.py`, while keeping `check_ukr_invitees.py` as the Ukrainian report CLI wrapper.
+
 ### One-command refresh
 
 Fetch all active English, Italian, and Ukrainian forms and regenerate every invitee report with:
