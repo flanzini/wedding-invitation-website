@@ -34,6 +34,7 @@ git diff --cached --name-only
 - `check_all_invitees.py` combines the separate Ukrainian and international master lists into one consolidated report while preserving an `invitee_group` column.
 - `refresh_invitee_reports.py` is the preferred end-to-end workflow: it fetches all active forms, rebuilds the English/Italian response subset, and regenerates all invitee reports.
 - The refresh summary must report unique guests from affirmative responses as currently coming, plus master-list rows with `counted_present = no` as the practical outstanding count.
+- The refresh summary must also list the last three Google Form responses in chronological order, including submission time, form language, respondent name, attendance, and accompanying guests when present.
 - `refresh_invitee_reports.cmd` is the Windows double-click launcher for the same refresh workflow.
 - Keep the master lists separate:
   - `private_data/ukr_invitees.txt`

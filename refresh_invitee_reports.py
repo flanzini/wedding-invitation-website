@@ -4,6 +4,7 @@ import argparse
 import csv
 import subprocess
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 from check_ukr_invitees import normalize_name
@@ -14,6 +15,7 @@ GUEST_CSV = REPORTS_DIR / "guest_list_reconciled.csv"
 EN_IT_GUEST_CSV = REPORTS_DIR / "guest_list_reconciled_en_it.csv"
 ALL_INVITEE_STATUS_CSV = REPORTS_DIR / "all_invitee_status.csv"
 ALL_UNCOUNTED_GUESTS_CSV = REPORTS_DIR / "all_uncounted_guests.csv"
+RECENT_RESPONSE_COUNT = 3
 
 
 def run_script(script: str, *args: str) -> None:
@@ -54,6 +56,74 @@ def is_affirmative(value: str) -> bool:
     return value.strip().lower() == "true"
 
 
+def attendance_label(row: dict) -> str:
+    attendance_bool = row.get("attendance_bool", "").strip().lower()
+    if attendance_bool == "true":
+        return "Yes"
+    if attendance_bool == "false":
+        return "No"
+    attendance_raw = row.get("attendance_raw", "").strip()
+    return attendance_raw or "Unclear"
+
+
+def recent_form_responses(guest_rows: list[dict], limit: int = RECENT_RESPONSE_COUNT) -> list[dict]:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for row in guest_rows:
+        response_id = row.get("response_id", "").strip()
+        if response_id:
+            key = response_id
+        else:
+            key = "|".join(
+                [
+                    row.get("form_code", "").strip(),
+                    row.get("submitted_local", "").strip(),
+                    row.get("respondent_name", "").strip(),
+                ]
+            )
+        grouped[key].append(row)
+
+    responses = []
+    for rows in grouped.values():
+        respondent = next((row for row in rows if row.get("guest_role", "").strip() == "respondent"), rows[0])
+        accompanying = [
+            row.get("guest_name", "").strip()
+            for row in rows
+            if row.get("guest_role", "").strip() == "accompanying" and row.get("guest_name", "").strip()
+        ]
+        responses.append(
+            {
+                "submitted_local": respondent.get("submitted_local", "").strip(),
+                "form_code": respondent.get("form_code", "").strip(),
+                "respondent_name": respondent.get("respondent_name", "").strip()
+                or respondent.get("guest_name", "").strip(),
+                "attendance": attendance_label(respondent),
+                "accompanying": accompanying,
+            }
+        )
+
+    responses.sort(key=lambda item: item["submitted_local"] or "", reverse=True)
+    newest = responses[:limit]
+    newest.reverse()  # chronological: oldest of the recent set first
+    return newest
+
+
+def print_recent_responses(guest_rows: list[dict]) -> None:
+    recent = recent_form_responses(guest_rows)
+    print(f"\nLast {RECENT_RESPONSE_COUNT} form responses (oldest → newest)")
+    if not recent:
+        print("- None found in the reconciled guest CSV.")
+        return
+
+    for index, response in enumerate(recent, start=1):
+        when = response["submitted_local"] or "unknown time"
+        form_code = response["form_code"] or "?"
+        name = response["respondent_name"] or "Unknown respondent"
+        line = f"{index}. {when} | {form_code} | {name} | {response['attendance']}"
+        if response["accompanying"]:
+            line += f" (+ {', '.join(response['accompanying'])})"
+        print(line)
+
+
 def print_planning_summary() -> None:
     guest_rows = read_csv(GUEST_CSV)
     status_rows = read_csv(ALL_INVITEE_STATUS_CSV)
@@ -82,6 +152,7 @@ def print_planning_summary() -> None:
     print(f"- Master-list invitees accepted by message: {accepted_by_message}")
     print(f"- Master-list invitees declined by message: {declined_by_message}")
     print(f"- Master-list invitees still needing an answer: {practical_outstanding}")
+    print_recent_responses(guest_rows)
 
 
 def refresh_reports(fetch_responses: bool, limit: int) -> None:

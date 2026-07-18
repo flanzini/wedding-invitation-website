@@ -54,7 +54,7 @@ The current goal is to present an elegant invitation page and collect RSVP respo
   - fetches responses from all active English, Italian, and Ukrainian forms
   - rebuilds the English/Italian-only reconciled subset
   - regenerates the Ukrainian, international, and consolidated status and uncounted reports
-  - prints the current affirmative guest count, message acceptances and declines, and the practical number of master-list invitees still awaiting an answer
+  - prints the current affirmative guest count, message acceptances and declines, the practical number of master-list invitees still awaiting an answer, and the last three form responses with submission times
   - supports `--reports-only` to rebuild reports without contacting Google
 - `refresh_invitee_reports.cmd`
   - Windows double-click launcher using the local `expenses` Conda environment Python

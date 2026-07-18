@@ -148,7 +148,7 @@ Fetch all active English, Italian, and Ukrainian forms and regenerate every invi
 
 On Windows, you can also double-click `refresh_invitee_reports.cmd` in File Explorer. A browser may open if Google authorization needs to be renewed.
 
-After rebuilding the reports, the refresh command prints the current attending guest count, its matched/unlisted/message-accepted split, the number of master-list invitees who declined by message, and the practical number still pending an answer.
+After rebuilding the reports, the refresh command prints the current attending guest count, its matched/unlisted/message-accepted split, the number of master-list invitees who declined by message, the practical number still pending an answer, and the last three form responses with when they were submitted.
 
 To rebuild the reports from the most recently fetched responses without contacting Google:
 
