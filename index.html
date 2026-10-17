@@ -399,6 +399,11 @@
       text-transform: uppercase;
     }
 
+    .location-media {
+      display: grid;
+      gap: 1rem;
+    }
+
     .map-frame {
       margin: 0;
       padding: 0.65rem;
@@ -413,17 +418,61 @@
       height: auto;
     }
 
-    html[lang="uk"] .location-grid {
+    .venue-gallery {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.35rem;
+    }
+
+    .venue-gallery figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(170, 89, 74, 0.28);
+      background: rgba(255, 251, 242, 0.72);
+    }
+
+    .venue-gallery img {
       display: block;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .location-maps {
+      grid-column: 1 / -1;
+      margin: 0.35rem 0 0;
+      text-align: center;
+    }
+
+    .location-maps a {
+      color: var(--terracotta-deep);
+      font-family: Arial, sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .location-maps a:hover,
+    .location-maps a:focus-visible {
+      color: var(--blue-deep);
+      text-decoration: underline;
+    }
+
+    html[lang="uk"] .location-grid {
+      display: grid;
+      grid-template-columns: 1fr;
       max-width: 770px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     html[lang="uk"] .location-copy {
       text-align: center;
-    }
-
-    html[lang="uk"] .map-frame {
-      display: none;
     }
 
     html[lang="uk"] .stay-grid {
@@ -507,15 +556,15 @@
     .timeline {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.15rem;
     }
 
     .timeline::before {
       content: "";
       position: absolute;
-      left: 12%;
-      right: 12%;
+      left: 8%;
+      right: 8%;
       top: 2rem;
       height: 1px;
       background: rgba(215, 190, 140, 0.48);
@@ -1193,6 +1242,7 @@
     .button:focus-visible,
     .form-link:focus-visible,
     .hero-nav a:focus-visible,
+    .location-maps a:focus-visible,
     .language-dropdown select:focus-visible {
       outline: 2px solid var(--terracotta);
       outline-offset: 4px;
@@ -1498,37 +1548,61 @@
         margin-right: auto;
       }
 
-      html:not([lang="uk"]) .location-grid {
+      .location-grid {
         display: grid;
         gap: 0;
       }
 
-      html:not([lang="uk"]) .location-copy {
+      .location-copy {
         display: contents;
       }
 
-      html:not([lang="uk"]) .location-copy .kicker,
-      html:not([lang="uk"]) .location-copy h2,
-      html:not([lang="uk"]) .location-copy p:not(.kicker) {
+      .location-copy .kicker,
+      .location-copy h2,
+      .location-copy p:not(.kicker) {
         max-width: 620px;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
       }
 
-      html:not([lang="uk"]) .location-copy .kicker,
-      html:not([lang="uk"]) .location-copy h2 {
+      .location-copy .kicker,
+      .location-copy h2 {
         order: 1;
       }
 
-      html:not([lang="uk"]) .map-frame {
+      .location-media {
         order: 2;
         margin-top: 1.45rem;
       }
 
-      html:not([lang="uk"]) #location-copy,
-      html:not([lang="uk"]) #location-detail {
+      #location-copy,
+      #location-detail {
         order: 3;
+      }
+
+      .venue-gallery {
+        order: 4;
+        margin-top: 1.35rem;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .venue-gallery figure:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .location-maps {
+        order: 5;
+        margin-top: 1.1rem;
+      }
+
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.4rem;
+      }
+
+      .timeline::before {
+        display: none;
       }
     }
 
@@ -1662,9 +1736,9 @@
     <div class="hero-content">
       <div class="hero-panel">
         <p class="kicker" id="hero-kicker">Wedding celebration</p>
-        <p class="hero-date" id="hero-date">14 - 16 May 2027</p>
+        <p class="hero-date" id="hero-date">14 - 17 May 2027</p>
         <div class="ornament" aria-hidden="true">&#9825;</div>
-        <p class="hero-location" id="hero-location">The Carpathians, Ukraine</p>
+        <p class="hero-location" id="hero-location">Izki, Carpathians, Ukraine</p>
         <div class="actions">
           <a class="button" href="#rsvp" id="hero-rsvp">RSVP</a>
           <a class="button button-ghost" href="#location" id="hero-details">View details</a>
@@ -1685,8 +1759,8 @@
       <p class="invitation-copy" id="invitation-copy">We’re happy to invite you to celebrate our wedding with us
 in the heart of the Carpathian Mountains.
 
-From May 14 to 16, 2027,
-we’ll spend a weekend together surrounded by nature,
+From May 14 to 17, 2027,
+we’ll spend a few days together surrounded by nature,
 fresh mountain air, good food, music, and great company.
 
 We would love for you to be part of these special days
@@ -1698,15 +1772,31 @@ Looking forward to celebrating with you.</p>
     <section class="section location-grid" id="location" aria-labelledby="location-title">
       <div class="location-copy">
         <p class="kicker" id="location-kicker">The location</p>
-        <h2 id="location-title">A beautiful mountain region in western Ukraine</h2>
-        <p id="location-copy">The Carpathians are a peaceful mountain region in western Ukraine, with forested hills, open mountain views, and a rich local culture shaped by music, craft, and mountain traditions. It is also the region where Antonina was born, which makes it a special place for us to bring everyone together.
+        <h2 id="location-title">Eco-resort Izki, in the Carpathians</h2>
+        <p id="location-copy">We will celebrate at Izki, a mountain eco-resort in Zakarpattia, western Ukraine — nestled among forested hills and open Carpathian views. It is in the region where Antonina was born, which makes it an especially meaningful place for us to bring everyone together.
 
-We are currently looking for the right venue to host us for the weekend: a place that feels beautiful, safe, and comfortable for our guests, while also being practical in terms of travel and logistics.</p>
-        <p class="detail-line" id="location-detail">Exact venue details will follow once guest numbers are confirmed.</p>
+Izki offers a warm, nature-filled setting for our wedding days: comfortable accommodation, space to gather outdoors, and the quiet beauty of the mountains around us.</p>
+        <p class="detail-line" id="location-detail">Izki · Khust district, Zakarpattia</p>
       </div>
-      <figure class="map-frame">
-        <img id="map-image" src="carpathian_map.png" alt="Map showing the planned Carpathian wedding region in western Ukraine">
-      </figure>
+      <div class="location-media">
+        <figure class="map-frame">
+          <img id="map-image" src="new-image-assets-for-chosen-location/Watercolor%20Map%20of%20Ukraine%20to%20Izki.png" alt="Map showing Izki in the Carpathians of western Ukraine">
+        </figure>
+      </div>
+      <div class="venue-gallery" id="venue-gallery">
+        <figure>
+          <img id="venue-photo-1" src="new-image-assets-for-chosen-location/Izki-example-image-1-landscape.jpg" alt="Mountain landscape and wooden cabins at Izki">
+        </figure>
+        <figure>
+          <img id="venue-photo-2" src="new-image-assets-for-chosen-location/Izki-example-image-2-horse.jpg" alt="Horse grazing in a meadow at Izki">
+        </figure>
+        <figure>
+          <img id="venue-photo-3" src="new-image-assets-for-chosen-location/Izki-example-image-3-cows.jpg" alt="Cattle grazing in the hills around Izki">
+        </figure>
+      </div>
+      <p class="location-maps">
+        <a id="location-maps-link" href="https://www.google.com/maps/place/%D0%95%D0%BA%D0%BE%D0%BA%D1%83%D1%80%D0%BE%D1%80%D1%82+Izki/@48.6410666,23.3127959,13.75z/data=!4m15!1m5!3m4!2zNDjCsDM4JzI2LjkiTiAyM8KwMjAnMjUuNCJF!8m2!3d48.6408!4d23.3404!3m8!1s0x4739eafe9e66a9bf:0xdd9e0c0cc33f0734!5m2!4m1!1i2!8m2!3d48.640135!4d23.3373733!16s%2Fg%2F1ywpntq5g?entry=ttu&amp;g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer noopener">Open in Google Maps</a>
+      </p>
     </section>
 
     <section class="blue-section" id="weekend" aria-labelledby="weekend-title">
@@ -1714,8 +1804,8 @@ We are currently looking for the right venue to host us for the weekend: a place
         <div class="section-heading">
           <img class="asset-star section-star" src="decorative-assets/folk-star-ornament.png" alt="" aria-hidden="true">
           <p class="kicker" id="weekend-kicker">Wedding weekend</p>
-          <h2 id="weekend-title">Three days together in the mountains</h2>
-          <p id="weekend-copy">Here's how we're imagining our weekend together, with final details to come.</p>
+          <h2 id="weekend-title">Four days together in the mountains</h2>
+          <p id="weekend-copy">Here is the shape of our celebration together; a few practical details will follow closer to the date.</p>
         </div>
         <div class="timeline">
           <article class="event">
@@ -1733,8 +1823,14 @@ We are currently looking for the right venue to host us for the weekend: a place
           <article class="event">
             <div class="event-marker" aria-hidden="true">III</div>
             <p class="day" id="sunday-date">Sunday, 16 May</p>
-            <h3 id="sunday-title">Farewell</h3>
-            <p id="sunday-copy">A morning together before departures.</p>
+            <h3 id="sunday-title">Ukrainian BBQ</h3>
+            <p id="sunday-copy">A relaxed Ukrainian-style BBQ at the venue — an easy day together in the mountains.</p>
+          </article>
+          <article class="event">
+            <div class="event-marker" aria-hidden="true">IV</div>
+            <p class="day" id="monday-date">Monday, 17 May</p>
+            <h3 id="monday-title">Departure</h3>
+            <p id="monday-copy">Farewells and guest departures.</p>
           </article>
         </div>
       </div>
@@ -1743,17 +1839,17 @@ We are currently looking for the right venue to host us for the weekend: a place
     <section class="section stay-grid" aria-labelledby="stay-title">
       <div class="stay-copy">
         <p class="kicker" id="stay-kicker">Travel &amp; stay</p>
-        <h2 id="stay-title">Your journey to the Carpathians</h2>
-        <p id="stay-copy">Closer to the date, we will share all the practical information you’ll need for the journey, arrival, accommodation, and the wedding weekend.</p>
+        <h2 id="stay-title">Your journey to Izki</h2>
+        <p id="stay-copy">We will share practical information for the journey, arrival, accommodation, and the days together at Izki. For international guests, a separate form will help us plan airport transfers.</p>
       </div>
       <div class="stay-details">
         <article class="stay-card">
           <h3 id="accommodation-title">Accommodation</h3>
-          <p id="accommodation-copy">We will arrange and cover accommodation from 14 to 16 May, either at the venue or nearby, surrounded by the beautiful Carpathian landscape.</p>
+          <p id="accommodation-copy">We will arrange and cover accommodation from 14 to 17 May at the venue, surrounded by the Carpathian landscape.</p>
         </article>
         <article class="stay-card">
           <h3 id="journey-title">Journey</h3>
-          <p id="journey-copy">We will provide clear and up-to-date travel recommendations, including suggested routes through neighbouring European countries, transportation options, and practical travel tips for our international guests. We will also continue to monitor the situation carefully and keep everyone informed of any updates closer to the wedding.</p>
+          <p id="journey-copy">The closest airports for reaching Izki are Kraków (about 5 h 35 min by car), Budapest (about 5 h), and Cluj-Napoca (about 5 h). Driving times are based on Google Maps estimates and do not include border crossing, which can add time. Closer to the wedding we will open a separate Google Form to collect your arrival date and airport, and — together with the agency we are working with — we may be able to arrange shared transport to the venue in groups, for example with private vans and a driver. We will also continue to monitor the situation carefully and keep everyone informed of any updates.</p>
         </article>
       </div>
     </section>
@@ -1815,7 +1911,7 @@ We are currently looking for the right venue to host us for the weekend: a place
   <footer>
     <p class="footer-names" id="footer-names">Antonina &amp; Filippo</p>
     <div class="ornament" aria-hidden="true">&#9825;</div>
-    <p class="footer-detail" id="footer-detail">14 - 16 May 2027 &middot; The Carpathians, Ukraine</p>
+    <p class="footer-detail" id="footer-detail">14 - 17 May 2027 &middot; Izki, Carpathians, Ukraine</p>
   </footer>
 
   <script>
@@ -1829,20 +1925,24 @@ We are currently looking for the right venue to host us for the weekend: a place
         navAttire: "Attire",
         navRsvp: "RSVP",
         heroKicker: "Wedding celebration",
-        heroDate: "14 - 16 May 2027",
-        heroLocation: "The Carpathians, Ukraine",
+        heroDate: "14 - 17 May 2027",
+        heroLocation: "Izki, Carpathians, Ukraine",
         heroRsvp: "RSVP",
         heroDetails: "View details",
         invitationTitle: "You Are Invited to Our Wedding",
-        invitationCopy: "We’re happy to invite you to celebrate our wedding with us\nin the heart of the Carpathian Mountains.\n\nFrom May 14 to 16, 2027,\nwe’ll spend a weekend together surrounded by nature,\nfresh mountain air, good food, music, and great company.\n\nWe would love for you to be part of these special days\nand create unforgettable memories together.\n\nLooking forward to celebrating with you.",
+        invitationCopy: "We’re happy to invite you to celebrate our wedding with us\nin the heart of the Carpathian Mountains.\n\nFrom May 14 to 17, 2027,\nwe’ll spend a few days together surrounded by nature,\nfresh mountain air, good food, music, and great company.\n\nWe would love for you to be part of these special days\nand create unforgettable memories together.\n\nLooking forward to celebrating with you.",
         locationKicker: "The location",
-        locationTitle: "A beautiful mountain region in western Ukraine",
-        locationCopy: "The Carpathians are a peaceful mountain region in western Ukraine, with forested hills, open mountain views, and a rich local culture shaped by music, craft, and mountain traditions. It is also the region where Antonina was born, which makes it a special place for us to bring everyone together.\n\nWe are currently looking for the right venue to host us for the weekend: a place that feels beautiful, safe, and comfortable for our guests, while also being practical in terms of travel and logistics.",
-        locationDetail: "Exact venue details will follow once guest numbers are confirmed.",
-        mapAlt: "Map showing the planned Carpathian wedding region in western Ukraine",
+        locationTitle: "Eco-resort Izki, in the Carpathians",
+        locationCopy: "We will celebrate at Izki, a mountain eco-resort in Zakarpattia, western Ukraine — nestled among forested hills and open Carpathian views. It is in the region where Antonina was born, which makes it an especially meaningful place for us to bring everyone together.\n\nIzki offers a warm, nature-filled setting for our wedding days: comfortable accommodation, space to gather outdoors, and the quiet beauty of the mountains around us.",
+        locationDetail: "Izki · Khust district, Zakarpattia",
+        mapAlt: "Map showing Izki in the Carpathians of western Ukraine",
+        venuePhoto1Alt: "Mountain landscape and wooden cabins at Izki",
+        venuePhoto2Alt: "Horse grazing in a meadow at Izki",
+        venuePhoto3Alt: "Cattle grazing in the hills around Izki",
+        locationMapsLink: "Open in Google Maps",
         weekendKicker: "Wedding weekend",
-        weekendTitle: "Three days together in the mountains",
-        weekendCopy: "Here's how we're imagining our weekend together, with final details to come.",
+        weekendTitle: "Four days together in the mountains",
+        weekendCopy: "Here is the shape of our celebration together; a few practical details will follow closer to the date.",
         fridayDate: "Friday, 14 May",
         fridayTitle: "Arrival",
         fridayCopy: "Guest arrivals and a relaxed welcome gathering.",
@@ -1850,15 +1950,18 @@ We are currently looking for the right venue to host us for the weekend: a place
         saturdayTitle: "Celebration",
         saturdayCopy: "A church wedding, followed by a celebration full of Ukrainian traditions.",
         sundayDate: "Sunday, 16 May",
-        sundayTitle: "Farewell",
-        sundayCopy: "A morning together before departures.",
+        sundayTitle: "Ukrainian BBQ",
+        sundayCopy: "A relaxed Ukrainian-style BBQ at the venue — an easy day together in the mountains.",
+        mondayDate: "Monday, 17 May",
+        mondayTitle: "Departure",
+        mondayCopy: "Farewells and guest departures.",
         stayKicker: "Travel & stay",
-        stayTitle: "Your journey to the Carpathians",
-        stayCopy: "Closer to the date, we will share all the practical information you’ll need for the journey, arrival, accommodation, and the wedding weekend.",
+        stayTitle: "Your journey to Izki",
+        stayCopy: "We will share practical information for the journey, arrival, accommodation, and the days together at Izki. For international guests, a separate form will help us plan airport transfers.",
         accommodationTitle: "Accommodation",
-        accommodationCopy: "We will arrange and cover accommodation from 14 to 16 May, either at the venue or nearby, surrounded by the beautiful Carpathian landscape.",
+        accommodationCopy: "We will arrange and cover accommodation from 14 to 17 May at the venue, surrounded by the Carpathian landscape.",
         journeyTitle: "Journey",
-        journeyCopy: "We will share clear, up-to-date travel recommendations, including suggested routes through neighbouring European countries, transportation options, and practical travel tips for our international guests. We will also continue to monitor the situation carefully and keep everyone informed of any updates closer to the wedding.",
+        journeyCopy: "The closest airports for reaching Izki are Kraków (about 5 h 35 min by car), Budapest (about 5 h), and Cluj-Napoca (about 5 h). Driving times are based on Google Maps estimates and do not include border crossing, which can add time. Closer to the wedding we will open a separate Google Form to collect your arrival date and airport, and — together with the agency we are working with — we may be able to arrange shared transport to the venue in groups, for example with private vans and a driver. We will also continue to monitor the situation carefully and keep everyone informed of any updates.",
         attireKicker: "Wedding attire",
         attireTitle: "A touch of Ukrainian tradition",
         attireCopy: "Our wedding will have a touch of traditional Ukrainian spirit: a church ceremony, live music featuring classic Ukrainian wedding songs, joyful festivities, delicious local food, dancing, and, most importantly, a warm and vibrant atmosphere shared with all of you.",
@@ -1872,9 +1975,9 @@ We are currently looking for the right venue to host us for the weekend: a place
         rsvpKicker: "RSVP",
         rsvpTitle: "Will you join us?",
         rsvpCopy: "",
-        rsvpNote: "The exact venue and final practical details will follow once arrangements are confirmed.",
+        rsvpNote: "The celebration will take place at Izki. Further practical details will follow as arrangements are confirmed.",
         footerNames: "Antonina & Filippo",
-        footerDetail: "14 - 16 May 2027 · The Carpathians, Ukraine"
+        footerDetail: "14 - 17 May 2027 · Izki, Carpathians, Ukraine"
       },
       it: {
         lang: "it",
@@ -1885,36 +1988,43 @@ We are currently looking for the right venue to host us for the weekend: a place
         navAttire: "Abbigliamento",
         navRsvp: "Conferma",
         heroKicker: "Il nostro matrimonio",
-        heroDate: "14 - 16 maggio 2027",
-        heroLocation: "I Carpazi, Ucraina",
+        heroDate: "14 - 17 maggio 2027",
+        heroLocation: "Izki, Carpazi, Ucraina",
         heroRsvp: "Conferma presenza",
         heroDetails: "Scopri i dettagli",
         invitationTitle: "Siete invitati al nostro matrimonio",
-        invitationCopy: "Siamo felici di invitarvi a festeggiare il nostro matrimonio\nnel cuore dei Carpazi.\n\nDal 14 al 16 maggio 2027,\ntrascorreremo un weekend insieme tra natura,\naria di montagna, buon cibo, musica e bella compagnia.\n\nCi farebbe davvero piacere condividere con voi\nquesti giorni speciali e creare insieme ricordi indimenticabili.\n\nNon vediamo l’ora di festeggiare insieme a voi.",
+        invitationCopy: "Siamo felici di invitarvi a festeggiare il nostro matrimonio\nnel cuore dei Carpazi.\n\nDal 14 al 17 maggio 2027,\ntrascorreremo alcuni giorni insieme tra natura,\naria di montagna, buon cibo, musica e bella compagnia.\n\nCi farebbe davvero piacere condividere con voi\nquesti giorni speciali e creare insieme ricordi indimenticabili.\n\nNon vediamo l’ora di festeggiare insieme a voi.",
         locationKicker: "Il luogo",
-        locationTitle: "Tra le montagne dell'Ucraina occidentale",
-        locationCopy: "I Carpazi sono una tranquilla regione montuosa dell'Ucraina occidentale, tra colline boscose, ampi panorami e una cultura locale profondamente legata alla musica e alle tradizioni della montagna. È anche la regione in cui è nata Antonina, e per questo per noi è un luogo speciale, in cui riunire tutte le persone a cui vogliamo bene.\n\nSiamo alla ricerca della struttura giusta per accoglierci durante il fine settimana: un luogo bello, sicuro e comodo per gli ospiti, ma anche pratico dal punto di vista del viaggio e dell’organizzazione.",
-        locationDetail: "Comunicheremo il luogo esatto una volta confermato il numero degli ospiti.",
-        mapAlt: "Mappa dei Carpazi, nell'Ucraina occidentale, dove si svolgerà il matrimonio",
+        locationTitle: "Eco-resort Izki, nei Carpazi",
+        locationCopy: "Festeggeremo a Izki, un eco-resort di montagna in Transcarpazia, nell'Ucraina occidentale — tra colline boscose e ampi panorami carpatini. È la regione in cui è nata Antonina, e per questo per noi è un luogo particolarmente significativo in cui riunire le persone a cui vogliamo bene.\n\nIzki offre un contesto caldo e immerso nella natura per i giorni del matrimonio: una sistemazione confortevole, spazi per stare insieme all'aperto e la quiete delle montagne intorno a noi.",
+        locationDetail: "Izki · Distretto di Khust, Transcarpazia",
+        mapAlt: "Mappa che indica Izki nei Carpazi dell'Ucraina occidentale",
+        venuePhoto1Alt: "Paesaggio montano e baita di legno a Izki",
+        venuePhoto2Alt: "Cavallo al pascolo in un prato a Izki",
+        venuePhoto3Alt: "Mucche al pascolo tra le colline di Izki",
+        locationMapsLink: "Apri su Google Maps",
         weekendKicker: "Il fine settimana",
-        weekendTitle: "Tre giorni insieme in montagna",
-        weekendCopy: "Questo è il fine settimana che stiamo immaginando insieme; i dettagli arriveranno presto.",
+        weekendTitle: "Quattro giorni insieme in montagna",
+        weekendCopy: "Ecco la struttura della nostra festa insieme; alcuni dettagli pratici arriveranno più vicino alla data.",
         fridayDate: "Venerdì 14 maggio",
         fridayTitle: "Arrivo",
         fridayCopy: "Arrivo degli ospiti e un momento informale per darvi il benvenuto.",
         saturdayDate: "Sabato 15 maggio",
         saturdayTitle: "Matrimonio",
-        saturdayCopy: "Una festa da vivere insieme, ricca di tradizioni ucraine.",
+        saturdayCopy: "Una cerimonia in chiesa, seguita da una festa ricca di tradizioni ucraine.",
         sundayDate: "Domenica 16 maggio",
-        sundayTitle: "Saluti",
-        sundayCopy: "Un ultimo momento insieme prima delle partenze.",
+        sundayTitle: "BBQ ucraino",
+        sundayCopy: "Un BBQ ucraino rilassato nella location — una giornata tranquilla insieme in montagna.",
+        mondayDate: "Lunedì 17 maggio",
+        mondayTitle: "Partenza",
+        mondayCopy: "Saluti e partenza degli ospiti.",
         stayKicker: "Viaggio e soggiorno",
-        stayTitle: "Il vostro viaggio nei Carpazi",
-        stayCopy: "In prossimità della data, condivideremo tutte le informazioni pratiche per il viaggio, l’arrivo, il soggiorno e il programma del fine settimana.",
+        stayTitle: "Il vostro viaggio verso Izki",
+        stayCopy: "Condivideremo le informazioni pratiche per il viaggio, l’arrivo, il soggiorno e i giorni insieme a Izki. Per gli ospiti internazionali, un modulo separato ci aiuterà a organizzare i trasferimenti dall’aeroporto.",
         accommodationTitle: "Alloggio",
-        accommodationCopy: "Organizzeremo e offriremo noi il soggiorno dal 14 al 16 maggio, presso la struttura o nelle vicinanze, immersi nello splendido paesaggio dei Carpazi.",
+        accommodationCopy: "Organizzeremo e offriremo noi il soggiorno dal 14 al 17 maggio presso la struttura, immersi nello splendido paesaggio dei Carpazi.",
         journeyTitle: "Come arrivare",
-        journeyCopy: "Vi forniremo indicazioni chiare e aggiornate per il viaggio, comprese le rotte consigliate attraverso i Paesi europei confinanti, le opzioni di trasporto e consigli pratici per chi arriverà dall'estero. Continueremo inoltre a monitorare attentamente la situazione e vi terremo informati su eventuali aggiornamenti in prossimità del matrimonio.",
+        journeyCopy: "Gli aeroporti più vicini per raggiungere Izki sono Cracovia (circa 5 h 35 min di auto), Budapest (circa 5 h) e Cluj-Napoca (circa 5 h). I tempi di guida si basano sulle stime di Google Maps e non includono l’attraversamento del confine, che può richiedere tempo aggiuntivo. Più vicino al matrimonio apriremo un Google Form separato per raccogliere la data di arrivo e l’aeroporto e — insieme all’agenzia con cui stiamo collaborando — potremo eventualmente organizzare trasferimenti di gruppo verso la location, ad esempio con van privati e autista. Continueremo inoltre a monitorare attentamente la situazione e vi terremo informati su eventuali aggiornamenti.",
         attireKicker: "Abbigliamento",
         attireTitle: "Un richiamo alla tradizione ucraina",
         attireCopy: "Il nostro matrimonio avrà un tocco di autentico spirito ucraino: una cerimonia in chiesa, musica dal vivo, momenti di festa, deliziosi piatti locali, balli e, soprattutto, un'atmosfera calda e vivace da condividere con tutti voi.",
@@ -1928,9 +2038,9 @@ We are currently looking for the right venue to host us for the weekend: a place
         rsvpKicker: "Conferma presenza",
         rsvpTitle: "Potrete essere con noi?",
         rsvpCopy: "",
-        rsvpNote: "Comunicheremo la struttura e tutti i dettagli definitivi non appena l'organizzazione sarà confermata.",
+        rsvpNote: "La festa si terrà a Izki. Condivideremo gli altri dettagli pratici non appena l'organizzazione sarà definita.",
         footerNames: "Antonina & Filippo",
-        footerDetail: "14 - 16 maggio 2027 · I Carpazi, Ucraina"
+        footerDetail: "14 - 17 maggio 2027 · Izki, Carpazi, Ucraina"
       },
       uk: {
         lang: "uk",
@@ -1941,20 +2051,24 @@ We are currently looking for the right venue to host us for the weekend: a place
         navAttire: "Одяг",
         navRsvp: "Участь",
         heroKicker: "Весілля",
-        heroDate: "14 - 16 травня 2027",
-        heroLocation: "Карпати",
+        heroDate: "14 - 17 травня 2027",
+        heroLocation: "Ізки, Карпати",
         heroRsvp: "Підтвердити участь",
         heroDetails: "Детальніше",
         invitationTitle: "До нас на весілля",
-        invitationCopy: "15 травня 2027 року в житті двох людей, що люблять один одного\nвідбудеться одна з найважливіших подій,\nсвідками якої ми просимо Вас бути\nі розділити радість цього дня разом із нами.\n\nСеред карпатських гір\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nстворення нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nвихідні.",
+        invitationCopy: "15 травня 2027 року в житті двох людей, що люблять один одного\nвідбудеться одна з найважливіших подій,\nсвідками якої ми просимо Вас бути\nі розділити радість цього дня разом із нами.\n\nСеред карпатських гір в Ізках\nми зберемо найдорожчих людей,\nщоб разом відсвяткувати\nстворення нашої сім’ї.\n\nНа вас чекатимуть\nтепла атмосфера, смачна гостина,\nмузика, гори та незабутні\nдні разом.",
         locationKicker: "Локація",
-        locationTitle: "Весілля в Карпатах",
-        locationCopy: "Ми плануємо святкування в Карпатах і зараз обираємо локацію, яка найкраще підійде для нашого формату та кількості гостей.",
-        locationDetail: "Точну локацію повідомимо після підтвердження кількості гостей.",
-        mapAlt: "",
+        locationTitle: "Екокурорт «Ізки» в Карпатах",
+        locationCopy: "Святкування відбудеться в Ізках — гірському екокурорті в Закарпатті, серед лісистих пагорбів і карпатських краєвидів. Це рідний для Антоніни край, тому для нас особливо важливо зібрати тут найближчих людей.\n\nІзки дають теплу, природну атмосферу для наших весільних днів: комфортне проживання, простір для спільних зустрічей просто неба та спокій гір навколо.",
+        locationDetail: "Ізки · Хустський район, Закарпаття",
+        mapAlt: "Мапа з позначенням Ізок у Карпатах на заході України",
+        venuePhoto1Alt: "Гірський краєвид і дерев'яні будиночки в Ізках",
+        venuePhoto2Alt: "Кінь на полонині в Ізках",
+        venuePhoto3Alt: "Корови на пасовищі серед гір навколо Ізок",
+        locationMapsLink: "Відкрити в Google Maps",
         weekendKicker: "Програма святкування",
-        weekendTitle: "Три дні разом",
-        weekendCopy: "Нижче - попередній план вихідних. Детальну програму надішлемо після підтвердження локації.",
+        weekendTitle: "Чотири дні разом",
+        weekendCopy: "Нижче — попередній план наших днів. Детальнішу програму надішлемо ближче до дати.",
         fridayDate: "П'ятниця, 14 травня",
         fridayTitle: "Приїзд",
         fridayCopy: "Заїзд гостей і тепла зустріч увечері.",
@@ -1962,15 +2076,18 @@ We are currently looking for the right venue to host us for the weekend: a place
         saturdayTitle: "Весілля",
         saturdayCopy: "Вінчання в церкві та святкування разом із вами.",
         sundayDate: "Неділя, 16 травня",
-        sundayTitle: "Від'їзд",
-        sundayCopy: "Спільний ранок і від'їзд гостей.",
+        sundayTitle: "Українське барбекю",
+        sundayCopy: "Невимушене українське барбекю на території комплексу — спокійний день разом у горах.",
+        mondayDate: "Понеділок, 17 травня",
+        mondayTitle: "Від'їзд",
+        mondayCopy: "Прощання та від'їзд гостей.",
         stayKicker: "Організаційні деталі",
         stayTitle: "Подбаємо про ваше перебування",
-        stayCopy: "Після підтвердження локації ми надішлемо адресу, інформацію про заїзд, формат святкування та інші практичні моменти.",
+        stayCopy: "Ми надішлемо адресу, інформацію про заїзд, формат святкування та інші практичні моменти ближче до дати. Проживання організуємо в Ізках з 14 по 17 травня.",
         accommodationTitle: "Проживання",
-        accommodationCopy: "Проживання в ніч із п'ятниці на суботу та в ніч із суботи на неділю ми організуємо й оплатимо - на території комплексу або поруч.",
+        accommodationCopy: "Проживання з п'ятниці по понеділок ми організуємо й оплатимо на території комплексу.",
         journeyTitle: "Деталі",
-        journeyCopy: "Коли локацію буде заброньовано, ми окремо повідомимо про час заїзду, формат святкування та інші практичні моменти.",
+        journeyCopy: "Ближче до дати ми окремо повідомимо про час заїзду, формат святкування та інші практичні моменти.",
         attireKicker: "Святкове вбрання",
         attireTitle: "Вишиванка - за вашим бажанням",
         attireCopy: "Суворого дрес-коду на нашому весіллі не буде. Нам буде дуже приємно бачити гостей у вишиванках, адже вони особливо красиво доповнять теплу українську атмосферу цього дня. Водночас звичайне святкове вбрання для весілля також чудово підійде - найважливіше для нас, щоб ви почувалися комфортно й розділили це свято разом із нами.",
@@ -1984,9 +2101,9 @@ We are currently looking for the right venue to host us for the weekend: a place
         rsvpKicker: "Підтвердження участі",
         rsvpTitle: "Чи зможете ви бути з нами?",
         rsvpCopy: "Ми розуміємо, що за рік, з огляду на обставини, плани можуть змінитися. Тому приблизно за місяць до весілля ми ще раз попросимо вас підтвердити участь.",
-        rsvpNote: "Точне місце та остаточну програму ми надішлемо після підтвердження бронювання.",
+        rsvpNote: "Святкування відбудеться в Ізках. Остаточну програму та практичні деталі надішлемо після підтвердження бронювання.",
         footerNames: "Антоніна та Філіппо",
-        footerDetail: "14 - 16 травня 2027 · Карпати"
+        footerDetail: "14 - 17 травня 2027 · Ізки, Карпати"
       }
     };
 
@@ -2007,6 +2124,7 @@ We are currently looking for the right venue to host us for the weekend: a place
       locationTitle: document.getElementById("location-title"),
       locationCopy: document.getElementById("location-copy"),
       locationDetail: document.getElementById("location-detail"),
+      locationMapsLink: document.getElementById("location-maps-link"),
       mapImage: document.getElementById("map-image"),
       weekendKicker: document.getElementById("weekend-kicker"),
       weekendTitle: document.getElementById("weekend-title"),
@@ -2020,6 +2138,9 @@ We are currently looking for the right venue to host us for the weekend: a place
       sundayDate: document.getElementById("sunday-date"),
       sundayTitle: document.getElementById("sunday-title"),
       sundayCopy: document.getElementById("sunday-copy"),
+      mondayDate: document.getElementById("monday-date"),
+      mondayTitle: document.getElementById("monday-title"),
+      mondayCopy: document.getElementById("monday-copy"),
       stayKicker: document.getElementById("stay-kicker"),
       stayTitle: document.getElementById("stay-title"),
       stayCopy: document.getElementById("stay-copy"),
@@ -2046,6 +2167,10 @@ We are currently looking for the right venue to host us for the weekend: a place
       langSelect: document.getElementById("lang-select")
     };
 
+    const venuePhoto1 = document.getElementById("venue-photo-1");
+    const venuePhoto2 = document.getElementById("venue-photo-2");
+    const venuePhoto3 = document.getElementById("venue-photo-3");
+
     function setLanguage(code) {
       const translation = translations[code] || translations.en;
       document.documentElement.lang = translation.lang;
@@ -2059,6 +2184,9 @@ We are currently looking for the right venue to host us for the weekend: a place
       elements.vyshyvankaWomanImage.alt = translation.vyshyvankaWomanAlt;
       elements.vyshyvankaManImage.alt = translation.vyshyvankaManAlt;
       elements.kidsAttireImage.alt = translation.kidsAttireAlt;
+      if (venuePhoto1) venuePhoto1.alt = translation.venuePhoto1Alt || "";
+      if (venuePhoto2) venuePhoto2.alt = translation.venuePhoto2Alt || "";
+      if (venuePhoto3) venuePhoto3.alt = translation.venuePhoto3Alt || "";
       elements.rsvpCopy.textContent = translation.rsvpCopy;
       elements.rsvpCopy.hidden = !translation.rsvpCopy;
       elements.langSelect.value = code;

@@ -25,3 +25,6 @@ guest_list_reconciled.csv
 ukr_invitee_status.csv
 ukr_uncounted_guests.csv
 private_data/
+
+# Local pre-change website backups.
+backups/
